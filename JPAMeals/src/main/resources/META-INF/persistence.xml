@@ -8,7 +8,7 @@
  <!-- Begin entities -->
  
  
- <class>com.skilldistillery.todoapp.entities.User</class>
+ <class>com.skilldistillery.meals.entities.User</class>
 
 
 
