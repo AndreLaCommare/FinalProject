@@ -18,6 +18,7 @@
  <class>com.skilldistillery.meals.entities.MealReview</class>
  <class>com.skilldistillery.meals.entities.GroceryItem</class>
  <class>com.skilldistillery.meals.entities.MealComment</class>
+ <class>com.skilldistillery.meals.entities.MealReviewId</class>
 
 
 
