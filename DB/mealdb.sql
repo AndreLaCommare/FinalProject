@@ -127,18 +127,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `food_group`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `food_group` ;
-
-CREATE TABLE IF NOT EXISTS `food_group` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `grocery_item`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `grocery_item` ;
@@ -147,14 +135,7 @@ CREATE TABLE IF NOT EXISTS `grocery_item` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `created_at` DATETIME NULL,
-  `food_group_id` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_grocery_item_food_group1_idx` (`food_group_id` ASC),
-  CONSTRAINT `fk_grocery_item_food_group1`
-    FOREIGN KEY (`food_group_id`)
-    REFERENCES `food_group` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -219,7 +200,6 @@ CREATE TABLE IF NOT EXISTS `message` (
   `enabled` TINYINT NULL,
   `sender_id` INT NOT NULL,
   `receiver_id` INT NOT NULL,
-  `messagecol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_message_user1_idx` (`sender_id` ASC),
   INDEX `fk_message_user2_idx` (`receiver_id` ASC),
@@ -375,7 +355,6 @@ DROP TABLE IF EXISTS `plan_comment` ;
 
 CREATE TABLE IF NOT EXISTS `plan_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `subject` VARCHAR(45) NULL,
   `comment` VARCHAR(500) NULL,
   `meal_plan_id` INT NOT NULL,
   `user_id` INT NOT NULL,
@@ -405,7 +384,6 @@ DROP TABLE IF EXISTS `meal_comment` ;
 
 CREATE TABLE IF NOT EXISTS `meal_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `subject` VARCHAR(45) NULL,
   `comment` VARCHAR(500) NULL,
   `created` DATETIME NULL,
   `user_id` INT NOT NULL,
@@ -441,7 +419,6 @@ CREATE TABLE IF NOT EXISTS `plan_review` (
   `enabled` TINYINT NOT NULL,
   `created` DATETIME NULL,
   `updated` DATETIME NULL,
-  `plan_reviewcol` VARCHAR(45) NULL,
   INDEX `fk_review_user1_idx` (`user_id` ASC),
   PRIMARY KEY (`user_id`, `meal_plan_id`),
   INDEX `fk_review_copy1_meal_plan1_idx` (`meal_plan_id` ASC),
@@ -474,6 +451,167 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `mealdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `email`, `created_at`, `updated_at`, `about_me`, `first_name`, `last_name`, `image_url`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, 'ADMIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `email`, `created_at`, `updated_at`, `about_me`, `first_name`, `last_name`, `image_url`) VALUES (2, 'TheMuffinMan', '$2a$10$WC4HS0N8DLo0DDhvRkyESuZylBcxJ63.URpT4Rv2LDjzVWKlYn.Je', 1, 'standard', 'IknowTheMuffinMan@drewyLane.com', NULL, NULL, NULL, 'Muffin', 'Man', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal` (`id`, `name`, `description`, `image_url`, `instructions`, `created`, `updated`, `enabled`, `public`, `prep_time`, `cook_time`, `user_id`, `created_at`, `updated_at`) VALUES (1, 'Pan-Fried Sausage', 'A great meal for anyone on a carnivore diet', NULL, 'Set stove top to medium-high cook on each side for 5 minutes', NULL, NULL, 1, 1, 2, 10, 2, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_plan`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_review`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_review` (`user_id`, `meal_id`, `comment`, `stars`, `enabled`, `created`, `updated`) VALUES (2, 1, 'This meal is tasty', 5, 1, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `grocery_item`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `grocery_item` (`id`, `name`, `created_at`) VALUES (1, 'andouille sausage', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_has_grocery_item`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_has_grocery_item` (`meal_id`, `grocery_item_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_plan_has_meal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_plan_has_meal` (`meal_plan_id`, `meal_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `message` (`id`, `body`, `created`, `updated`, `enabled`, `sender_id`, `receiver_id`) VALUES (1, 'Hello', NULL, NULL, 1, 1, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_has_favorite_meal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `user_has_favorite_meal` (`user_id`, `meal_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_has_favorite_meal_plan`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `user_has_favorite_meal_plan` (`meal_plan_id`, `user_id`) VALUES (1, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `diet`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `diet` (`id`, `name`) VALUES (1, 'carnivore');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_grocery_list`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `user_grocery_list` (`user_id`, `grocery_item_id`) VALUES (2, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_plan_has_diet`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_plan_has_diet` (`diet_id`, `meal_plan_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_has_diet`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_has_diet` (`diet_id`, `meal_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `plan_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `plan_comment` (`id`, `comment`, `meal_plan_id`, `user_id`, `created`, `enabled`, `updated`) VALUES (1, 'Where are the vegetables', 1, 2, NULL, 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `meal_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `meal_comment` (`id`, `comment`, `created`, `user_id`, `meal_id`, `updated`, `enabled`) VALUES (1, 'That\'s a spicy sausage', NULL, 2, 1, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `plan_review`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mealdb`;
+INSERT INTO `plan_review` (`user_id`, `meal_plan_id`, `comment`, `stars`, `enabled`, `created`, `updated`) VALUES (2, 1, 'Very good', 5, 1, NULL, NULL);
 
 COMMIT;
 
