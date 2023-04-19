@@ -1,4 +1,4 @@
-package com.skilldistiller.meals.entities;
+package com.skilldistillery.meals.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,18 +14,18 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.User;
 
-class UserTest {
+class MealTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Meal meal;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("JPAMeals");
-		
 	}
 
 	@AfterAll
@@ -36,19 +36,19 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em =emf.createEntityManager();
-		user = em.find(User.class, 1);
+		meal = em.find(Meal.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user=null;
+		meal=null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
+		assertNotNull(meal);
+		assertEquals("Pan-Fried Sausage", meal.getName());
 	}
 
 }
