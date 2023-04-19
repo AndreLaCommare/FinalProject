@@ -9,6 +9,15 @@
  
  
  <class>com.skilldistillery.meals.entities.User</class>
+ <class>com.skilldistillery.meals.entities.Message</class>
+ <class>com.skilldistillery.meals.entities.Diet</class>
+ <class>com.skilldistillery.meals.entities.MealPlan</class>
+ <class>com.skilldistillery.meals.entities.Meal</class>
+ <class>com.skilldistillery.meals.entities.PlanComment</class>
+ <class>com.skilldistillery.meals.entities.PlanReview</class>
+ <class>com.skilldistillery.meals.entities.MealReview</class>
+ <class>com.skilldistillery.meals.entities.GroceryItem</class>
+ <class>com.skilldistillery.meals.entities.MealComment</class>
 
 
 
