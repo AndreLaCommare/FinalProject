@@ -30,7 +30,10 @@ class MealReviewTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em =emf.createEntityManager();
-		mealReview = em.find(MealReview.class, 1);
+		MealReviewId id = new MealReviewId();
+		id.setMealId(1);
+		id.setUserId(2);
+		mealReview = em.find(MealReview.class, id);
 	}
 
 	@AfterEach
