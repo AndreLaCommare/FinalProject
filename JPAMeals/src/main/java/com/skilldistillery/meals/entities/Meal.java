@@ -42,8 +42,8 @@ public class Meal {
 	@Column(name="cook_time")
 	private int cookTime;
 	
-	@JoinColumn(name="user_id")
-	private User user;
+//	@JoinColumn(name="user_id")
+//	private User user;
 	
 	public Meal() {
 		
@@ -137,13 +137,13 @@ public class Meal {
 		this.cookTime = cookTime;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -167,7 +167,7 @@ public class Meal {
 		return "Meal [id=" + id + ", name=" + name + ", description=" + description + ", imageUrl=" + imageUrl
 				+ ", instructions=" + instructions + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", enabled=" + enabled + ", visible=" + visible + ", prepTime=" + prepTime + ", cookTime=" + cookTime
-				+ ", user=" + user + "]";
+				;
 	}
 	
 	
