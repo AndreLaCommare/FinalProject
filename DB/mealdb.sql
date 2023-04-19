@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `meal_plan` (
   `description` VARCHAR(2000) NOT NULL,
   `enabled` TINYINT NOT NULL,
   `public` TINYINT NOT NULL,
-  `create_at` DATETIME NULL,
+  `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `user_id` INT NOT NULL,
   `copied_from_id` INT NULL,
@@ -471,7 +471,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `create_at`, `updated_at`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, NULL, NULL, 1, NULL);
+INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `created_at`, `updated_at`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, NULL, NULL, 1, NULL);
 
 COMMIT;
 
@@ -591,7 +591,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `plan_comment` (`id`, `comment`, `enabled`, `created_at`, `updated_at`, `meal_plan_id`, `user_id`) VALUES (1, 'Where are the vegetables', 1, NULL, NULL, 1, 2);
+INSERT INTO `plan_comment` (`id`, `comment`, `enabled`, `created_at`, `updated_at`, `meal_plan_id`, `user_id`) VALUES (1, 'Where are the vegetables?', 1, NULL, NULL, 1, 2);
 
 COMMIT;
 

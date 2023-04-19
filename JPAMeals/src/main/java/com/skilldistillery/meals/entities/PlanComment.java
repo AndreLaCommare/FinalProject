@@ -14,21 +14,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="meal_plan")
-public class MealPlan {
+@Table(name="plan_comment")
+public class PlanComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String title;
+	private String comment;
 	
-	private String description;
-	
-	private boolean enabled;
-	
-	@Column(name="public")
-	private boolean visible;
+	private Boolean enabled;
 	
 	@CreationTimestamp
 	@Column(name="created_at")
@@ -38,7 +33,7 @@ public class MealPlan {
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 
-	public MealPlan() {
+	public PlanComment() {
 		super();
 	}
 
@@ -50,36 +45,20 @@ public class MealPlan {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isEnabled() {
+	public Boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -111,18 +90,15 @@ public class MealPlan {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MealPlan other = (MealPlan) obj;
+		PlanComment other = (PlanComment) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "MealPlan [id=" + id + ", title=" + title + ", description=" + description + ", enabled=" + enabled
-				+ ", visible=" + visible + "]";
+		return "PlanComment [id=" + id + ", comment=" + comment + ", enabled=" + enabled + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + "]";
 	}
-	
-	
-	
 	
 	
 	
