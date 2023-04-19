@@ -49,8 +49,6 @@ CREATE TABLE IF NOT EXISTS `meal` (
   `description` VARCHAR(1000) NOT NULL,
   `image_url` VARCHAR(2000) NULL,
   `instructions` TEXT NULL,
-  `created` DATETIME NULL,
-  `updated` DATETIME NULL,
   `enabled` TINYINT NOT NULL,
   `public` TINYINT NOT NULL,
   `prep_time` INT NULL,
@@ -79,6 +77,8 @@ CREATE TABLE IF NOT EXISTS `meal_plan` (
   `description` VARCHAR(2000) NOT NULL,
   `enabled` TINYINT NOT NULL,
   `public` TINYINT NOT NULL,
+  `create_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   `user_id` INT NOT NULL,
   `copied_from_id` INT NULL,
   PRIMARY KEY (`id`),
@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS `meal_review` (
   `comment` VARCHAR(250) NULL,
   `stars` INT(1) NOT NULL,
   `enabled` TINYINT NOT NULL,
-  `created` DATETIME NULL,
-  `updated` DATETIME NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   INDEX `fk_review_user1_idx` (`user_id` ASC),
   INDEX `fk_review_meal1_idx` (`meal_id` ASC),
   PRIMARY KEY (`user_id`, `meal_id`),
@@ -195,8 +195,8 @@ DROP TABLE IF EXISTS `message` ;
 CREATE TABLE IF NOT EXISTS `message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `body` VARCHAR(1000) NOT NULL,
-  `created` DATETIME NULL,
-  `updated` VARCHAR(45) NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` VARCHAR(45) NULL,
   `enabled` TINYINT NULL,
   `sender_id` INT NOT NULL,
   `receiver_id` INT NOT NULL,
@@ -356,11 +356,11 @@ DROP TABLE IF EXISTS `plan_comment` ;
 CREATE TABLE IF NOT EXISTS `plan_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(500) NULL,
+  `enabled` TINYINT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   `meal_plan_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `created` DATETIME NULL,
-  `enabled` TINYINT NULL,
-  `updated` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plan_comment_meal_plan1_idx` (`meal_plan_id` ASC),
   INDEX `fk_plan_comment_user1_idx` (`user_id` ASC),
@@ -385,11 +385,11 @@ DROP TABLE IF EXISTS `meal_comment` ;
 CREATE TABLE IF NOT EXISTS `meal_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(500) NULL,
-  `created` DATETIME NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  `enabled` TINYINT NULL,
   `user_id` INT NOT NULL,
   `meal_id` INT NOT NULL,
-  `updated` DATETIME NULL,
-  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_plan_comment_user1_idx` (`user_id` ASC),
   INDEX `fk_plan_comment_copy1_meal1_idx` (`meal_id` ASC),
@@ -417,8 +417,8 @@ CREATE TABLE IF NOT EXISTS `plan_review` (
   `comment` VARCHAR(250) NULL,
   `stars` INT(1) NOT NULL,
   `enabled` TINYINT NOT NULL,
-  `created` DATETIME NULL,
-  `updated` DATETIME NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   INDEX `fk_review_user1_idx` (`user_id` ASC),
   PRIMARY KEY (`user_id`, `meal_plan_id`),
   INDEX `fk_review_copy1_meal_plan1_idx` (`meal_plan_id` ASC),
@@ -461,7 +461,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `meal` (`id`, `name`, `description`, `image_url`, `instructions`, `created`, `updated`, `enabled`, `public`, `prep_time`, `cook_time`, `user_id`, `created_at`, `updated_at`) VALUES (1, 'Pan-Fried Sausage', 'A great meal for anyone on a carnivore diet', NULL, 'Set stove top to medium-high cook on each side for 5 minutes', NULL, NULL, 1, 1, 2, 10, 2, NULL, NULL);
+INSERT INTO `meal` (`id`, `name`, `description`, `image_url`, `instructions`, `enabled`, `public`, `prep_time`, `cook_time`, `user_id`, `created_at`, `updated_at`) VALUES (1, 'Pan-Fried Sausage', 'A great meal for anyone on a carnivore diet', NULL, 'Set stove top to medium-high cook on each side for 5 minutes', 1, 1, 2, 10, 2, NULL, NULL);
 
 COMMIT;
 
@@ -471,7 +471,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, 1, NULL);
+INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `create_at`, `updated_at`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, NULL, NULL, 1, NULL);
 
 COMMIT;
 
@@ -481,7 +481,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `meal_review` (`user_id`, `meal_id`, `comment`, `stars`, `enabled`, `created`, `updated`) VALUES (2, 1, 'This meal is tasty', 5, 1, NULL, NULL);
+INSERT INTO `meal_review` (`user_id`, `meal_id`, `comment`, `stars`, `enabled`, `created_at`, `updated_at`) VALUES (2, 1, 'This meal is tasty', 5, 1, NULL, NULL);
 
 COMMIT;
 
@@ -521,7 +521,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `message` (`id`, `body`, `created`, `updated`, `enabled`, `sender_id`, `receiver_id`) VALUES (1, 'Hello', NULL, NULL, 1, 1, 2);
+INSERT INTO `message` (`id`, `body`, `created_at`, `updated_at`, `enabled`, `sender_id`, `receiver_id`) VALUES (1, 'Hello', NULL, NULL, 1, 1, 2);
 
 COMMIT;
 
@@ -591,7 +591,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `plan_comment` (`id`, `comment`, `meal_plan_id`, `user_id`, `created`, `enabled`, `updated`) VALUES (1, 'Where are the vegetables', 1, 2, NULL, 1, NULL);
+INSERT INTO `plan_comment` (`id`, `comment`, `enabled`, `created_at`, `updated_at`, `meal_plan_id`, `user_id`) VALUES (1, 'Where are the vegetables', 1, NULL, NULL, 1, 2);
 
 COMMIT;
 
@@ -601,7 +601,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `meal_comment` (`id`, `comment`, `created`, `user_id`, `meal_id`, `updated`, `enabled`) VALUES (1, 'That\'s a spicy sausage', NULL, 2, 1, NULL, 1);
+INSERT INTO `meal_comment` (`id`, `comment`, `created_at`, `updated_at`, `enabled`, `user_id`, `meal_id`) VALUES (1, 'That\'s a spicy sausage', NULL, NULL, 1, 2, 1);
 
 COMMIT;
 
@@ -611,7 +611,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mealdb`;
-INSERT INTO `plan_review` (`user_id`, `meal_plan_id`, `comment`, `stars`, `enabled`, `created`, `updated`) VALUES (2, 1, 'Very good', 5, 1, NULL, NULL);
+INSERT INTO `plan_review` (`user_id`, `meal_plan_id`, `comment`, `stars`, `enabled`, `created_at`, `updated_at`) VALUES (2, 1, 'Very good', 5, 1, NULL, NULL);
 
 COMMIT;
 
