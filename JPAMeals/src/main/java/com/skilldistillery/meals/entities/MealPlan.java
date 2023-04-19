@@ -1,5 +1,6 @@
 package com.skilldistillery.meals.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="meal_plan")
@@ -25,6 +29,14 @@ public class MealPlan {
 	
 	@Column(name="public")
 	private boolean visible;
+	
+	@CreationTimestamp
+	@Column(name="create_at")
+	private LocalDateTime createdAt;
+	
+	@UpdateTimestamp
+	@Column(name="updated_at")
+	private LocalDateTime updatedAt;
 
 	public MealPlan() {
 		super();
@@ -68,6 +80,22 @@ public class MealPlan {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	@Override
