@@ -15,53 +15,47 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="meal_review")
+@Table(name = "meal_review")
 public class MealReview {
-	
+
 	@EmbeddedId
 	private MealReviewId id;
-	
+
 	private String comment;
-	
+
 	private int stars;
-	
+
 	private boolean enabled;
-	
+
 	@CreationTimestamp
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
-	
+
 	@UpdateTimestamp
-	@Column(name="updated_at")
+	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@MapsId(value="userId")
+	@MapsId(value = "userId")
 	private User user;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "meal_id")
-//	//@MapsId(value="mealId")
-//	private Meal meal;
-//	
-	public MealReview() {
-		
-	}
 
-	
+	@ManyToOne
+	@JoinColumn(name = "meal_id")
+	@MapsId(value = "mealId")
+	private Meal meal;
+
+	public MealReview() {
+
+	}
 
 	public MealReviewId getId() {
 		return id;
 	}
 
-
-
 	public void setId(MealReviewId id) {
 		this.id = id;
 	}
-
-
 
 	public String getComment() {
 		return comment;
@@ -110,14 +104,14 @@ public class MealReview {
 	public void setUser(User user) {
 		this.user = user;
 	}
-//
-//	public Meal getMeal() {
-//		return meal;
-//	}
-//
-//	public void setMeal(Meal meal) {
-//		this.meal = meal;
-//	}
+
+	public Meal getMeal() {
+		return meal;
+	}
+
+	public void setMeal(Meal meal) {
+		this.meal = meal;
+	}
 
 	@Override
 	public int hashCode() {
@@ -141,7 +135,5 @@ public class MealReview {
 		return "MealReview [id=" + id + ", comment=" + comment + ", stars=" + stars + ", enabled=" + enabled
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", user=" + user + "]";
 	}
-	
-	
 
 }

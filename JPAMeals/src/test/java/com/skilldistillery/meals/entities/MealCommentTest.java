@@ -51,5 +51,10 @@ class MealCommentTest {
 		assertNotNull(mealComment);
 		assertEquals("That's a spicy sausage", mealComment.getComment());
 	}
+	@Test
+	void test_MealComment_has_Meal() {
+		assertNotNull(mealComment);
+		assertEquals("Pan-Fried Sausage", mealComment.getMeal().getName());
+	}
 
 }

@@ -44,5 +44,16 @@ class DietTest {
 		assertNotNull(diet);
 		assertEquals("carnivore", diet.getName());
 	}
+	
+	@Test
+	void test_Diet_has_MealPlans() {
+		assertNotNull(diet);
+		assertFalse(diet.getMealPlansWithDiets().isEmpty());
+	}
+	@Test
+	void test_Diet_has_Meals() {
+		assertNotNull(diet);
+		assertFalse(diet.getMealsWithDiets().isEmpty());
+	}
 
 }

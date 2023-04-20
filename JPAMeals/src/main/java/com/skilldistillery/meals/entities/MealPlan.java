@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="meal_plan")
@@ -42,12 +45,31 @@ public class MealPlan {
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="favoriteMealPlans")
 	List<User> usersWithFavMealPlans;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User planCreator;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="mealPlansWithDiets")
+	List<Diet> diets;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="mealPlan")
+	List<PlanComment> planComments;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="mealPlan")
+	List<PlanReview> planReviews;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="mealPlans")
+	List<Meal> meals;
+	
+	
 
 	public MealPlan() {
 		super();
@@ -123,6 +145,38 @@ public class MealPlan {
 
 	public void setPlanCreator(User planCreator) {
 		this.planCreator = planCreator;
+	}
+
+	public List<Diet> getDiets() {
+		return diets;
+	}
+
+	public void setDiets(List<Diet> diets) {
+		this.diets = diets;
+	}
+
+	public List<PlanComment> getPlanComments() {
+		return planComments;
+	}
+
+	public void setPlanComments(List<PlanComment> planComments) {
+		this.planComments = planComments;
+	}
+
+	public List<PlanReview> getPlanReviews() {
+		return planReviews;
+	}
+
+	public void setPlanReviews(List<PlanReview> planReviews) {
+		this.planReviews = planReviews;
+	}
+
+	public List<Meal> getMeals() {
+		return meals;
+	}
+
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
 	}
 
 	@Override

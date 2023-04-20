@@ -32,6 +32,13 @@ public class PlanReview {
 	@MapsId(value="userId")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="meal_plan_id")
+	@MapsId(value="mealPlanId")
+	private MealPlan mealPlan;
+	
+	
+	
 
 	public PlanReview() {
 		
@@ -101,6 +108,18 @@ public class PlanReview {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+
+
+	public MealPlan getMealPlan() {
+		return mealPlan;
+	}
+
+
+
+	public void setMealPlan(MealPlan mealPlan) {
+		this.mealPlan = mealPlan;
 	}
 
 

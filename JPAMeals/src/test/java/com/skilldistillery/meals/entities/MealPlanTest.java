@@ -1,7 +1,7 @@
 package com.skilldistillery.meals.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 
 import javax.persistence.EntityManager;
@@ -60,6 +60,27 @@ class MealPlanTest {
 	void test_mealPlan_has_creator() {
 		assertNotNull(mealPlan);
 		assertEquals("admin", mealPlan.getPlanCreator().getUsername());
+	}
+	
+	@Test
+	void test_Meal_has_List_of_Diets() {
+		assertNotNull(mealPlan);
+		assertFalse( mealPlan.getDiets().isEmpty());
+	}
+	@Test
+	void test_Meal_has_List_of_Comment() {
+		assertNotNull(mealPlan);
+		assertFalse( mealPlan.getDiets().isEmpty());
+	}
+	@Test
+	void test_Meal_has_List_of_reviews() {
+		assertNotNull(mealPlan);
+		assertFalse( mealPlan.getPlanReviews().isEmpty());
+	}
+	@Test
+	void test_Meal_has_List_of_meals() {
+		assertNotNull(mealPlan);
+		assertFalse( mealPlan.getMeals().isEmpty());
 	}
 
 }

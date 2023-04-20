@@ -38,6 +38,10 @@ public class PlanComment {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="meal_plan_id")
+	private MealPlan mealPlan;
 
 	public PlanComment() {
 		super();
@@ -89,6 +93,14 @@ public class PlanComment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public MealPlan getMealPlan() {
+		return mealPlan;
+	}
+
+	public void setMealPlan(MealPlan mealPlan) {
+		this.mealPlan = mealPlan;
 	}
 
 	@Override

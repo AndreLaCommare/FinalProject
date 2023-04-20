@@ -38,6 +38,10 @@ public class MealComment {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="meal_id")
+	private Meal meal;
+	
 	public MealComment() {
 		
 	}
@@ -88,6 +92,14 @@ public class MealComment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Meal getMeal() {
+		return meal;
+	}
+
+	public void setMeal(Meal meal) {
+		this.meal = meal;
 	}
 
 	@Override
