@@ -21,55 +21,62 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="meal_plan")
+@Table(name = "meal_plan")
 public class MealPlan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String title;
-	
+
 	private String description;
-	
+
 	private boolean enabled;
-	
-	@Column(name="public")
+
+	@Column(name = "public")
 	private boolean visible;
-	
+
 	@CreationTimestamp
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
-	
+
 	@UpdateTimestamp
-	@Column(name="updated_at")
+	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
-	
+
 	@JsonIgnore
-	@ManyToMany(mappedBy="favoriteMealPlans")
+	@ManyToMany(mappedBy = "favoriteMealPlans")
 	List<User> usersWithFavMealPlans;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User planCreator;
-	
+
 	@JsonIgnore
-	@ManyToMany(mappedBy="mealPlansWithDiets")
-	List<Diet> diets;
-	
+	@ManyToMany(mappedBy = "mealPlansWithDiets")
+	private List<Diet> diets;
+
 	@JsonIgnore
-	@OneToMany(mappedBy="mealPlan")
-	List<PlanComment> planComments;
-	
+	@OneToMany(mappedBy = "mealPlan")
+	private List<PlanComment> planComments;
+
 	@JsonIgnore
-	@OneToMany(mappedBy="mealPlan")
-	List<PlanReview> planReviews;
-	
+	@OneToMany(mappedBy = "mealPlan")
+	private List<PlanReview> planReviews;
+
 	@JsonIgnore
-	@ManyToMany(mappedBy="mealPlans")
-	List<Meal> meals;
-	
-	
+	@ManyToMany(mappedBy = "mealPlans")
+	private List<Meal> meals;
+
+	// ADD AND REMOVE METHODS FOR MEALS NEED TO BE ADDED
+
+	@ManyToOne
+	@JoinColumn(name = "copied_from_id")
+	private MealPlan copiedFromPlan;
+
+	@OneToMany(mappedBy = "copiedFromPlan")
+	private List<MealPlan> myCopies;
 
 	public MealPlan() {
 		super();
@@ -179,6 +186,22 @@ public class MealPlan {
 		this.meals = meals;
 	}
 
+	public MealPlan getCopiedFromPlan() {
+		return copiedFromPlan;
+	}
+
+	public void setCopiedFromPlan(MealPlan copiedFromPlan) {
+		this.copiedFromPlan = copiedFromPlan;
+	}
+
+	public List<MealPlan> getMyCopies() {
+		return myCopies;
+	}
+
+	public void setMyCopies(List<MealPlan> myCopies) {
+		this.myCopies = myCopies;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -201,10 +224,5 @@ public class MealPlan {
 		return "MealPlan [id=" + id + ", title=" + title + ", description=" + description + ", enabled=" + enabled
 				+ ", visible=" + visible + "]";
 	}
-	
-	
-	
-	
-	
-	
+
 }

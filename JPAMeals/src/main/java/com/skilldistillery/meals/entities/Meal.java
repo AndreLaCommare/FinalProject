@@ -87,6 +87,8 @@ public class Meal {
 	@OneToMany(mappedBy="meal")
 	private List<MealComment> comments;
 	
+	
+	
 	public Meal() {
 		
 	}
