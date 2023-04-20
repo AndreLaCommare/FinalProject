@@ -50,5 +50,10 @@ class PlanCommentTest {
 		assertNotNull(planComment);
 		assertEquals("Where are the vegetables?", planComment.getComment());
 	}
+	@Test
+	void test_planComment_has_user() {
+		assertNotNull(planComment);
+		assertEquals("TheMuffinMan", planComment.getUser().getUsername());
+	}
 
 }

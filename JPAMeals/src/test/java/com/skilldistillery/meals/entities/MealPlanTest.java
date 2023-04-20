@@ -51,5 +51,15 @@ class MealPlanTest {
 		assertEquals("Carnivore", mealPlan.getTitle());
 		assertEquals("Only Eat Meat", mealPlan.getDescription());
 	}
+	@Test
+	void test_mealPlan_has_Users_with_Fav() {
+		assertNotNull(mealPlan);
+		assertEquals("TheMuffinMan", mealPlan.getUsersWithFavMealPlans().get(0).getUsername());
+	}
+	@Test
+	void test_mealPlan_has_creator() {
+		assertNotNull(mealPlan);
+		assertEquals("admin", mealPlan.getPlanCreator().getUsername());
+	}
 
 }

@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="meal_comment")
@@ -19,13 +24,19 @@ public class MealComment {
 	
 	private String comment;
 	
+	@CreationTimestamp
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
+	@UpdateTimestamp
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
 	private boolean enabled;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	public MealComment() {
 		
@@ -69,6 +80,14 @@ public class MealComment {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

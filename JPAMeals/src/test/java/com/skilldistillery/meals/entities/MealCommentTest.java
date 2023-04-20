@@ -44,6 +44,11 @@ class MealCommentTest {
 	@Test
 	void test() {
 		assertNotNull(mealComment);
+		assertEquals("TheMuffinMan", mealComment.getUser().getUsername());
+	}
+	@Test
+	void test_MealComment_has_User() {
+		assertNotNull(mealComment);
 		assertEquals("That's a spicy sausage", mealComment.getComment());
 	}
 

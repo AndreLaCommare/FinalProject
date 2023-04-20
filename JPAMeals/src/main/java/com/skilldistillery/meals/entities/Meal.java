@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Meal {
@@ -25,9 +33,12 @@ public class Meal {
 	private String imageUrl;
 	
 	private String instructions;
+	
+	@CreationTimestamp
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
+	@UpdateTimestamp
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
@@ -42,8 +53,13 @@ public class Meal {
 	@Column(name="cook_time")
 	private int cookTime;
 	
-//	@JoinColumn(name="user_id")
-//	private User user;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="favoriteMeals")
+	private List<User> usersWithFavMeals;
 	
 	public Meal() {
 		
@@ -137,13 +153,21 @@ public class Meal {
 		this.cookTime = cookTime;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<User> getUsersWithFavMeals() {
+		return usersWithFavMeals;
+	}
+
+	public void setUsersWithFavMeals(List<User> usersWithFavMeals) {
+		this.usersWithFavMeals = usersWithFavMeals;
+	}
 
 	@Override
 	public int hashCode() {
@@ -167,7 +191,7 @@ public class Meal {
 		return "Meal [id=" + id + ", name=" + name + ", description=" + description + ", imageUrl=" + imageUrl
 				+ ", instructions=" + instructions + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", enabled=" + enabled + ", visible=" + visible + ", prepTime=" + prepTime + ", cookTime=" + cookTime
-				;
+				+ ", user=" + user + "]";
 	}
 	
 	
