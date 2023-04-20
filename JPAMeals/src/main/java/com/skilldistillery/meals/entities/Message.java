@@ -8,6 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Message {
@@ -27,11 +31,14 @@ public class Message {
 	
 	private boolean enabled;
 	
-	@Column(name="sender_id")
-	private int senderId;
 	
-	@Column(name="receiver_id")
-	private int receiverId;
+	@ManyToOne
+	@JoinColumn(name="sender_id")
+	private User sender;
+	
+	@ManyToOne
+	@JoinColumn(name="receiver_id")
+	private User receiver;
 
 
 	public Message() {
@@ -78,23 +85,25 @@ public class Message {
 		this.enabled = enabled;
 	}
 
-	public int getSenderId() {
-		return senderId;
-	}
 
-	public void setSenderId(int senderId) {
-		this.senderId = senderId;
-	}
-
-	public int getReceiverId() {
-		return receiverId;
-	}
-
-	public void setReceiverId(int receiverId) {
-		this.receiverId = receiverId;
-	}
 	
 	
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -115,7 +124,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", body=" + body + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", enabled=" + enabled + ", senderId=" + senderId + ", receiverId=" + receiverId + "]";
+				+ ", enabled=" + enabled;
 	}
 	
 }

@@ -46,6 +46,16 @@ class MessageTest {
 		assertNotNull(message);
 		assertEquals("Hello", message.getBody());
 	}
+	@Test
+	void test_Message_has_sender() {
+		assertNotNull(message);
+		assertEquals("admin", message.getSender().getUsername());
+	}
+	@Test
+	void test_Message_has_receiver() {
+		assertNotNull(message);
+		assertEquals("TheMuffinMan", message.getReceiver().getUsername());
+	}
 
 
 }

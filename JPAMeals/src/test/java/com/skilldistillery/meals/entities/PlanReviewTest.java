@@ -47,5 +47,10 @@ class PlanReviewTest {
 		assertNotNull(planReview);
 		assertEquals("Very good", planReview.getComment());
 	}
+	@Test
+	void test_PlanReview_has_user() {
+		assertNotNull(planReview);
+		assertEquals("TheMuffinMan", planReview.getUser().getUsername());
+	}
 
 }
