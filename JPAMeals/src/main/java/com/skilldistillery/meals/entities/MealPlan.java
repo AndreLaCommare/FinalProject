@@ -55,19 +55,26 @@ public class MealPlan {
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="mealPlansWithDiets")
-	List<Diet> diets;
+	private List<Diet> diets;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="mealPlan")
-	List<PlanComment> planComments;
+	private List<PlanComment> planComments;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="mealPlan")
-	List<PlanReview> planReviews;
+	private List<PlanReview> planReviews;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="mealPlans")
-	List<Meal> meals;
+	private List<Meal> meals;
+	
+	@ManyToOne
+	@JoinColumn(name="copied_from_id")
+	private MealPlan copiedFromPlan;
+	
+	@OneToMany(mappedBy="copiedFromPlan")
+	private List<MealPlan> myCopies;
 	
 	
 
@@ -177,6 +184,22 @@ public class MealPlan {
 
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
+	}
+
+	public MealPlan getCopiedFromPlan() {
+		return copiedFromPlan;
+	}
+
+	public void setCopiedFromPlan(MealPlan copiedFromPlan) {
+		this.copiedFromPlan = copiedFromPlan;
+	}
+
+	public List<MealPlan> getMyCopies() {
+		return myCopies;
+	}
+
+	public void setMyCopies(List<MealPlan> myCopies) {
+		this.myCopies = myCopies;
 	}
 
 	@Override

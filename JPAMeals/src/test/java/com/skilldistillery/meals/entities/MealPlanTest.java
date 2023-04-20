@@ -63,24 +63,38 @@ class MealPlanTest {
 	}
 	
 	@Test
-	void test_Meal_has_List_of_Diets() {
+	void test_MealPlan_has_List_of_Diets() {
 		assertNotNull(mealPlan);
 		assertFalse( mealPlan.getDiets().isEmpty());
 	}
 	@Test
-	void test_Meal_has_List_of_Comment() {
+	void test_MealPlan_has_List_of_Comment() {
 		assertNotNull(mealPlan);
 		assertFalse( mealPlan.getDiets().isEmpty());
 	}
 	@Test
-	void test_Meal_has_List_of_reviews() {
+	void test_MealPlan_has_List_of_reviews() {
 		assertNotNull(mealPlan);
 		assertFalse( mealPlan.getPlanReviews().isEmpty());
 	}
 	@Test
-	void test_Meal_has_List_of_meals() {
+	void test_MealPlan_has_List_of_meals() {
 		assertNotNull(mealPlan);
 		assertFalse( mealPlan.getMeals().isEmpty());
+	}
+	@Test
+	void test_MealPlan_has_List_of_copies() {
+		assertNotNull(mealPlan);
+		assertFalse( mealPlan.getMyCopies().isEmpty());
+	}
+	
+	@Test
+	void test_MealPlan_copiedPlan_as_parent() {
+		mealPlan = em.find(MealPlan.class, 2);
+		assertNotNull(mealPlan);
+		assertNotNull(mealPlan.getCopiedFromPlan());
+		assertEquals(1 ,mealPlan.getCopiedFromPlan().getId());
+		
 	}
 
 }
