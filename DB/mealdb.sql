@@ -472,6 +472,7 @@ COMMIT;
 START TRANSACTION;
 USE `mealdb`;
 INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `created_at`, `updated_at`, `user_id`, `copied_from_id`) VALUES (1, 'Carnivore', 'Only Eat Meat', 1, 1, NULL, NULL, 1, NULL);
+INSERT INTO `meal_plan` (`id`, `title`, `description`, `enabled`, `public`, `created_at`, `updated_at`, `user_id`, `copied_from_id`) VALUES (2, 'Carnivore', 'Only Eat Meat', 1, 1, NULL, NULL, 2, 1);
 
 COMMIT;
 
