@@ -33,6 +33,10 @@ public class GroceryItem {
 	@ManyToMany(mappedBy="groceries")
 	private List<User> usersWithGroceries;
 	
+	@JsonIgnore
+	@ManyToMany(mappedBy="groceryItems")
+	private List<Meal> mealsWithGroceries;
+	
 	public GroceryItem() {
 		
 	}
@@ -67,6 +71,14 @@ public class GroceryItem {
 
 	public void setUsersWithGroceries(List<User> usersWithGroceries) {
 		this.usersWithGroceries = usersWithGroceries;
+	}
+
+	public List<Meal> getMealsWithGroceries() {
+		return mealsWithGroceries;
+	}
+
+	public void setMealsWithGroceries(List<Meal> mealsWithGroceries) {
+		this.mealsWithGroceries = mealsWithGroceries;
 	}
 
 	@Override

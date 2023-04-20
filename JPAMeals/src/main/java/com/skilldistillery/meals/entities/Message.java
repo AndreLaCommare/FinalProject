@@ -11,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class Message {
@@ -22,10 +23,10 @@ public class Message {
 	private int id;
 	
 	private String body;
-	
+	@CreationTimestamp
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
-	
+	@UpdateTimestamp
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
