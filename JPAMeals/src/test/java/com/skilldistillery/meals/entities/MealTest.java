@@ -50,5 +50,15 @@ class MealTest {
 		assertNotNull(meal);
 		assertEquals("Pan-Fried Sausage", meal.getName());
 	}
+	@Test
+	void test_Meal_has_User() {
+		assertNotNull(meal);
+		assertEquals("TheMuffinMan", meal.getUser().getUsername());
+	}
+	@Test
+	void test_Meal_has_List_of_Users_who_Fav() {
+		assertNotNull(meal);
+		assertEquals("admin", meal.getUsersWithFavMeals().get(0).getUsername());
+	}
 
 }

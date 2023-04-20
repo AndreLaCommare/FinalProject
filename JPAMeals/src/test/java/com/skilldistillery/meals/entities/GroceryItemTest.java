@@ -45,5 +45,12 @@ class GroceryItemTest {
 		assertNotNull(groceryItem);
 		assertEquals("andouille sausage", groceryItem.getName());
 	}
+	@Test
+	void test_groceryItem_has_Users() {
+		assertNotNull(groceryItem);
+		assertEquals("TheMuffinMan", groceryItem.getUsersWithGroceries().get(0).getUsername());
+	}
+	
+	
 
 }

@@ -6,6 +6,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +26,11 @@ public class PlanReview {
 	private LocalDateTime createdAt;
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	@MapsId(value="userId")
+	private User user;
 	
 
 	public PlanReview() {
@@ -81,6 +89,18 @@ public class PlanReview {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
