@@ -10,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -60,6 +62,30 @@ public class Meal {
 	@JsonIgnore
 	@ManyToMany(mappedBy="favoriteMeals")
 	private List<User> usersWithFavMeals;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="mealsWithDiets")
+	List<Diet> diets;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "meal_plan_has_meal", 
+	joinColumns = @JoinColumn(name = "meal_id"), 
+	inverseJoinColumns = @JoinColumn(name = "meal_plan_id"))
+	private List<MealPlan> mealPlans;
+	
+	@OneToMany(mappedBy="meal")
+	private List<MealReview> reviews;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "meal_has_grocery_item", 
+	joinColumns = @JoinColumn(name = "meal_id"), 
+	inverseJoinColumns = @JoinColumn(name = "grocery_item_id"))
+	private List<GroceryItem> groceryItems;
+	
+	@OneToMany(mappedBy="meal")
+	private List<MealComment> comments;
 	
 	public Meal() {
 		
@@ -121,6 +147,14 @@ public class Meal {
 		this.updatedAt = updatedAt;
 	}
 
+	public List<Diet> getDiets() {
+		return diets;
+	}
+
+	public void setDiets(List<Diet> diets) {
+		this.diets = diets;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -167,6 +201,38 @@ public class Meal {
 
 	public void setUsersWithFavMeals(List<User> usersWithFavMeals) {
 		this.usersWithFavMeals = usersWithFavMeals;
+	}
+
+	public List<MealPlan> getMealPlans() {
+		return mealPlans;
+	}
+
+	public void setMealPlans(List<MealPlan> mealPlans) {
+		this.mealPlans = mealPlans;
+	}
+
+	public List<MealReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<MealReview> reviews) {
+		this.reviews = reviews;
+	}
+
+	public List<GroceryItem> getGroceryItems() {
+		return groceryItems;
+	}
+
+	public void setGroceryItems(List<GroceryItem> groceryItems) {
+		this.groceryItems = groceryItems;
+	}
+
+	public List<MealComment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<MealComment> comments) {
+		this.comments = comments;
 	}
 
 	@Override

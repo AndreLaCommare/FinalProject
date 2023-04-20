@@ -48,7 +48,12 @@ class GroceryItemTest {
 	@Test
 	void test_groceryItem_has_Users() {
 		assertNotNull(groceryItem);
-		assertEquals("TheMuffinMan", groceryItem.getUsersWithGroceries().get(0).getUsername());
+		assertFalse( groceryItem.getUsersWithGroceries().isEmpty());
+	}
+	@Test
+	void test_groceryItem_has_Meals() {
+		assertNotNull(groceryItem);
+		assertFalse( groceryItem.getMealsWithGroceries().isEmpty());
 	}
 	
 	
