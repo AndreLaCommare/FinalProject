@@ -4,44 +4,40 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="plan_review")
-public class PlanReview {
-	@EmbeddedId
-	private PlanReviewId id;
+@Table(name="meal_comment")
+public class MealComment {
+	@Id	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	private String comment;
 	
-	private int stars;
-	
-	private boolean enabled;
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
+	
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
-
-	public PlanReview() {
+	private boolean enabled;
+	
+	public MealComment() {
 		
 	}
 
-	
-
-	public PlanReviewId getId() {
+	public int getId() {
 		return id;
 	}
 
-
-
-	public void setId(PlanReviewId id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getComment() {
 		return comment;
@@ -49,22 +45,6 @@ public class PlanReview {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public int getStars() {
-		return stars;
-	}
-
-	public void setStars(int stars) {
-		this.stars = stars;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -83,7 +63,13 @@ public class PlanReview {
 		this.updatedAt = updatedAt;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public int hashCode() {
@@ -98,19 +84,14 @@ public class PlanReview {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PlanReview other = (PlanReview) obj;
+		MealComment other = (MealComment) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "PlanReview [id=" + id + ", comment=" + comment + ", stars=" + stars + ", enabled=" + enabled
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+		return "MealComment [id=" + id + ", comment=" + comment + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + ", enabled=" + enabled + "]";
 	}
-
-
 	
-	
-
-
 }
