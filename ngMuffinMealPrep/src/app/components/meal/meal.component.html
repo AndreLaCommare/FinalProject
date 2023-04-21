@@ -1,0 +1,33 @@
+<h1>Meals</h1>
+
+<table>
+  <thead>
+    <tr>
+
+      <th>Name</th>
+      <th>Created By:</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+
+<tr *ngFor="let meal of meals">
+
+  <td>{{meal.name}}</td>
+  <td>{{meal.user.username}}</td>
+
+
+</tr>
+  </tbody>
+
+</table>
+
+<div id="mealDetailDiv" *ngIf="selected">
+
+  <h1> Name: {{selected.name}}</h1>
+
+
+
+
+</div>

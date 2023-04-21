@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export class Meal {
 
   id: number;
@@ -9,6 +11,7 @@ export class Meal {
   visible: boolean;
   prepTime: number;
   cookTime: number;
+  user: User;
 
 
   constructor(
@@ -21,6 +24,7 @@ export class Meal {
   visible: boolean = false,
   prepTime: number = 0,
   cookTime: number = 0,
+  user: User = new User(),
 
   ){
     this.id = id;
@@ -32,6 +36,7 @@ export class Meal {
     this.visible = visible
     this.prepTime = prepTime;
     this.cookTime = cookTime;
+    this.user = user;
   }
 
 

@@ -16,7 +16,7 @@ export class MealService {
 
   index(): Observable<Meal[]> {
     // Return defensive copy of private array
-    return this.http.get<Meal[]>(this.url + '?sorted=true').pipe(
+    return this.http.get<Meal[]>(this.url).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

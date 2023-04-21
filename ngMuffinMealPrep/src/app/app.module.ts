@@ -12,6 +12,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MealComponent } from './components/meal/meal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LogoutComponent,
     HomeComponent,
     NavigationComponent,
-    ProfileComponent
+    ProfileComponent,
+    MealComponent
   ],
   imports: [
     BrowserModule,
