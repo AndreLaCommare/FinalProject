@@ -1,0 +1,9 @@
+<form name="login">
+  <label for="username">Username: </label>
+<input type="text" name="username" placeholder="Username" [(ngModel)]="loginUser.username"><br><br>
+<label for="password">Password: </label>
+<input type="password" name="password" placeholder="password" [(ngModel)]="loginUser.password"><br><br>
+
+<button (click)="login(loginUser)" class="btn btn-primary">Log In</button>
+
+</form>
