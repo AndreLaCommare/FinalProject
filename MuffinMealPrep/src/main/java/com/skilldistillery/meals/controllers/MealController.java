@@ -41,7 +41,7 @@ public class MealController {
     }
 
     @GetMapping("meals/{mealId}")
-    public Meal showByMealId(Principal principal, HttpServletRequest req, HttpServletResponse res,
+    public Meal showByMealId(HttpServletRequest req, HttpServletResponse res,
                      @PathVariable Integer mealId) {
         Meal meal = mealService.findByMealId(mealId);
         if (meal == null) {
@@ -49,6 +49,7 @@ public class MealController {
         }
         return meal;
     }
+
 
     @PostMapping("meals")
     public Meal create(Principal principal, HttpServletRequest req, HttpServletResponse res,
