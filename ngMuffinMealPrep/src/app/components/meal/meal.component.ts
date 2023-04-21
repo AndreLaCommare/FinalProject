@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
@@ -11,8 +12,12 @@ export class MealComponent implements OnInit{
 
   meals: Meal[] = [];
   selected: Meal | null = null;
+  newMeal: Meal = new Meal();
+  loggedIn(): boolean{
+    return this.auth.checkLogin();
+  }
 
-  constructor(private mealService: MealService){}
+  constructor(private mealService: MealService, private auth: AuthService){}
 
   ngOnInit(): void {
     this.reload();
@@ -36,6 +41,21 @@ export class MealComponent implements OnInit{
 
     displaySingleMeal(meal: Meal){
       this.selected = meal;
+    }
+    displayTable(){
+      this.selected = null;
+    }
+
+    addMeal(newMeal: Meal){
+      console.log(newMeal);
+      this.mealService.create(newMeal).subscribe({
+        next:(createdMeal) => {
+          this.reload();
+        },
+        error:(err) =>{
+          console.error(err)
+        }
+      });
     }
 
 }
