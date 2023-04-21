@@ -1,6 +1,28 @@
-<h1>Meals</h1>
+<h1 *ngIf="!selected">Meals</h1>
+<div id="addMeal" *ngIf="loggedIn()">
+  <form name="createMeal" *ngIf="!selected">
 
-<table>
+    <label for="name">Meal Name</label>
+    <input type="text" name="name"[(ngModel)]="newMeal.name" required><br><br>
+    <label for="name">Meal Description</label>
+    <input type="text" name="description"[(ngModel)]="newMeal.description" required><br><br>
+    <label for="name">Meal Instructions</label>
+    <input type="text" name="instructions"[(ngModel)]="newMeal.instructions"><br><br>
+    <label for="name">Meal Image URL</label>
+    <input type="text" name="imageUrl"[(ngModel)]="newMeal.imageUrl"><br><br>
+    <label for="name">Meal Visibility</label>
+    <input type="checkbox" name="visible"[(ngModel)]="newMeal.visible"><br><br>
+    <label for="name">Prep Time</label>
+    <input type="number" name="prepTime"[(ngModel)]="newMeal.prepTime"><br><br>
+    <label for="name">Cook Time</label>
+    <input type="number" name="cookTime"[(ngModel)]="newMeal.cookTime"><br><br>
+    <button (click)="addMeal(newMeal)" class="btn btn-primary">Create Meal</button>
+
+  </form>
+
+</div>
+
+<table class="table table-striped table-hover" *ngIf="!selected">
   <thead>
     <tr>
 
@@ -12,7 +34,7 @@
   </thead>
   <tbody>
 
-<tr *ngFor="let meal of meals">
+<tr *ngFor="let meal of meals" (click)="displaySingleMeal(meal)">
 
   <td>{{meal.name}}</td>
   <td>{{meal.user.username}}</td>
@@ -25,7 +47,26 @@
 
 <div id="mealDetailDiv" *ngIf="selected">
 
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="selected.imageUrl" alt="Card image cap">
+    <div class="card-body">
+
   <h1> Name: {{selected.name}}</h1>
+
+  <p>Desc: {{selected.description}}</p>
+  <p>Instructions: {{selected.instructions}}</p>
+
+
+
+  <ul>
+    <li>Prep Time: {{selected.prepTime | number: '1.1-1'}} min</li>
+    <li>Cook Time: {{selected.cookTime | number: '1.1-1'}} min</li>
+
+  </ul>
+
+  <button class ="btn btn-primary"(click)="displayTable()">Back</button>
+</div>
+</div>
 
 
 
