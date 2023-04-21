@@ -64,7 +64,7 @@
   <tr (click)="displaySingleMeal(meal)">
 
     <td>{{meal.name}}</td>
-    <td>{{meal.user.username}}</td>
+    <td *ngIf="meal.user">{{meal.user.username}}</td>
 
 
   </tr>

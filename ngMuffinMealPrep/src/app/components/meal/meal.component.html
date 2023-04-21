@@ -37,7 +37,7 @@
 <tr *ngFor="let meal of meals" (click)="displaySingleMeal(meal)">
 
   <td>{{meal.name}}</td>
-  <td>{{meal.user.username}}</td>
+  <td *ngIf="meal.user">{{meal.user.username}}</td>
 
 
 </tr>
@@ -55,6 +55,12 @@
 
   <p>Desc: {{selected.description}}</p>
   <p>Instructions: {{selected.instructions}}</p>
+  Groceries:
+  <ul *ngFor="let grocery of selected.groceryItems">
+    <li>
+      {{grocery.name}}
+    </li>
+  </ul>
 
 
 

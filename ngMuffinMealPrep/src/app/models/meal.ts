@@ -1,3 +1,4 @@
+import { GroceryItem } from "./grocery-item";
 import { User } from "./user";
 
 export class Meal {
@@ -11,8 +12,8 @@ export class Meal {
   visible: boolean;
   prepTime: number;
   cookTime: number;
-  user: User;
-
+  user: User | null;
+  groceryItems: GroceryItem[];
 
   constructor(
     id: number =0,
@@ -24,7 +25,8 @@ export class Meal {
   visible: boolean = false,
   prepTime: number = 0,
   cookTime: number = 0,
-  user: User = new User(),
+  user: User | null = null,
+  groceryItems: GroceryItem[]= [],
 
   ){
     this.id = id;
@@ -37,6 +39,7 @@ export class Meal {
     this.prepTime = prepTime;
     this.cookTime = cookTime;
     this.user = user;
+    this.groceryItems = groceryItems;
   }
 
 
