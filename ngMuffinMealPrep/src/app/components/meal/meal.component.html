@@ -56,8 +56,8 @@
   <p>Desc: {{selected.description}}</p>
   <p>Instructions: {{selected.instructions}}</p>
   Groceries:
-  <ul *ngFor="let grocery of selected.groceryItems">
-    <li>
+  <ul >
+    <li *ngFor="let grocery of selected.groceryItems">
       {{grocery.name}}
     </li>
   </ul>

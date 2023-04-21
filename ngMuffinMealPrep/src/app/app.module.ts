@@ -14,6 +14,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ProfileComponent } from './components/profile/profile.component';
 import { MealComponent } from './components/meal/meal.component';
 import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
+import { GroceryItemComponent } from './components/grocery-item/grocery-item.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
     NavigationComponent,
     ProfileComponent,
     MealComponent,
-    MealPlanComponent
+    MealPlanComponent,
+    GroceryItemComponent
   ],
   imports: [
     BrowserModule,
