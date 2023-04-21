@@ -80,7 +80,7 @@ public class Meal {
 	@OneToMany(mappedBy="meal")
 	private List<MealReview> reviews;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"mealsWithGroceries"})
 	@ManyToMany
 	@JoinTable(name = "meal_has_grocery_item", 
 	joinColumns = @JoinColumn(name = "meal_id"), 
