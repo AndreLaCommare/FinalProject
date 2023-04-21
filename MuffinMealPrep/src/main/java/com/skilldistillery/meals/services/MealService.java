@@ -15,6 +15,9 @@ public interface MealService {
 
 	Meal update(String username, int tid, Meal meal);
 
-	boolean destroy(String username, int mealId);
+
+	List<Meal> findAllMealsForUser(String username);
+
+	boolean deactivate(String username, int mealId);
 
 }
