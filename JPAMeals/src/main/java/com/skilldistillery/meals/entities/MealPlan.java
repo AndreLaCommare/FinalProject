@@ -19,6 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "meal_plan")
@@ -48,7 +49,11 @@ public class MealPlan {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "favoriteMealPlans")
 	List<User> usersWithFavMealPlans;
-
+	
+	@JsonIgnoreProperties({"password","enabled","role","email","createdAt", "updatedAt", "aboutMe",
+		"firstName","lastName","imageUrl","mealComments", "groceries", "mealReviews", "userMeals",
+		"favoriteMeals", "favoriteMealPlans", "planReviews", "userMealPlans",
+		"planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User planCreator;
@@ -65,16 +70,17 @@ public class MealPlan {
 	@OneToMany(mappedBy = "mealPlan")
 	private List<PlanReview> planReviews;
 
-	@JsonIgnore
+	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt","enabled"})
 	@ManyToMany(mappedBy = "mealPlans")
 	private List<Meal> meals;
 
 	// ADD AND REMOVE METHODS FOR MEALS NEED TO BE ADDED
-
+	
 	@ManyToOne
 	@JoinColumn(name = "copied_from_id")
 	private MealPlan copiedFromPlan;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "copiedFromPlan")
 	private List<MealPlan> myCopies;
 
