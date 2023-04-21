@@ -19,6 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Meal {
@@ -55,6 +56,7 @@ public class Meal {
 	@Column(name="cook_time")
 	private int cookTime;
 	
+	@JsonIgnoreProperties({"mealComments", "groceries", "mealReviews", "userMeals", "favoriteMeals", "favoriteMealPlans", "planReviews", "userMealPlans", "planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
