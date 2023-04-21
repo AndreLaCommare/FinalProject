@@ -39,6 +39,6 @@ export class ProfileComponent implements OnInit{
   }
 
   getOtherUser(userId: number){
-//implement subscribe to userService.getUser()
+    //implement subscribe to userService.getUser()
   }
 }
