@@ -24,14 +24,8 @@ public class MealPlanServiceImpl implements MealPlanService {
 	@Override
 	public List<MealPlan> findAllMealPlans() {
 			
-		List<MealPlan> mealPlans = mealPlanRepo.findAll();
-		List<MealPlan> visibleMealPlans = new ArrayList<>();
-		for (MealPlan mealPlan : mealPlans) {
-			if(mealPlan.isVisible()) {
-				visibleMealPlans.add(mealPlan);
-			}
-		}
-		return visibleMealPlans;
+	
+		return mealPlanRepo.findByVisibleTrueAndCopiedFromPlanIsNull();
 	}
 
 	@Override
