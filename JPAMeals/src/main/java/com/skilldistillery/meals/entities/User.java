@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -58,7 +59,7 @@ public class User {
 	private String imageUrl;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user") 
 	private List<MealComment> mealComments;
 	
 	@JsonIgnore
@@ -72,7 +73,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<MealReview> mealReviews;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"user", "reviews", "diets", "mealPlans", "comments", "groceryItems"})
 	@OneToMany(mappedBy="user")
 	private List<Meal> userMeals;
 	
