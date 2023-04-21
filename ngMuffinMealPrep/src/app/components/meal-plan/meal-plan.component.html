@@ -1,0 +1,107 @@
+
+<h1 *ngIf="!selected">Meal Plans</h1>
+<div id="addMeal" *ngIf="loggedIn()">
+  <form name="createMeal" *ngIf="!selected">
+
+    <label for="name">Meal Plan Title</label>
+    <input type="text" name="title"[(ngModel)]="newMealPlan.title" required><br><br>
+    <label for="name">Meal Description</label>
+    <input type="text" name="description"[(ngModel)]="newMealPlan.description" required><br><br>
+    <label for="name">Meal Visibility</label>
+    <input type="checkbox" name="visible"[(ngModel)]="newMealPlan.visible"><br><br>
+
+    <button (click)="addMealPlan(newMealPlan)" class="btn btn-primary">Create Meal Plan</button>
+
+  </form>
+
+</div>
+
+
+<table class="table table-striped table-hover" *ngIf="!selected">
+  <thead>
+    <tr>
+
+      <th>Name</th>
+      <th>Created By:</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let mealPlan of mealPlans">
+
+
+      <tr (click)="displaySingleMealPlan(mealPlan)">
+
+
+        <td>{{mealPlan.title}}</td>
+        <td *ngIf="mealPlan.planCreator" >{{mealPlan.planCreator.username}}</td>
+
+
+      </tr>
+    </ng-container>
+
+  </tbody>
+
+</table>
+
+<div id="mealPlanDetailDiv" *ngIf="selected && !selectedMeal">
+  <h1> Plan: {{selected.title}}</h1>
+
+  <table class="table table-striped table-hover" *ngFor="let meal of selected.meals">
+
+    <thead>
+      <tr>
+
+        <th>Meal</th>
+        <th>Created By:</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+
+  <tr (click)="displaySingleMeal(meal)">
+
+    <td>{{meal.name}}</td>
+    <td>{{meal.user.username}}</td>
+
+
+  </tr>
+    </tbody>
+
+
+  </table>
+</div>
+
+  <div id="mealDetailDiv" *ngIf="selectedMeal">
+
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" [src]="selectedMeal.imageUrl" alt="Card image cap">
+      <div class="card-body">
+
+    <h1> Name: {{selectedMeal.name}}</h1>
+
+    <p>Desc: {{selectedMeal.description}}</p>
+    <p>Instructions: {{selectedMeal.instructions}}</p>
+
+
+
+    <ul>
+      <li>Prep Time: {{selectedMeal.prepTime | number: '1.1-1'}} min</li>
+      <li>Cook Time: {{selectedMeal.cookTime | number: '1.1-1'}} min</li>
+
+    </ul>
+
+    <button class ="btn btn-primary"(click)="displayTable()">Back</button>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  </div>

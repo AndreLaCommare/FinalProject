@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MealComponent } from './components/meal/meal.component';
+import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MealComponent } from './components/meal/meal.component';
     HomeComponent,
     NavigationComponent,
     ProfileComponent,
-    MealComponent
+    MealComponent,
+    MealPlanComponent
   ],
   imports: [
     BrowserModule,

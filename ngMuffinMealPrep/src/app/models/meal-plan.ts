@@ -1,3 +1,6 @@
+import { Meal } from "./meal";
+import { User } from "./user";
+
 export class MealPlan {
   id: number;
   title: string;
@@ -6,6 +9,9 @@ export class MealPlan {
   visible: boolean;
   created_at: string;
   updated_at: string;
+  planCreator: User | null;
+  copiedFromPlan: MealPlan | null;
+  meals: Meal[];
 
   constructor(
     id: number = 0,
@@ -14,7 +20,10 @@ export class MealPlan {
     enabled: boolean = false,
     visible: boolean = false,
     created_at: string = '',
-    updated_at: string = ''
+    updated_at: string = '',
+    planCreator: User | null = null,
+    copiedFromPlan: MealPlan | null = null,
+    meals: Meal[] = []
   ) {
     this.id = id;
     this.title = title;
@@ -23,5 +32,8 @@ export class MealPlan {
     this.visible = visible;
     this.created_at = created_at;
     this.updated_at = updated_at;
+    this.planCreator = planCreator;
+    this.copiedFromPlan = copiedFromPlan;
+    this.meals = meals;
   }
 }

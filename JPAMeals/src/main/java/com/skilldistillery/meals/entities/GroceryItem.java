@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +81,22 @@ public class GroceryItem {
 	public void setMealsWithGroceries(List<Meal> mealsWithGroceries) {
 		this.mealsWithGroceries = mealsWithGroceries;
 	}
+	
+	public void addMeal(Meal meal) {
+		if (mealsWithGroceries == null) mealsWithGroceries = new ArrayList<>();
+		if (!mealsWithGroceries.contains(meal)) {
+			mealsWithGroceries.add(meal);
+			meal.addGrocery(this);
+		}
+	}
+	
+	public void removeMeal(Meal meal) {
+		if(mealsWithGroceries != null && mealsWithGroceries.contains(meal)) {
+			mealsWithGroceries.remove(meal);
+			meal.removeGrocery(this);
+		}
+	}
+	
 
 	@Override
 	public int hashCode() {
