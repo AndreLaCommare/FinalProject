@@ -10,7 +10,9 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Integer> {
 	
 	MealPlan findById(int mealPlanId);
 	
-	List<MealPlan> findByUser_Username(String username);
 	
-	MealPlan findByIdAndUser_Username(int mealPlanId, String username);
+
+	MealPlan findByIdAndPlanCreator_Username(int mealPlanId, String username);
+
+	List<MealPlan> findByPlanCreator_Username(String username);
 }

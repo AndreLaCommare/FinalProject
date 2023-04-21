@@ -29,7 +29,7 @@ public class MealController {
     MealService mealService;
 
     @GetMapping("meals")
-    public List<Meal> showAll(Principal principal, HttpServletRequest req, HttpServletResponse res) {
+    public List<Meal> showAll(HttpServletRequest req, HttpServletResponse res) {
         List<Meal> allMeals = mealService.findAllMeals();
         return allMeals;
     }

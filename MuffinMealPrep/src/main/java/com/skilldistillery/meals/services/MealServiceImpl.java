@@ -30,7 +30,7 @@ public class MealServiceImpl implements MealService {
 			if(meal.isVisible()) {
 			visibleMeals.add(meal);
 			}
-		}
+	}
 		return visibleMeals;
 	}
 	

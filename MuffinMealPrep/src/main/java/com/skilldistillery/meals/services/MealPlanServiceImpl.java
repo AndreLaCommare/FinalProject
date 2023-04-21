@@ -37,7 +37,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 	@Override
 	public List<MealPlan> findAllMealPlansByUser(String username) {
 		
-		return mealPlanRepo.findByUser_Username(username);
+		return mealPlanRepo.findByPlanCreator_Username(username);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 
 	@Override
 	public MealPlan findMealPlanByUserAndId(String username, int mealPlanId) {
-		return mealPlanRepo.findByIdAndUser_Username(mealPlanId, username);
+		return mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
 		
 	}
 
@@ -64,7 +64,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 
 	@Override
 	public MealPlan update(String username, int mealPlanId, MealPlan mealPlan) {
-		MealPlan original = mealPlanRepo.findByIdAndUser_Username(mealPlanId, username);
+		MealPlan original = mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
 		
 		if(original != null) {
 			original.setTitle(mealPlan.getTitle());
@@ -82,7 +82,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 		boolean deactivated = false;
 		
 		MealPlan mealPlanToDeactivate = mealPlanRepo.
-										findByIdAndUser_Username(mealPlanId, username);
+										findByIdAndPlanCreator_Username(mealPlanId, username);
 		if(mealPlanToDeactivate != null) {
 			mealPlanToDeactivate.setEnabled(false); 
 			deactivated = true;
