@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -230,6 +231,19 @@ public class Meal {
 	public void setGroceryItems(List<GroceryItem> groceryItems) {
 		this.groceryItems = groceryItems;
 	}
+	public void addGrocery (GroceryItem groceryItem){
+		if(groceryItems == null) groceryItems = new ArrayList<>();
+		if(!groceryItems.contains (groceryItem)){
+		groceryItems.add(groceryItem); groceryItem.addMeal(this);
+		}
+	}
+	
+	public void removeGrocery (GroceryItem groceryItem) {
+		if(groceryItems != null && groceryItems.contains (groceryItem)){
+		groceryItems.remove(groceryItem);
+		groceryItem.removeMeal(this);
+		}
+	}
 
 	public List<MealComment> getComments() {
 		return comments;
@@ -238,6 +252,8 @@ public class Meal {
 	public void setComments(List<MealComment> comments) {
 		this.comments = comments;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
