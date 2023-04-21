@@ -29,7 +29,7 @@ public class MealController {
     MealService mealService;
 
     @GetMapping("meals")
-    public List<Meal> index(Principal principal, HttpServletRequest req, HttpServletResponse res) {
+    public List<Meal> showAll(Principal principal, HttpServletRequest req, HttpServletResponse res) {
         List<Meal> allMeals = mealService.findAllMeals();
         return allMeals;
     }
@@ -41,7 +41,7 @@ public class MealController {
     }
 
     @GetMapping("meals/{mealId}")
-    public Meal show(Principal principal, HttpServletRequest req, HttpServletResponse res,
+    public Meal showByMealId(Principal principal, HttpServletRequest req, HttpServletResponse res,
                      @PathVariable Integer mealId) {
         Meal meal = mealService.findByMealId(mealId);
         if (meal == null) {
