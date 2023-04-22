@@ -47,6 +47,7 @@ export class MealComponent implements OnInit{
 
     displaySingleMeal(meal: Meal){
       this.selected = meal;
+
     }
     displayTable(){
       this.selected = null;
