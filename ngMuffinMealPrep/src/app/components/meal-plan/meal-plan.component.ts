@@ -53,7 +53,7 @@ displayTable(){
 addMealPlan(newMealPlan: MealPlan){
   console.log(newMealPlan);
   this.mealPlanService.create(newMealPlan).subscribe({
-    next:(createdMeal) => {
+    next:(createdMealPlan) => {
       this.reload();
     },
     error:(err) =>{
