@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Meal } from '../models/meal';
+import { GroceryItem } from '../models/grocery-item';
 
 
 @Injectable({
@@ -38,9 +39,9 @@ export class MealService {
     );
   }
 
-  show(todoId: number): Observable<Meal> {
+  show(mealId: number): Observable<Meal> {
     // Return defensive copy of private array
-    return this.http.get<Meal>(this.url + '/' + todoId).pipe(
+    return this.http.get<Meal>(this.url + '/' + mealId).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -49,6 +50,17 @@ export class MealService {
       })
     );
   };
+
+  createGroceryForMeal(grocery : GroceryItem, groceryId: number, mealId : number): Observable <GroceryItem> {
+    return this.http.post<GroceryItem>(this.url + '/' + mealId + '/groceryItems/' + groceryId, grocery).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealService.createGroceryForMeal(): error adding grocery to meal: ' + err)
+        );
+      })
+    );
+  }
 
 
 

@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.meals.entities.GroceryItem;
 import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.User;
+import com.skilldistillery.meals.repositories.GroceryItemRepository;
 import com.skilldistillery.meals.repositories.MealRepository;
 import com.skilldistillery.meals.repositories.UserRepository;
 
@@ -19,6 +21,9 @@ public class MealServiceImpl implements MealService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private GroceryItemRepository groceryItemRepo;
 	
 	
 	@Override
@@ -81,4 +86,17 @@ public class MealServiceImpl implements MealService {
 	    }
 	    return deactivated;
 	}
+	
+	@Override
+	public Meal addGroceryItemToMeal(String username, int mealId, int groceryItemId, Meal meal) {
+	    Meal managedMeal = mealRepo.findByIdAndUser_Username(mealId, username);
+	    GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
+
+	    if (managedMeal != null && groceryItem != null) {
+	        managedMeal.getGroceryItems().add(groceryItem);
+	        return mealRepo.save(managedMeal);
+	    }
+	    return null;
+	}
+
 }
