@@ -82,4 +82,17 @@ public class MealController {
             res.setStatus(404);
         }
     }
+    
+    @PostMapping("meals/{mealId}/groceryItems/{groceryItemId}")
+    public Meal addGroceryItemToMeal(Principal principal, HttpServletRequest req, HttpServletResponse res,
+                                     @PathVariable int mealId, @PathVariable int groceryItemId, @RequestBody Meal meal) {
+        Meal updatedMeal = mealService.addGroceryItemToMeal(principal.getName(), mealId, groceryItemId, meal);
+        if (updatedMeal == null) {
+            res.setStatus(404);
+        } else {
+            res.setStatus(200);
+        }
+        return updatedMeal;
+    }
+
 }
