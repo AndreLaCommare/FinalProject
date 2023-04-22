@@ -17,6 +17,8 @@ export class MealComponent implements OnInit{
   newMeal: Meal = new Meal();
   groceryItemList: GroceryItem [] = [];
   itemsToAddToMeal: GroceryItem [] =[];
+  newGroceryItemName: string = '';
+addedGroceryItems: GroceryItem[] = [];
 
   loggedIn(): boolean{
     return this.auth.checkLogin();
@@ -54,9 +56,9 @@ export class MealComponent implements OnInit{
     }
 
     addMeal(newMeal: Meal){
-      newMeal.groceryItems = this.itemsToAddToMeal;
+      newMeal.groceryItems = this.addedGroceryItems;
       this.itemsToAddToMeal = []
-      console.log(this.itemsToAddToMeal)
+      console.log(this.addedGroceryItems)
       console.log(newMeal);
       this.mealService.create(newMeal).subscribe({
         next:(createdMeal) => {
@@ -69,8 +71,29 @@ export class MealComponent implements OnInit{
     }
 
     addItemToMeal(groceryItem: GroceryItem){
-      this.itemsToAddToMeal.push(groceryItem)
+      this.addedGroceryItems.push(groceryItem)
     }
+
+    createAndAddGroceryItem(name: string) {
+      if (name) {
+        const newGroceryItem: GroceryItem = {
+          id: 0,
+          name: name,
+          created_at: ''
+        };
+        this.groceryItemService.create(newGroceryItem).subscribe(
+          createdItem => {
+            this.addedGroceryItems.push(createdItem);
+            this.newGroceryItemName = '';
+            this.findAllGroceryItems();
+          },
+          error => {
+            console.error('Error creating new grocery item:', error);
+          }
+        );
+      }
+    }
+
 
     addGroceryToMeal(newGrocery: GroceryItem, currentMeal: Meal){
       console.log(newGrocery);
