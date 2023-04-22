@@ -42,7 +42,7 @@ class DietTest {
 	@Test
 	void test() {
 		assertNotNull(diet);
-		assertEquals("carnivore", diet.getName());
+		assertEquals("Carnivore", diet.getName());
 	}
 	
 	@Test
