@@ -93,10 +93,23 @@ public class MealServiceImpl implements MealService {
 	    GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
 
 	    if (managedMeal != null && groceryItem != null) {
-	        managedMeal.getGroceryItems().add(groceryItem);
+	        managedMeal.addGrocery(groceryItem);
 	        return mealRepo.save(managedMeal);
 	    }
 	    return null;
 	}
+	
+	@Override
+	public Meal removeGroceryItemFromMeal(String username, int mealId, int groceryItemId, Meal meal) {
+	    Meal managedMeal = mealRepo.findByIdAndUser_Username(mealId, username);
+	    GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
+
+	    if (managedMeal != null && groceryItem != null) {
+	        managedMeal.removeGrocery(groceryItem);
+	        return mealRepo.save(managedMeal);
+	    }
+	    return null;
+	}
+
 
 }

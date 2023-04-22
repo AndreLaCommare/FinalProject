@@ -20,6 +20,8 @@ public interface MealService {
 
 	boolean deactivate(String username, int mealId);
 
-	Meal addGroceryItemToMeal(String name, int mealId, int groceryItemId, Meal meal);
+	Meal addGroceryItemToMeal(String username, int mealId, int groceryItemId, Meal meal);
+
+	Meal removeGroceryItemFromMeal(String username, int mealId, int groceryItemId, Meal meal);
 
 }
