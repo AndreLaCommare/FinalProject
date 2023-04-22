@@ -228,7 +228,7 @@ public class MealPlan {
 	@Override
 	public String toString() {
 		return "MealPlan [id=" + id + ", title=" + title + ", description=" + description + ", enabled=" + enabled
-				+ ", visible=" + visible + "]";
+				+ ", visible=" + visible + ",meals=" + meals +  "]";
 	}
 
 }

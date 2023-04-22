@@ -54,6 +54,7 @@ public class MealServiceImpl implements MealService {
 		User user = userRepo.findByUsername(username);
 		if (user != null) {
 			meal.setUser(user);
+			meal.setEnabled(true);
 			 return mealRepo.saveAndFlush(meal);
 		}
 		return null;

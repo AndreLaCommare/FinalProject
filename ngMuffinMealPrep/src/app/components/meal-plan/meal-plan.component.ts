@@ -18,6 +18,7 @@ export class MealPlanComponent {
   selectedMeal: Meal | null = null;
   mealList: Meal [] = [];
   mealsToAddToMealPlan: Meal[] = [];
+
   loggedIn(): boolean{
     return this.auth.checkLogin();
   }
@@ -47,6 +48,7 @@ export class MealPlanComponent {
 }
 displaySingleMealPlan(mealPlan: MealPlan){
   this.selected = mealPlan;
+  console.log(this.selected)
 
 }
 displayTable(){
