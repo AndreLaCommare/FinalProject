@@ -215,6 +215,22 @@ public class Meal {
 	public void setMealPlans(List<MealPlan> mealPlans) {
 		this.mealPlans = mealPlans;
 	}
+	
+	public void addMealPlan (MealPlan mealPlan){
+		if(mealPlans == null) mealPlans = new ArrayList<>();
+		if(!mealPlans.contains (mealPlan)){
+		mealPlans.add(mealPlan); 
+		mealPlan.addMeal(this);
+		}
+	}
+	
+	public void removeMealPlan (MealPlan mealPlan) {
+		if(mealPlans != null && mealPlans.contains (mealPlan)){
+		mealPlans.remove(mealPlan);
+		mealPlan.removeMeal(this);
+		}
+	}
+	
 
 	public List<MealReview> getReviews() {
 		return reviews;

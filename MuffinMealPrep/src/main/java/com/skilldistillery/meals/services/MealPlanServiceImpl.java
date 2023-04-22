@@ -96,7 +96,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 	    if (mealPlan != null) {
 	        Meal meal = mealRepo.findByIdAndUser_Username(mealId, username);
 	        if (meal != null) {
-	            mealPlan.getMeals().add(meal);
+	            mealPlan.addMeal(meal);
 	            return mealPlanRepo.save(mealPlan);
 	        }
 	    }
