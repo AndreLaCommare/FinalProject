@@ -61,6 +61,7 @@ public class MealController {
             res.setStatus(201);
             res.setHeader("Location", req.getRequestURL().append("/").append(meal.getId()).toString());
         }
+  
         return meal;
     }
 

@@ -49,6 +49,7 @@ addedGroceryItems: GroceryItem[] = [];
 
     displaySingleMeal(meal: Meal){
       this.selected = meal;
+
     }
     displayTable(){
       this.selected = null;

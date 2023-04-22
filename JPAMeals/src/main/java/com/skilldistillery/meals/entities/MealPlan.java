@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -70,7 +71,7 @@ public class MealPlan {
 	@OneToMany(mappedBy = "mealPlan")
 	private List<PlanReview> planReviews;
 
-	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt","enabled"})
+	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt"})
 	@ManyToMany(mappedBy = "mealPlans")
 	private List<Meal> meals;
 
@@ -191,6 +192,21 @@ public class MealPlan {
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
 	}
+	
+	public void addMeal(Meal meal) {
+		if (meals == null) meals = new ArrayList<>();
+		if (!meals.contains(meal)) {
+			meals.add(meal);
+			meal.addMealPlan(this);
+		}
+	}
+	
+	public void removeMeal(Meal meal) {
+		if(meals != null && meals.contains(meal)) {
+			meals.remove(meal);
+			meal.removeMealPlan(this);
+		}
+	}
 
 	public MealPlan getCopiedFromPlan() {
 		return copiedFromPlan;
@@ -228,7 +244,7 @@ public class MealPlan {
 	@Override
 	public String toString() {
 		return "MealPlan [id=" + id + ", title=" + title + ", description=" + description + ", enabled=" + enabled
-				+ ", visible=" + visible + "]";
+				+ ", visible=" + visible + ",meals=" + meals +  "]";
 	}
 
 }

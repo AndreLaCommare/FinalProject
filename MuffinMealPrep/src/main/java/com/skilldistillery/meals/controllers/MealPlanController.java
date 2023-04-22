@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +52,8 @@ public class MealPlanController {
 	@PostMapping("mealPlans")
 	public MealPlan create(Principal principal, HttpServletRequest req,
 			HttpServletResponse res, @RequestBody MealPlan mealPlan) {
-		
 		mealPlan = mealPlanService.create(principal.getName(), mealPlan);
+		System.out.println(mealPlan);
 		if(mealPlan == null) {
 			res.setStatus(404);
 		} else {
@@ -60,10 +61,12 @@ public class MealPlanController {
 					req.getRequestURL().append("/").
 					append(mealPlan.getId()).toString());
 		}
+		System.out.println(mealPlan);
 		return mealPlan;
 	}
+
 	
-	@PostMapping("mealplans/{mealPlanId}/meals/{mealId}")
+	@PostMapping("mealPlans/{mealPlanId}/meals/{mealId}")
 	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId, HttpServletRequest req, HttpServletResponse res) {
 	    MealPlan mealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
 	    if (mealPlan == null) {

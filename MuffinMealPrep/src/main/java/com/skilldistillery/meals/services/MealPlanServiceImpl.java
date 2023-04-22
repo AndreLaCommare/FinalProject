@@ -55,6 +55,8 @@ public class MealPlanServiceImpl implements MealPlanService {
 		User user = userRepo.findByUsername(username);
 		if(user != null) {
 			mealPlan.setPlanCreator(user);
+			System.out.println(mealPlan);
+			mealPlan.setEnabled(true);
 			return mealPlanRepo.saveAndFlush(mealPlan);
 		}
 		return null;
@@ -94,7 +96,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 	    if (mealPlan != null) {
 	        Meal meal = mealRepo.findByIdAndUser_Username(mealId, username);
 	        if (meal != null) {
-	            mealPlan.getMeals().add(meal);
+	            mealPlan.addMeal(meal);
 	            return mealPlanRepo.save(mealPlan);
 	        }
 	    }
