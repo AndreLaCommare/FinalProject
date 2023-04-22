@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -190,6 +191,21 @@ public class MealPlan {
 
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
+	}
+	
+	public void addMeal(Meal meal) {
+		if (meals == null) meals = new ArrayList<>();
+		if (!meals.contains(meal)) {
+			meals.add(meal);
+			meal.addMealPlan(this);
+		}
+	}
+	
+	public void removeMeal(Meal meal) {
+		if(meals != null && meals.contains(meal)) {
+			meals.remove(meal);
+			meal.removeMealPlan(this);
+		}
 	}
 
 	public MealPlan getCopiedFromPlan() {
