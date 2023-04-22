@@ -4,17 +4,18 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { GroceryItem } from '../models/grocery-item';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GroceryItemService {
-  private url = environment.baseUrl + 'api/groceryItems';
+  private url = environment.baseUrl + 'api/groceries';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   findAll(): Observable<GroceryItem[]> {
-    return this.http.get<GroceryItem[]>(this.url).pipe(
+    return this.http.get<GroceryItem[]>(this.url, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -44,7 +45,7 @@ export class GroceryItemService {
   }
 
   create(groceryItem: GroceryItem): Observable<GroceryItem> {
-    return this.http.post<GroceryItem>(this.url, groceryItem).pipe(
+    return this.http.post<GroceryItem>(this.url, groceryItem, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -87,5 +88,16 @@ export class GroceryItemService {
       })
     );
   }
+
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
+  }
+
 }
 
