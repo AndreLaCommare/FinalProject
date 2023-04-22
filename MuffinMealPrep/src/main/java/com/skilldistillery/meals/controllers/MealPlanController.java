@@ -48,20 +48,31 @@ public class MealPlanController {
 		return mealPlan;
 	}
 	
-//	@PostMapping("mealPlans")
-//	public MealPlan create(Principal principal, HttpServletRequest req,
-//			HttpServletResponse res, @RequestBody MealPlan mealPlan) {
-//		
-//		mealPlan = mealPlanService.create(principal.getName(), mealPlan);
-//		if(mealPlan == null) {
-//			res.setStatus(404);
-//		} else {
-//			res.setHeader("Location",
-//					req.getRequestURL().append("/").
-//					append(mealPlan.getId()).toString());
-//		}
-//		return mealPlan;
-//	}
+	@PostMapping("mealPlans")
+	public MealPlan create(Principal principal, HttpServletRequest req,
+			HttpServletResponse res, @RequestBody MealPlan mealPlan) {
+		
+		mealPlan = mealPlanService.create(principal.getName(), mealPlan);
+		if(mealPlan == null) {
+			res.setStatus(404);
+		} else {
+			res.setHeader("Location",
+					req.getRequestURL().append("/").
+					append(mealPlan.getId()).toString());
+		}
+		return mealPlan;
+	}
 	
-	
+	@PostMapping("mealplans/{mealPlanId}/meals/{mealId}")
+	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId, HttpServletRequest req, HttpServletResponse res) {
+	    MealPlan mealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
+	    if (mealPlan == null) {
+	        res.setStatus(404);
+	    } else {
+	        res.setStatus(201);
+	        res.setHeader("Location", req.getRequestURL().append("/").append(mealPlan.getId()).toString());
+	    }
+	    return mealPlan;
+	}
+
 }
