@@ -1,3 +1,4 @@
+import { GroceryItemService } from './../../services/grocery-item.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { GroceryItem } from 'src/app/models/grocery-item';
@@ -14,14 +15,18 @@ export class MealComponent implements OnInit{
   meals: Meal[] = [];
   selected: Meal | null = null;
   newMeal: Meal = new Meal();
+  groceryItemList: GroceryItem [] = [];
+  itemsToAddToMeal: GroceryItem [] =[];
+
   loggedIn(): boolean{
     return this.auth.checkLogin();
   }
 
-  constructor(private mealService: MealService, private auth: AuthService){}
+  constructor(private mealService: MealService, private auth: AuthService, private groceryItemService: GroceryItemService){}
 
   ngOnInit(): void {
     this.reload();
+    this.findAllGroceryItems();
 
   }
     reload(){
@@ -48,6 +53,8 @@ export class MealComponent implements OnInit{
     }
 
     addMeal(newMeal: Meal){
+      newMeal.groceryItems = this.itemsToAddToMeal;
+      console.log(this.itemsToAddToMeal)
       console.log(newMeal);
       this.mealService.create(newMeal).subscribe({
         next:(createdMeal) => {
@@ -57,6 +64,10 @@ export class MealComponent implements OnInit{
           console.error(err)
         }
       });
+    }
+
+    addItemToMeal(groceryItem: GroceryItem){
+      this.itemsToAddToMeal.push(groceryItem)
     }
 
     addGroceryToMeal(newGrocery: GroceryItem, currentMeal: Meal){
@@ -69,6 +80,15 @@ export class MealComponent implements OnInit{
           console.error(err);
         }
       })
+    }
+
+    findAllGroceryItems(){
+     this.groceryItemService.findAll().subscribe({
+      next: (itemList) =>{
+        console.log(itemList)
+        this.groceryItemList = itemList;
+      }
+     });
     }
 
 }

@@ -22,19 +22,15 @@
     <div ngbDropdown class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
       data-mdb-toggle="dropdown" aria-expanded="false">
-      Checkbox dropdown
+      Ingredients List
       </button>
-      <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li>
-              <a ngbDropdownItem class="dropdown-item" href="#">
-                  <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="Checkme1" />
-                      <label class="form-check-label" for="Checkme1">Check me</label>
-                  </div>
-              </a>
-          </li>
-      </ul>
+      <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button (click)="addItemToMeal(groceryItem)" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
+          {{groceryItem.name}}
+        </button>
+      </div>
   </div>
+
     <button (click)="addMeal(newMeal)" class="btn btn-primary">Create Meal</button>
 
   </form>
