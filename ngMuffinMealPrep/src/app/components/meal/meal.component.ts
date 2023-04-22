@@ -2,7 +2,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
-
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
