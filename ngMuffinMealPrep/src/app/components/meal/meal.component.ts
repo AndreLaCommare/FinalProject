@@ -1,5 +1,6 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { GroceryItem } from 'src/app/models/grocery-item';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 
@@ -56,6 +57,18 @@ export class MealComponent implements OnInit{
           console.error(err)
         }
       });
+    }
+
+    addGroceryToMeal(newGrocery: GroceryItem, currentMeal: Meal){
+      console.log(newGrocery);
+      this.mealService.createGroceryForMeal(newGrocery, newGrocery.id, currentMeal.id).subscribe({
+        next:(updatedMeal) => {
+          this.reload();
+        },
+        error:(err) => {
+          console.error(err);
+        }
+      })
     }
 
 }
