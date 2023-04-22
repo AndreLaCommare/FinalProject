@@ -70,7 +70,7 @@ public class MealPlan {
 	@OneToMany(mappedBy = "mealPlan")
 	private List<PlanReview> planReviews;
 
-	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt","enabled"})
+	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt"})
 	@ManyToMany(mappedBy = "mealPlans")
 	private List<Meal> meals;
 

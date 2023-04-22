@@ -1,4 +1,4 @@
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <h1 *ngIf="!selected">Meal Plans</h1>
 <div id="addMeal" *ngIf="loggedIn()">
   <form name="createMeal" *ngIf="!selected">
@@ -9,6 +9,18 @@
     <input type="text" name="description"[(ngModel)]="newMealPlan.description" required><br><br>
     <label for="name">Meal Visibility</label>
     <input type="checkbox" name="visible"[(ngModel)]="newMealPlan.visible"><br><br>
+
+    <div ngbDropdown class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
+      data-mdb-toggle="dropdown" aria-expanded="false">
+      Add Meals to Plan?
+      </button>
+      <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="itemButton" ng-click="changeColor('green')" (click)="[addMealToMealPlan(meal)]" ngbDropdownItem *ngFor="let meal of mealList" >
+          {{meal.name}}
+        </button>
+      </div>
+  </div>
 
     <button (click)="addMealPlan(newMealPlan)" class="btn btn-primary">Create Meal Plan</button>
 
