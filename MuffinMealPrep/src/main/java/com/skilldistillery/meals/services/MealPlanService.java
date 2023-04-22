@@ -20,5 +20,7 @@ public interface MealPlanService {
 	MealPlan update(String username, int mealPlanId, MealPlan mealPlan);
 	
 	boolean deactivate(String username, int mealPlanId);
+
+	MealPlan addMealToMealPlan(String username, int mealPlanId, int mealId);
 	
 }

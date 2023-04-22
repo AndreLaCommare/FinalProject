@@ -1,14 +1,15 @@
 package com.skilldistillery.meals.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealPlan;
 import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.repositories.MealPlanRepository;
+import com.skilldistillery.meals.repositories.MealRepository;
 import com.skilldistillery.meals.repositories.UserRepository;
 
 @Service
@@ -20,6 +21,9 @@ public class MealPlanServiceImpl implements MealPlanService {
 	
 	@Autowired 
 	private MealPlanRepository mealPlanRepo;
+	
+	@Autowired 
+	private MealRepository mealRepo;
 
 	@Override
 	public List<MealPlan> findAllMealPlans() {
@@ -83,4 +87,18 @@ public class MealPlanServiceImpl implements MealPlanService {
 		}
 		return false;
 	}
+	
+	@Override
+	public MealPlan addMealToMealPlan(String username, int mealPlanId, int mealId) {
+	    MealPlan mealPlan = mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
+	    if (mealPlan != null) {
+	        Meal meal = mealRepo.findByIdAndUser_Username(mealId, username);
+	        if (meal != null) {
+	            mealPlan.getMeals().add(meal);
+	            return mealPlanRepo.save(mealPlan);
+	        }
+	    }
+	    return null;
+	}
+
 }
