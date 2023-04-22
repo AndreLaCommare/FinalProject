@@ -28,8 +28,18 @@
           <button class="itemButton" ng-click="changeColor('green')" (click)="[addItemToMeal(groceryItem)]" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
           {{groceryItem.name}}
         </button>
+        <br><br>
       </div>
-  </div>
+    </div>
+    <label for="newGroceryItem">New Grocery Item</label>
+<input type="text" name="newGroceryItem" [(ngModel)]="newGroceryItemName">
+<button (click)="createAndAddGroceryItem(newGroceryItemName)" class="btn btn-primary">Add New Grocery Item</button>
+<p>Added Grocery Items:</p>
+<ul>
+  <li *ngFor="let groceryItem of addedGroceryItems">
+    {{groceryItem.name}}
+  </li>
+</ul>
 
     <button (click)="addMeal(newMeal)" class="btn btn-primary">Create Meal</button>
 
