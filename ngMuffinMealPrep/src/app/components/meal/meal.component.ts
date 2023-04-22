@@ -54,6 +54,7 @@ export class MealComponent implements OnInit{
 
     addMeal(newMeal: Meal){
       newMeal.groceryItems = this.itemsToAddToMeal;
+      this.itemsToAddToMeal = []
       console.log(this.itemsToAddToMeal)
       console.log(newMeal);
       this.mealService.create(newMeal).subscribe({

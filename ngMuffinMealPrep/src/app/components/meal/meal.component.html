@@ -25,7 +25,7 @@
       Ingredients List
       </button>
       <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button (click)="addItemToMeal(groceryItem)" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
+          <button class="itemButton" ng-click="changeColor('green')" (click)="[addItemToMeal(groceryItem)]" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
           {{groceryItem.name}}
         </button>
       </div>
