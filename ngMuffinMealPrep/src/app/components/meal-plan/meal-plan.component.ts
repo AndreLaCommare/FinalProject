@@ -62,7 +62,7 @@ addMealPlan(newMealPlan: MealPlan){
   console.log(newMealPlan);
  this.mealsToAddToMealPlan = [];
   this.mealPlanService.create(newMealPlan).subscribe({
-    next:(createdMeal) => {
+    next:(createdMealPlan) => {
       this.reload();
     },
     error:(err) =>{

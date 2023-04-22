@@ -64,6 +64,7 @@ public class MealPlanController {
 		System.out.println(mealPlan);
 		return mealPlan;
 	}
+
 	
 	@PostMapping("mealPlans/{mealPlanId}/meals/{mealId}")
 	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId, HttpServletRequest req, HttpServletResponse res) {

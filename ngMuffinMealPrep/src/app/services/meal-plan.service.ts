@@ -29,6 +29,7 @@ export class MealPlanService {
   create(mealPlan: MealPlan): Observable<MealPlan> {
     return this.http.post<MealPlan>(this.url, mealPlan, this.getHttpOptions()).pipe(
       catchError((err: any) => {
+        console.log("in service")
         console.log(err);
         return throwError(
           () =>
