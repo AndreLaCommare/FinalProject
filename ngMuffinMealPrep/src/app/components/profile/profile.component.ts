@@ -17,6 +17,7 @@ import { MealPlanService } from 'src/app/services/meal-plan.service';
 export class ProfileComponent implements OnInit{
   userToDisplay : User | null = null;
   myMeals: boolean = false;
+  myMealPlans: boolean = false;
   editMeal: Meal | null = null;
   groceryItemList: GroceryItem [] = [];
   userMeals: Meal[] = [];

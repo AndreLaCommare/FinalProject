@@ -1,5 +1,5 @@
 <div>
-  <div id="user info" *ngIf="!myMeals">
+  <div id="user info" *ngIf="!myMeals && !myMealPlans">
 
     <h3>
       Hello,
@@ -8,11 +8,11 @@
 
     <img src="{{userToDisplay?.imageUrl}}">
   </div>
-  <button class="btn btn-info" *ngIf="!editMeal && !myMeals" (click)="myMeals = true">My Meals</button>
+  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans" (click)="myMeals = true">My Meals</button>
 
 
 
-  <div *ngIf="myMeals && !editMeal">
+  <div *ngIf="myMeals && !editMeal && !myMealPlans">
     My Meals:
     <div id="mealDetailDiv" *ngFor="let meal of userToDisplay?.userMeals">
       <div *ngIf="meal.enabled">
@@ -121,12 +121,18 @@
       </button>
     </form>
   </div>
-  My Meal Plans:
+  <button class="btn btn-info" *ngIf="!editMeal && !myMeals" (click)="myMealPlans = true">My Meal Plans</button>
+
+
+
+
+  <div *ngIf="myMealPlans && !editMeal">
   <div
     id="mealPlanDetailDiv"
     *ngFor="let mealPlan of userToDisplay?.userMealPlans"
   >
     <h1>Plan: {{ mealPlan.title }}</h1>
+    <button class="btn btn-primary" (click)="myMealPlans = false">Back To Profile</button>
 
     <table
       class="table table-striped table-hover"
