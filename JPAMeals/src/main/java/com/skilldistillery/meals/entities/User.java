@@ -62,7 +62,7 @@ public class User {
 	@OneToMany(mappedBy="user") 
 	private List<MealComment> mealComments;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"usersWithGroceries"})
 	@ManyToMany
 	@JoinTable(name = "user_grocery_list", 
 	joinColumns = @JoinColumn(name = "user_id"), 

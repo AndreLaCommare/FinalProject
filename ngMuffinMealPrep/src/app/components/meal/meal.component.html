@@ -83,7 +83,7 @@
   Groceries:
   <ul >
     <li *ngFor="let grocery of selected.groceryItems">
-      {{grocery.name}}
+      {{grocery.name}} <button *ngIf="loggedIn()" (click)="addGroceryToShoppingList(grocery)">Add To Shopping List</button>
     </li>
   </ul>
 
