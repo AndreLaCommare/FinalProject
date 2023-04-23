@@ -12,7 +12,7 @@ export class User {
   userMeals: Meal [];
   userMealPlans: MealPlan[];
   imageUrl: string;
-  shoppingList: GroceryItem [];
+  groceries: GroceryItem [];
 
 
   constructor(
@@ -24,7 +24,7 @@ export class User {
   userMeals: Meal [] = [],
   userMealPlans: MealPlan[] = [],
   imageUrl: string = '',
-  shoppingList: GroceryItem [] =[]
+  groceries: GroceryItem [] =[]
   )
   {
   this.id = id;
@@ -35,7 +35,7 @@ export class User {
   this.userMeals = userMeals;
   this.userMealPlans = userMealPlans;
   this.imageUrl = imageUrl;
-  this.shoppingList = shoppingList;
+  this.groceries = groceries;
   }
 
 

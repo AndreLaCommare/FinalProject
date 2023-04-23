@@ -42,16 +42,16 @@ public class UserController {
 //		return shoppingList;
 //	}
 
-	@PutMapping("myShoppingList/{groceryItemId}")
-	public User addGroceryToShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int groceryItemId) {
-		User updatedUser = userService.addToShoppingList(principal.getName(), groceryItemId);
-		if (updatedUser == null) {
-			res.setStatus(404);
-		} else {
-			res.setStatus(200);
-		}
-		return updatedUser;
-	}
+//	@PutMapping("myShoppingList/{groceryItemId}")
+//	public User addGroceryToShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int groceryItemId) {
+//		User updatedUser = userService.addToShoppingList(principal.getName(), groceryItemId);
+//		if (updatedUser == null) {
+//			res.setStatus(404);
+//		} else {
+//			res.setStatus(200);
+//		}
+//		return updatedUser;
+//	}
 	
 	@DeleteMapping("myShoppingList/{groceryItemId}")
 	public User removeGroceryFromShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int groceryItemId) {

@@ -59,24 +59,7 @@ public class UserServiceImpl implements UserService {
 		User originalUser =userRepo.findById(userId);
 		if (originalUser != null) {
 			originalUser.setGroceries(user.getGroceries());
-			originalUser.setAboutMe(user.getAboutMe());
-			originalUser.setEmail(user.getEmail());
-			originalUser.setFavoriteMealPlans(user.getFavoriteMealPlans());
-			originalUser.setFavoriteMeals(user.getFavoriteMeals());
-			originalUser.setFirstName(user.getFirstName());
-			originalUser.setLastName(user.getLastName());
-			originalUser.setImageUrl(user.getImageUrl());
-			originalUser.setUsername(user.getUsername());
-			originalUser.setMealComments(user.getMealComments());
-			originalUser.setMealReviews(user.getMealReviews());
-			originalUser.setPassword(user.getPassword());
-			originalUser.setUserMealPlans(user.getUserMealPlans());
-			originalUser.setUserMeals(user.getUserMeals());
-			originalUser.setPlanComments(user.getPlanComments());
-			originalUser.setReceivedMessages(user.getReceivedMessages());
-			originalUser.setSentMessages(user.getSentMessages());
-			originalUser.setPlanReviews(user.getPlanReviews());
-			
+		
 			userRepo.saveAndFlush(originalUser);
 			
 		}

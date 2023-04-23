@@ -6,6 +6,8 @@ import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
+import { ActivatedRoute } from '@angular/router';
+import { ShoppingListService } from 'src/app/services/shopping-list.service';
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
@@ -20,18 +22,32 @@ export class MealComponent implements OnInit{
   itemsToAddToMeal: GroceryItem [] =[];
   newGroceryItemName: string = '';
 addedGroceryItems: GroceryItem[] = [];
-
+currentUser: User | null = null;
 
   loggedIn(): boolean{
     return this.auth.checkLogin();
   }
 
-  constructor(private mealService: MealService, private auth: AuthService, private groceryItemService: GroceryItemService){}
+  constructor(private mealService: MealService,
+     private auth: AuthService,
+     private groceryItemService: GroceryItemService,
+     private currentRoute : ActivatedRoute,
+     private shoppingListService: ShoppingListService){}
 
   ngOnInit(): void {
     this.reload();
     this.findAllGroceryItems();
+    this.getLoggedInUser();
 
+  }
+
+  getLoggedInUser( ){
+    this.auth.getLoggedInUser().subscribe( {
+      next: (user) =>{this.currentUser = user;
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
   }
     reload(){
 
@@ -119,8 +135,24 @@ addedGroceryItems: GroceryItem[] = [];
     }
 
     addGroceryToShoppingList(grocery: GroceryItem){
-        // User.shoppingList.push(grocery)
-        console.log('in shopping list')
+      console.log(this.currentUser)
+        this.currentUser?.groceries.push(grocery)
+      this.updateUserShoppingList(this.currentUser)
     }
+
+    updateUserShoppingList(user: User|null){
+      this.shoppingListService.update(user).subscribe({
+        next: (update) => {
+
+
+          this.ngOnInit();
+
+        }
+
+      })
+    }
+
+
+
 
 }
