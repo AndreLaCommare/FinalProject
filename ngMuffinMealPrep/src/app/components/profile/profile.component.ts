@@ -6,6 +6,8 @@ import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 import { GroceryItemService } from 'src/app/services/grocery-item.service';
 import { GroceryItem } from 'src/app/models/grocery-item';
+import { MealPlan } from 'src/app/models/meal-plan';
+import { MealPlanService } from 'src/app/services/meal-plan.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +20,15 @@ export class ProfileComponent implements OnInit{
   editMeal: Meal | null = null;
   groceryItemList: GroceryItem [] = [];
   userMeals: Meal[] = [];
+  userMealPlans: MealPlan[] = [];
 
 
 
   constructor(private authServ: AuthService,
     private currentRoute : ActivatedRoute,
     private mealService: MealService,
-    private groceryItemService: GroceryItemService){
+    private groceryItemService: GroceryItemService,
+    private mealPlanService : MealPlanService){
   }
 
 
@@ -39,7 +43,7 @@ export class ProfileComponent implements OnInit{
 
 
 
-      console.log("in OnINit " +this.findAllGroceryItems());
+
 
     }
   }
@@ -48,7 +52,9 @@ export class ProfileComponent implements OnInit{
     this.authServ.getLoggedInUser().subscribe( {
       next: (user) =>{this.userToDisplay = user;
         this.getUserMeals();
+        this.getUserMealPlans();
         this.userToDisplay.userMeals = this.userMeals;
+        this.userToDisplay.userMealPlans = this.userMealPlans;
 
         console.log(this.userToDisplay.userMeals)}
      ,
@@ -114,6 +120,26 @@ export class ProfileComponent implements OnInit{
     console.error(fail);
   }
   });
+   }
+
+   getUserMealPlans(){
+    this.mealPlanService.index().subscribe({
+      next: (data) => {
+        for(let mealPlan of data){
+          if(mealPlan.planCreator?.id === this.userToDisplay?.id){
+            this.userMealPlans.push(mealPlan);
+
+          }
+        }
+      },
+
+
+  error: (fail) => {
+    console.error('Error reloading');
+    console.error(fail);
+  }
+  });
+
    }
 
 
