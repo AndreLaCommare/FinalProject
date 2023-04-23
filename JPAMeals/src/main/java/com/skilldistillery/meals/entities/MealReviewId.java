@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 @Embeddable
 public class MealReviewId implements Serializable{
 
@@ -18,6 +20,12 @@ public class MealReviewId implements Serializable{
 	
 	public MealReviewId() {
 		
+	}
+
+    @JsonCreator
+	public MealReviewId(int mealId, int userId) {
+		  this.mealId = mealId;
+	        this.userId = userId;
 	}
 
 	public int getMealId() {

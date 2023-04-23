@@ -8,6 +8,9 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { ActivatedRoute } from '@angular/router';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
+import { MealReview } from 'src/app/models/meal-review';
+import { MealReviewService } from 'src/app/services/meal-review.service';
+
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
@@ -23,6 +26,9 @@ export class MealComponent implements OnInit{
   newGroceryItemName: string = '';
 addedGroceryItems: GroceryItem[] = [];
 currentUser: User | null = null;
+mealReviews: MealReview[] = [];
+newReview: MealReview = new MealReview();
+
 
   loggedIn(): boolean{
     return this.auth.checkLogin();
@@ -32,7 +38,9 @@ currentUser: User | null = null;
      private auth: AuthService,
      private groceryItemService: GroceryItemService,
      private currentRoute : ActivatedRoute,
-     private shoppingListService: ShoppingListService){}
+     private shoppingListService: ShoppingListService,
+     private mealReviewService: MealReviewService
+     ){}
 
   ngOnInit(): void {
     this.reload();
@@ -152,7 +160,33 @@ currentUser: User | null = null;
       })
     }
 
+    createMealReview(mealReview: MealReview, mealId: number, userId: number) {
+      this.mealReviewService.createMealReview(mealReview, mealId, userId).subscribe({
+        next: (createdReview) => {
+          this.getMealReviewsByMealId(mealId);
+        },
+        error: (err) => {
+          console.error('Error creating meal review:', err);
+        },
+      });
+    }
 
+    getMealReviewsByMealId(mealId: number) {
+      this.mealReviewService.getMealReviewsByMealId(mealId).subscribe({
+        next: (reviews) => {
+          this.mealReviews = reviews;
+        },
+        error: (err) => {
+          console.error('Error fetching meal reviews:', err);
+        },
+      });
+    }
+
+    onSubmitReview() {
+      if (this.selected && this.currentUser) {
+        this.createMealReview(this.newReview, this.selected.id, this.currentUser.id);
+      }
+    }
 
 
 }
