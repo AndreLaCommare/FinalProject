@@ -73,6 +73,21 @@ public class GroceryItem {
 	public void setUsersWithGroceries(List<User> usersWithGroceries) {
 		this.usersWithGroceries = usersWithGroceries;
 	}
+	public void addUser(User user) {
+		if (usersWithGroceries == null) usersWithGroceries = new ArrayList<>();
+		if (!usersWithGroceries.contains(user)) {
+			usersWithGroceries.add(user);
+			user.addGrocery(this);
+		}
+	}
+	
+	public void removeUser(User user) {
+		if(usersWithGroceries != null && usersWithGroceries.contains(user)) {
+			usersWithGroceries.remove(user);
+			user.removeGrocery(this);
+		}
+	}
+	
 
 	public List<Meal> getMealsWithGroceries() {
 		return mealsWithGroceries;
