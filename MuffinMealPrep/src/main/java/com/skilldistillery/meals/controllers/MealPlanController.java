@@ -52,8 +52,9 @@ public class MealPlanController {
 	@PostMapping("mealPlans")
 	public MealPlan create(Principal principal, HttpServletRequest req,
 			HttpServletResponse res, @RequestBody MealPlan mealPlan) {
+		System.out.println(mealPlan + " before create");
 		mealPlan = mealPlanService.create(principal.getName(), mealPlan);
-		System.out.println(mealPlan);
+		System.out.println(mealPlan + " after create ***********************************************************");
 		if(mealPlan == null) {
 			res.setStatus(404);
 		} else {
@@ -64,6 +65,7 @@ public class MealPlanController {
 		System.out.println(mealPlan);
 		return mealPlan;
 	}
+	
 
 	
 	@PostMapping("mealPlans/{mealPlanId}/meals/{mealId}")

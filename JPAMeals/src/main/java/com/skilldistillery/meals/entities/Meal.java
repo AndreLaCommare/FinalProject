@@ -71,10 +71,7 @@ public class Meal {
 	List<Diet> diets;
 	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "meal_plan_has_meal", 
-	joinColumns = @JoinColumn(name = "meal_id"), 
-	inverseJoinColumns = @JoinColumn(name = "meal_plan_id"))
+	@ManyToMany(mappedBy = "meals")
 	private List<MealPlan> mealPlans;
 	
 	@OneToMany(mappedBy="meal")

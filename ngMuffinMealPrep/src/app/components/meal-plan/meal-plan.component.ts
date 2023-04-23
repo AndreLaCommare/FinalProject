@@ -29,6 +29,7 @@ export class MealPlanComponent {
   ngOnInit(): void {
     this.reload();
     this.findAllMeals();
+    this.findAllMealsInMealPlan();
 
   }
   reload(){
@@ -48,6 +49,7 @@ export class MealPlanComponent {
 }
 displaySingleMealPlan(mealPlan: MealPlan){
   this.selected = mealPlan;
+
   console.log(this.selected)
 
 }
@@ -57,12 +59,16 @@ displayTable(){
 }
 
 addMealPlan(newMealPlan: MealPlan){
+   console.log(this.findAllMealsInMealPlan());
   newMealPlan.meals = this.mealsToAddToMealPlan;
+  this.mealPlans.push(newMealPlan);
+
   console.log(this.mealsToAddToMealPlan)
   console.log(newMealPlan);
  this.mealsToAddToMealPlan = [];
   this.mealPlanService.create(newMealPlan).subscribe({
     next:(createdMealPlan) => {
+      console.log(createdMealPlan)
       this.reload();
     },
     error:(err) =>{
@@ -86,6 +92,21 @@ findAllMeals(){
      this.mealList = meals;
    }
   });
+ }
+
+ findAllMealsInMealPlan(){
+  this.mealService.index().subscribe({
+    next: (meals) =>{
+      for(let meal of meals){
+        if(this.mealsToAddToMealPlan.includes(meal)){
+          this.selected?.meals.push(meal);
+        }
+      }
+
+
+    }
+   });
+
  }
 
 
