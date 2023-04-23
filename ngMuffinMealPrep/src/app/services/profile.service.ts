@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Meal } from '../models/meal';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +8,6 @@ import { Injectable } from '@angular/core';
 export class ProfileService {
 
   constructor() { }
+
+
 }
