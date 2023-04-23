@@ -19,7 +19,9 @@
         <li class="nav-item" *ngIf="!loggedIn()">
           <a class="nav-link" [routerLink]="['/register']">Register Account</a>
         </li>
-
+        <li class="nav-item" *ngIf="loggedIn()">
+          <a class="nav-link" [routerLink]="['/shoppingList']">My Shopping List</a>
+        </li>
 
         <li *ngIf="loggedIn()">
 

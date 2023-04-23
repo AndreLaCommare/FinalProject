@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MealComponent } from './components/meal/meal.component';
 import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
   { path: 'meals', component: MealComponent },
   { path: 'meals/:mealId', component: MealComponent },
   { path: 'mealPlans', component: MealPlanComponent },
-
+  { path: 'shoppingList', component: ShoppingListComponent}
 
 ];
 

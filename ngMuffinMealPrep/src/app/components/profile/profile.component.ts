@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit{
     })
   }
 
+
   deleteMeal(mealId: number){
     this.mealService.delete(mealId).subscribe({
       next: () => {
