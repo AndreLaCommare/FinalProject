@@ -1,23 +1,53 @@
 // src/app/services/meal-review.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { MealReview } from '../models/meal-review';
+import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealReviewService {
-  private apiUrl = 'http://localhost:8090/api/meals';
+  private url = environment.baseUrl + 'api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   createMealReview(mealReview: MealReview, mealId: number, userId: number): Observable<MealReview> {
-    return this.http.post<MealReview>(`${this.apiUrl}/${mealId}/mealReview/${userId}`, mealReview);
+    console.log('Sending JSON payload:', JSON.stringify(mealReview));
+    return this.http.post<MealReview>(`${this.url}/${mealId}/mealReviews/${userId}`, mealReview, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealReviewService.createMealReview(): error creating meal review: ' + err)
+        );
+      })
+    );
   }
 
   getMealReviewsByMealId(mealId: number): Observable<MealReview[]> {
-    return this.http.get<MealReview[]>(`${this.apiUrl}/${mealId}/mealReview`);
+    return this.http.get<MealReview[]>(`${this.url}/${mealId}/mealReviews`, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealReviewService.getMealReviewsByMealId(): error fetching meal reviews by mealId: ' + err)
+        );
+      })
+    );
+  }
+
+
+
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
   }
 }
 

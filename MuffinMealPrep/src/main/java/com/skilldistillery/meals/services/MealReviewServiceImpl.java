@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealReview;
+import com.skilldistillery.meals.entities.MealReviewId;
 import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.repositories.MealRepository;
 import com.skilldistillery.meals.repositories.MealReviewRepository;
@@ -32,5 +33,11 @@ public class MealReviewServiceImpl implements MealReviewService {
     public List<MealReview> getMealReviewsByMealId(int mealId) {
         return mealReviewRepository.findByMealId(mealId);
     }
+    
+    @Override
+    public MealReview findMealReviewById(MealReviewId id) {
+        return mealReviewRepository.findById(id);
+    }
+
 }
 

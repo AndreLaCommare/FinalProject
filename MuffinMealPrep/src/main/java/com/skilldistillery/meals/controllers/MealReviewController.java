@@ -1,6 +1,10 @@
 package com.skilldistillery.meals.controllers;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealReview;
+import com.skilldistillery.meals.entities.MealReviewId;
 import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.repositories.MealRepository;
 import com.skilldistillery.meals.repositories.UserRepository;
@@ -29,14 +34,31 @@ public class MealReviewController {
     @Autowired
     private MealRepository mealRepository;
 
-    @PostMapping("/{mealId}/mealReview/{userId}")
-    public MealReview createMealReview(@RequestBody MealReview mealReview, @PathVariable int mealId, @PathVariable int userId) {
+    @PostMapping("/{mealId}/mealReviews/{userId}")
+    public MealReview createMealReview(Principal principal, HttpServletRequest req, HttpServletResponse res, @RequestBody MealReview mealReview, @PathVariable int mealId, @PathVariable int userId) {
         Meal meal = mealRepository.findById(mealId);
         User user = userRepository.findById(userId);
-        return mealReviewService.createMealReview(mealReview, meal, user);
+        MealReviewId mealReviewId = new MealReviewId(mealId, userId);
+        MealReview existingMealReview = mealReviewService.findMealReviewById(mealReviewId);
+        if (existingMealReview != null) {
+            res.setStatus(409);
+            return null;
+        }
+
+        mealReview.setId(mealReviewId);
+        MealReview createdMealReview = mealReviewService.createMealReview(mealReview, meal, user);
+        
+        if (createdMealReview == null) {
+            res.setStatus(404);
+        } else {
+            res.setStatus(201);
+            res.setHeader("Location", req.getRequestURL().append("/").append(createdMealReview.getId()).toString());
+        }
+        
+        return createdMealReview;
     }
 
-    @GetMapping("/{mealId}/mealReview")
+    @GetMapping("/{mealId}/mealReviews")
     public List<MealReview> getMealReviewsByMealId(@PathVariable int mealId) {
         return mealReviewService.getMealReviewsByMealId(mealId);
     }
