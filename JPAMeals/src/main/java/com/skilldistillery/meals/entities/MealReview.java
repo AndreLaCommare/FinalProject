@@ -49,7 +49,7 @@ public class MealReview {
 	private Meal meal;
 
 	public MealReview() {
-
+		id = new MealReviewId();
 	}
 
 	public MealReviewId getId() {

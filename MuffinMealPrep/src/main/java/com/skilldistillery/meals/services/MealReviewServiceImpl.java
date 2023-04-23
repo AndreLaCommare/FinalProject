@@ -19,13 +19,13 @@ public class MealReviewServiceImpl implements MealReviewService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private MealRepository mealRepository;
+    private MealRepository mealRepo;
 
     @Override
     public MealReview createMealReview(MealReview mealReview, Meal meal, User user) {
         mealReview.setMeal(meal);
         mealReview.setUser(user);
-        return mealReviewRepository.save(mealReview);
+        return mealReviewRepository.saveAndFlush(mealReview);
     }
 
     @Override
