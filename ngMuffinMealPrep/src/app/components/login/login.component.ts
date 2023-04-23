@@ -17,12 +17,17 @@ export class LoginComponent {
     this.auth.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
         this.router.navigateByUrl('/home');
+        this.ngOnInit();
       },
       error: (problem) => {
         console.error('RegisterComponent.register(): Error logging in user:');
         console.error(problem);
       }
     });
+  }
+
+  ngOnInit(){
+
   }
 
   constructor(private auth : AuthService, private router : Router){

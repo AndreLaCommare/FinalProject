@@ -11,4 +11,5 @@ public interface UserService {
 	User addToShoppingList(String username, int groceryItemId);
 	User removeFromShoppingList(String username, int groceryItemId);
 	public User updateShoppingList(String username, int userId, User user);
+	List<User> findAll();
 }
