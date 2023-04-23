@@ -10,7 +10,7 @@ export class User {
   role: string;
   userMeals: Meal [];
   userMealPlans: MealPlan[];
-
+  imageUrl: string;
 
 
   constructor(
@@ -20,15 +20,18 @@ export class User {
   email: string = '',
   role: string = '',
   userMeals: Meal [] = [],
-  userMealPlans: MealPlan[] = []
-  ) {
+  userMealPlans: MealPlan[] = [],
+  imageUrl: string = ''
+  )
+  {
   this.id = id;
   this.username = username;
   this.password = password;
   this.email = email;
   this.role = role;
-  this.userMeals = userMeals
-  this.userMealPlans = userMealPlans
+  this.userMeals = userMeals;
+  this.userMealPlans = userMealPlans;
+  this.imageUrl = imageUrl;
 
   }
 

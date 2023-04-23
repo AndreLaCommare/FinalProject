@@ -1,74 +1,150 @@
-<div >
+<div>
+  <div id="user info" *ngIf="!myMeals">
 
-Profile here
-<h3>
-  Name:
-  {{userToDisplay?.username}}
-</h3>
+    <h3>
+      Hello,
+      {{ userToDisplay?.username }}!
+    </h3>
 
-<h2>
-  Email:
-  {{userToDisplay?.email}}
-</h2>
-
-My Meals:
-<div id="mealDetailDiv" *ngFor="let meal of userToDisplay?.userMeals" >
-
-  <div class="card" style="width: 18 rem;">
-    <img class="card-img-top" [src]="meal.imageUrl" alt="Card image cap" >
-    <div class="card-body">
-
-  <h1> Name: {{meal.name}}</h1>
-
-  <p>Desc: {{meal.description}}</p>
-  <p>Instructions: {{meal.instructions}}</p>
-  Groceries:
-  <ul >
-    <li *ngFor="let grocery of meal.groceryItems">
-      {{grocery.name}}
-    </li>
-  </ul>
+    <img src="{{userToDisplay?.imageUrl}}">
+  </div>
+  <button class="btn btn-info" *ngIf="!editMeal && !myMeals" (click)="myMeals = true">My Meals</button>
 
 
 
-  <ul>
-    <li>Prep Time: {{meal.prepTime | number: '1.1-1'}} min</li>
-    <li>Cook Time: {{meal.cookTime | number: '1.1-1'}} min</li>
+  <div *ngIf="myMeals && !editMeal">
+    My Meals:
+    <div id="mealDetailDiv" *ngFor="let meal of userToDisplay?.userMeals">
+      <div *ngIf="meal.enabled">
+        <div class="card" style="width: 18 rem">
+          <img
+            class="card-img-top"
+            [src]="meal.imageUrl"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h1>Name: {{ meal.name }}</h1>
 
-  </ul>
+            <p>Desc: {{ meal.description }}</p>
+            <p>Instructions: {{ meal.instructions }}</p>
+            Groceries:
+            <ul>
+              <li *ngFor="let grocery of meal.groceryItems">
+                {{ grocery.name }}
+              </li>
+            </ul>
 
+            <ul>
+              <li>Prep Time: {{ meal.prepTime | number : "1.1-1" }} min</li>
+              <li>Cook Time: {{ meal.cookTime | number : "1.1-1" }} min</li>
+            </ul>
 
-</div>
-</div>
-</div>
-My Meal Plans:
-<div id="mealPlanDetailDiv" *ngFor="let mealPlan of userToDisplay?.userMealPlans">
-  <h1> Plan: {{mealPlan.title}}</h1>
+            <button class="btn btn-primary" (click)="myMeals = false">Back To Profile</button>
+            <button class="btn btn-warning"(click)="setEditMeal(meal)">Edit Meal</button>
+            <button class="btn btn-danger" (click)="deleteMeal(meal.id)">Delete Meal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <table class="table table-striped table-hover" *ngFor="let meal of mealPlan.meals">
+  <div id="editMeal" *ngIf="editMeal">
+    <form name="createMeal">
+      <label for="name">Meal Name</label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="editMeal.name"
+        required
+      /><br /><br />
+      <label for="name">Meal Description</label>
+      <input
+        type="text"
+        name="description"
+        [(ngModel)]="editMeal.description"
+        required
+      /><br /><br />
+      <label for="name">Meal Instructions</label>
+      <input
+        type="text"
+        name="instructions"
+        [(ngModel)]="editMeal.instructions"
+      /><br /><br />
+      <label for="name">Meal Image URL</label>
+      <input
+        type="text"
+        name="imageUrl"
+        [(ngModel)]="editMeal.imageUrl"
+      /><br /><br />
+      <label for="name">Meal Visibility</label>
+      <input
+        type="checkbox"
+        name="visible"
+        [(ngModel)]="editMeal.visible"
+      /><br /><br />
+      <label for="name">Prep Time</label>
+      <input
+        type="number"
+        name="prepTime"
+        [(ngModel)]="editMeal.prepTime"
+      /><br /><br />
+      <label for="name">Cook Time</label>
+      <input
+        type="number"
+        name="cookTime"
+        [(ngModel)]="editMeal.cookTime"
+      /><br /><br />
+      <!-- <div ngbDropdown class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
+      data-mdb-toggle="dropdown" aria-expanded="false">
+      Ingredients List
+      </button>
+      <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class="itemButton" ng-click="changeColor('green')" (click)="[addItemToMeal(groceryItem)]" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
+          {{groceryItem.name}}
+        </button>
+        <br><br>
+      </div>
+    </div>
+    <label for="newGroceryItem">New Grocery Item</label>
+<input type="text" name="newGroceryItem" [(ngModel)]="newGroceryItemName">
+<button (click)="createAndAddGroceryItem(newGroceryItemName)" class="btn btn-primary">Add New Grocery Item</button>
+<p>Added Grocery Items:</p>
+<ul>
+  <li *ngFor="let groceryItem of addedGroceryItems">
+    {{groceryItem.name}}
+  </li>
+</ul> -->
 
-    <thead>
-      <tr>
+      <button (click)="updateMeal(editMeal)" class="btn btn-primary">
+        Edit Meal
+      </button>
+    </form>
+  </div>
+  My Meal Plans:
+  <div
+    id="mealPlanDetailDiv"
+    *ngFor="let mealPlan of userToDisplay?.userMealPlans"
+  >
+    <h1>Plan: {{ mealPlan.title }}</h1>
 
-        <th>Meal</th>
-        <th>Created By:</th>
-
-
-      </tr>
-    </thead>
-    <tbody>
-
- <!-- <tr (click)="displaySingleMeal(meal)"> -->
-<tr>
-    <td>{{meal.name}}</td>
-    <td *ngIf="meal.user">{{meal.user.username}}</td>
-
-
-  </tr>
-    </tbody>
-
-
-  </table>
-</div>
-
+    <table
+      class="table table-striped table-hover"
+      *ngFor="let meal of mealPlan.meals"
+    >
+      <thead>
+        <tr>
+          <th>Meal</th>
+          <th>Created By:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr (click)="displaySingleMeal(meal)"> -->
+        <tr>
+          <td>{{ meal.name }}</td>
+          <td *ngIf="meal.user">{{ meal.user.username }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
