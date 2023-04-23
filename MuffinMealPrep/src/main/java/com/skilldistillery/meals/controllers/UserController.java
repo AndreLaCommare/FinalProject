@@ -1,6 +1,7 @@
 package com.skilldistillery.meals.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +70,18 @@ public class UserController {
 			res.setStatus(200);
 		}
 		return updatedUser;
+	}
+	
+	@GetMapping("users")
+	public List<User> getAllUsers(Principal principal, HttpServletRequest req, HttpServletResponse res){
+		User user = userService.findByUsername(principal.getName());
+		List<User>  allUsers = userService.findAll();
+		if(allUsers != null && user.getRole() == "ADMIN") {
+			res.setStatus(404);
+		} else {
+			res.setStatus(200);
+		}
+		return allUsers;
 	}
 	
 	
