@@ -9,6 +9,8 @@ import com.skilldistillery.meals.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByUsername(String username);
+
 	List<GroceryItem> findByGroceries(String username);
+
 	User findById(int userId);
 }
