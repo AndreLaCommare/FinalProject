@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -56,7 +57,7 @@ public class MealPlan {
 		"favoriteMeals", "favoriteMealPlans", "planReviews", "userMealPlans",
 		"planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id") 
 	private User planCreator;
 
 	@JsonIgnore
@@ -72,7 +73,10 @@ public class MealPlan {
 	private List<PlanReview> planReviews;
 
 	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt"})
-	@ManyToMany(mappedBy = "mealPlans")
+	@ManyToMany
+	@JoinTable(name = "meal_plan_has_meal", 
+	joinColumns = @JoinColumn(name = "meal_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "meal_id"))
 	private List<Meal> meals;
 
 	// ADD AND REMOVE METHODS FOR MEALS NEED TO BE ADDED
