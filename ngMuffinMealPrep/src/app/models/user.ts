@@ -1,3 +1,4 @@
+import { GroceryItem } from "./grocery-item";
 import { Meal } from "./meal";
 import { MealPlan } from "./meal-plan";
 
@@ -11,6 +12,7 @@ export class User {
   userMeals: Meal [];
   userMealPlans: MealPlan[];
   imageUrl: string;
+  shoppingList: GroceryItem [];
 
 
   constructor(
@@ -21,7 +23,8 @@ export class User {
   role: string = '',
   userMeals: Meal [] = [],
   userMealPlans: MealPlan[] = [],
-  imageUrl: string = ''
+  imageUrl: string = '',
+  shoppingList: GroceryItem [] =[]
   )
   {
   this.id = id;
@@ -32,7 +35,7 @@ export class User {
   this.userMeals = userMeals;
   this.userMealPlans = userMealPlans;
   this.imageUrl = imageUrl;
-
+  this.shoppingList = shoppingList;
   }
 
 

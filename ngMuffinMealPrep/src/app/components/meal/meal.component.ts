@@ -5,6 +5,7 @@ import { GroceryItem } from 'src/app/models/grocery-item';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
@@ -19,6 +20,7 @@ export class MealComponent implements OnInit{
   itemsToAddToMeal: GroceryItem [] =[];
   newGroceryItemName: string = '';
 addedGroceryItems: GroceryItem[] = [];
+
 
   loggedIn(): boolean{
     return this.auth.checkLogin();
@@ -114,6 +116,11 @@ addedGroceryItems: GroceryItem[] = [];
         this.groceryItemList = itemList;
       }
      });
+    }
+
+    addGroceryToShoppingList(grocery: GroceryItem){
+        // User.shoppingList.push(grocery)
+        console.log('in shopping list')
     }
 
 }
