@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit{
   groceryItemList: GroceryItem [] = [];
   userMeals: Meal[] = [];
   userMealPlans: MealPlan[] = [];
+  userIsAdmin: boolean = false;
 
 
 
