@@ -62,7 +62,27 @@ export class MealService {
     );
   }
 
+  update(meal: Meal): Observable<Meal>{
+    return this.http.put<Meal>(this.url + '/' + meal.id, meal, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealService.createGroceryForMeal(): error adding grocery to meal: ' + err)
+        );
+      })
+    );
+  }
 
+  delete(mealId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/" + mealId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealService.createGroceryForMeal(): error adding grocery to meal: ' + err)
+        );
+      })
+    );
+  }
 
 
   getHttpOptions() {

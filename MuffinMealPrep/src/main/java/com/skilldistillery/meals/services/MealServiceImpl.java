@@ -82,6 +82,7 @@ public class MealServiceImpl implements MealService {
 	    Meal meal = mealRepo.findByIdAndUser_Username(mealId, username);
 	    if (meal != null) {
 	        meal.setEnabled(false);
+	        meal.setVisible(false);
 	        mealRepo.saveAndFlush(meal);
 	        deactivated = true;
 	    }
