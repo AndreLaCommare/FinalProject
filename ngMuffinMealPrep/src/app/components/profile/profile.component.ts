@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
+import { GroceryItemService } from 'src/app/services/grocery-item.service';
+import { GroceryItem } from 'src/app/models/grocery-item';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +16,15 @@ export class ProfileComponent implements OnInit{
   userToDisplay : User | null = null;
   myMeals: boolean = false;
   editMeal: Meal | null = null;
+  groceryItemList: GroceryItem [] = [];
+  userMeals: Meal[] = [];
 
 
 
   constructor(private authServ: AuthService,
     private currentRoute : ActivatedRoute,
-    private mealService: MealService){
+    private mealService: MealService,
+    private groceryItemService: GroceryItemService){
   }
 
 
@@ -31,12 +36,22 @@ export class ProfileComponent implements OnInit{
       this.getOtherUser(parseInt(userId));
     }else{
       this.getLoggedInUser();
+
+
+
+      console.log("in OnINit " +this.findAllGroceryItems());
+
     }
   }
 
   getLoggedInUser( ){
     this.authServ.getLoggedInUser().subscribe( {
-      next: (user) =>{this.userToDisplay = user},
+      next: (user) =>{this.userToDisplay = user;
+        this.getUserMeals();
+        this.userToDisplay.userMeals = this.userMeals;
+
+        console.log(this.userToDisplay.userMeals)}
+     ,
       error: (nojoy)=>{
         console.error(nojoy)
       }});
@@ -72,6 +87,34 @@ export class ProfileComponent implements OnInit{
       }
     })
   }
+
+  findAllGroceryItems(){
+    this.groceryItemService.findAll().subscribe({
+     next: (itemList) =>{
+       console.log("in find all groceries: " + itemList)
+       this.groceryItemList = itemList;
+     }
+    });
+   }
+
+   getUserMeals(){
+    this.mealService.index().subscribe({
+      next: (data) => {
+        for(let meal of data){
+          if(meal.user?.id === this.userToDisplay?.id){
+            this.userMeals.push(meal);
+
+          }
+        }
+      },
+
+
+  error: (fail) => {
+    console.error('Error reloading');
+    console.error(fail);
+  }
+  });
+   }
 
 
 }
