@@ -1,4 +1,5 @@
 import { Meal } from "./meal";
+import { User } from "./user";
 
 // src/app/models/meal-review.model.ts
 export class MealReview {
@@ -10,6 +11,7 @@ export class MealReview {
   enabled: boolean;
   createdAt: string;
   updatedAt: string;
+  user: User;
 
   constructor(
     // id: number = 0,
@@ -19,7 +21,8 @@ export class MealReview {
     stars: number = 0,
     enabled: boolean = false,
     createdAt: string = '',
-    updatedAt: string = ''
+    updatedAt: string = '',
+    user: User = new User()
   ) {
     // this.id = id;
     // this.user = user;
@@ -29,5 +32,6 @@ export class MealReview {
     this.enabled = enabled;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.user = user;
   }
 }

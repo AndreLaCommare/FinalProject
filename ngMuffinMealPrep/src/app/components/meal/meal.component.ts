@@ -75,6 +75,7 @@ newReview: MealReview = new MealReview();
 
     displaySingleMeal(meal: Meal){
       this.selected = meal;
+      this.getMealReviewsByMealId(meal.id);
 
     }
     displayTable(){
