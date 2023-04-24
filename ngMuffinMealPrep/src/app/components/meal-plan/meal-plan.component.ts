@@ -22,6 +22,8 @@ export class MealPlanComponent {
   mealsToAddToMealPlan: Meal[] = [];
   planReviews: PlanReview[] = [];
   newReview: PlanReview = new PlanReview();
+  diets: Diet[] = [];
+  selectedDiet: Diet | null = null;
 
 
   loggedIn(): boolean{
@@ -29,7 +31,7 @@ export class MealPlanComponent {
   }
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService
     ){}
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class MealPlanComponent {
     this.findAllMeals();
     this.findAllMealsInMealPlan();
     this.loadPlanReviews();
-
+    this.loadDiets();
   }
   reload(){
 
@@ -150,5 +152,10 @@ onSubmitReview(): void {
   }
 }
 
+loadDiets(): void {
+  this.dietService.index().subscribe((diets) => {
+    this.diets = diets;
+  });
+}
 
 }
