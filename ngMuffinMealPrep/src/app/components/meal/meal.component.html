@@ -59,7 +59,9 @@
   </thead>
   <tbody>
 
-<tr *ngFor="let meal of meals" (click)="displaySingleMeal(meal)">
+<tr *ngFor="let meal of meals | enabledMeals" (click)="displaySingleMeal(meal)"  >
+
+
 
   <td>{{meal.name}}</td>
   <td *ngIf="meal.user">{{meal.user.username}}</td>

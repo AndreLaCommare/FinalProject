@@ -93,6 +93,32 @@ public class MealPlanServiceImpl implements MealPlanService {
 	}
 	
 	@Override
+	public boolean adminDeactivate( int mealId) {
+	    boolean deactivated = false;
+	    MealPlan mealPlan = mealPlanRepo.findById(mealId);
+	    if (mealPlan != null) {
+	        mealPlan.setEnabled(false);
+	       
+	        mealPlanRepo.saveAndFlush(mealPlan);
+	        deactivated = true;
+	    }
+	    return deactivated;
+	}
+	
+	@Override
+	public boolean adminReactivate( int mealPlanId, MealPlan mealPlan) {
+		boolean deactivated = false;
+		mealPlan = mealPlanRepo.findById(mealPlanId);
+		if (mealPlan != null) {
+			mealPlan.setEnabled(true);
+			
+			mealPlanRepo.saveAndFlush(mealPlan);
+			deactivated = true;
+		}
+		return deactivated;
+	}
+	
+	@Override
 	public MealPlan addMealToMealPlan(String username, int mealPlanId, int mealId) {
 	    MealPlan mealPlan = mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
 	    if (mealPlan != null) {

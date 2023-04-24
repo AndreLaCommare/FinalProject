@@ -1,61 +1,31 @@
 <button class="btn btn-info" *ngIf="!displayUsers" (click)="displayUsers = true">All Users</button>
-
-<table class="table table-striped table-hover" *ngIf="displayUsers">
-  <thead>
-    <tr>
-
-      <th>Username:</th>
-      <th>Email:</th>
-      <th>Picture:</th>
-      <th>Disable User:</th>
+<button class="btn btn-info" *ngIf="!displayMeals" (click)="displayMeals = true">All Meals</button>
+<button class="btn btn-info" *ngIf="!displayMealPlans" (click)="displayMealPlans = true">All Meal Plans</button>
 
 
-    </tr>
-  </thead>
-  <tbody>
-
-<tr *ngFor="let user of allUsers" >
-
-  <td>{{user.username}}</td>
-  <td >{{user.email}}</td>
- <td>
-   <img src={{user.imageUrl}}>
- </td>
- <td>
-   <button (click)="disableUser(user.id)">Remove</button>
-  </td>
-
-
-
-</tr>
-  </tbody>
-
-</table>
-<button class="btn btn-primary" (click)="displayUsers = false">Back To Profile</button>
-
-<div class="container">
+<div class="container" *ngIf="displayUsers">
   <div class="row">
     <div class="col-12">
-		<table class="table table-image">
-		  <thead>
-		    <tr>
-		      <th scope="col">Username:</th>
-		      <th scope="col">Profile Image:</th>
-		      <th scope="col">Email:</th>
-		      <th scope="col">Disable User?</th>
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">Username:</th>
+            <th scope="col">Profile Image:</th>
+            <th scope="col">Email:</th>
+            <th scope="col">Disable User?</th>
 
-		    </tr>
+          </tr>
 		  </thead>
 		  <tbody>
-		    <tr  *ngFor="let user of allUsers">
-		      <th scope="row">{{user.username}}</th>
+        <tr  *ngFor="let user of allUsers">
+          <th scope="row">{{user.username}}</th>
 		      <td class="w-25">
             <img src={{user.imageUrl}} style="width: 10rem;">
-           </td>
+          </td>
 		      <td>{{user.email}}</td>
 		      <td>
 
-            <button *ngIf="user.enabled" (click)="disableUser(user.id)">Remove</button>
+            <button *ngIf="user.enabled" (click)="disableUser(user.id)">Disable</button>
             <button *ngIf="!user.enabled" (click)="reenableUser(user)">Re-Enable</button>
 
           </td>
@@ -64,6 +34,84 @@
 
 		  </tbody>
 		</table>
-    </div>
   </div>
+  </div>
+  <button class="btn btn-primary" *ngIf="displayUsers" (click)="displayUsers=false">Back To Profile</button>
 </div>
+
+<div class="container" *ngIf="displayMeals">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">Name:</th>
+            <th scope="col">Image:</th>
+            <th scope="col">Created By:</th>
+            <th scope="col">Disable Meal?</th>
+
+          </tr>
+		  </thead>
+		  <tbody>
+        <tr  *ngFor="let meal of allMeals">
+          <th scope="row">{{meal.name}}</th>
+		      <td class="w-25">
+            <img src={{meal.imageUrl}} style="width: 10rem;">
+          </td>
+		      <td>{{meal.user?.username}}</td>
+		      <td>
+
+            <button *ngIf="meal.enabled" (click)="disableMeal(meal.id)">Disable</button>
+            <button *ngIf="!meal.enabled" (click)="reenableMeal(meal)">Re-Enable</button>
+
+          </td>
+
+		    </tr>
+
+		  </tbody>
+		</table>
+  </div>
+  </div>
+  <button class="btn btn-primary" *ngIf="displayMeals" (click)="displayMeals=false">Back To Profile</button>
+</div>
+
+
+<div class="container" *ngIf="displayMealPlans">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">Plan Name:</th>
+
+            <th scope="col">Created By:</th>
+            <th scope="col">Disable MealPlan?</th>
+
+          </tr>
+		  </thead>
+		  <tbody>
+        <tr  *ngFor="let mealPlan of allMealPlans">
+          <th scope="row">{{mealPlan.title}}</th>
+
+		      <td>{{mealPlan.planCreator?.username}}</td>
+		      <td>
+
+            <button *ngIf="mealPlan.enabled" (click)="disableMealPlan(mealPlan.id)">Disable</button>
+            <button *ngIf="!mealPlan.enabled" (click)="reenableMealPlan(mealPlan)">Re-Enable</button>
+
+          </td>
+
+		    </tr>
+
+		  </tbody>
+		</table>
+  </div>
+  </div>
+  <button class="btn btn-primary" *ngIf="displayMealPlans" (click)="displayMealPlans=false">Back To Profile</button>
+</div>
+
+
+
+
+
+
