@@ -72,7 +72,7 @@ public class MealPlan {
 	@OneToMany(mappedBy = "mealPlan")
 	private List<PlanReview> planReviews;
 
-	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt"})
+	@JsonIgnoreProperties({"imgUrl","createdAt","updatedAt", "mealPlans"})
 	@ManyToMany
 	@JoinTable(name = "meal_plan_has_meal", 
 	joinColumns = @JoinColumn(name = "meal_plan_id"), 
@@ -80,7 +80,8 @@ public class MealPlan {
 	private List<Meal> meals;
 
 	// ADD AND REMOVE METHODS FOR MEALS NEED TO BE ADDED
-	
+	@JsonIgnoreProperties({"copiedFromPlan", "planCreator", "myCopies", "usersWithFavMealPlans", "diets"
+		, "planComments", "planReviews"})
 	@ManyToOne
 	@JoinColumn(name = "copied_from_id")
 	private MealPlan copiedFromPlan;
