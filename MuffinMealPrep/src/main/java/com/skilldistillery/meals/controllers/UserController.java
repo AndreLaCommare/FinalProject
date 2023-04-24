@@ -73,5 +73,17 @@ public class UserController {
 		return allUsers;
 	}
 	
+    @DeleteMapping("users/{userId}")
+    public void deactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int userId) {
+       User adminUser  = userService.findByUsername(principal.getName());
+       System.out.println(adminUser);
+       if(adminUser.getRole().equals("ADMIN")) {
+    	if (userService.deactivate( userId)) {
+            res.setStatus(204);
+        } else {
+            res.setStatus(404);
+        }
+       }
+    }
 	
 }

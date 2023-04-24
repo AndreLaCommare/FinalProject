@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.meals.entities.GroceryItem;
+import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.repositories.GroceryItemRepository;
 import com.skilldistillery.meals.repositories.UserRepository;
@@ -60,6 +61,20 @@ public class UserServiceImpl implements UserService {
 		}
 		System.out.println(removed);
 		return removed;
+	}
+	
+	@Override
+	public boolean deactivate( int userId) {
+	    boolean deactivated = false;
+	    User user = userRepo.findById(userId);
+	    if (user != null) {
+	        user.setEnabled(false);
+	  
+	        userRepo.saveAndFlush(user);
+	        System.out.println(user);
+	        deactivated = true;
+	    }
+	    return deactivated;
 	}
 	
 	
