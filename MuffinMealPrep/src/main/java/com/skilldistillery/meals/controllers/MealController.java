@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.meals.entities.Meal;
+import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.services.MealService;
+import com.skilldistillery.meals.services.UserService;
 
 @CrossOrigin({ "*", "http://localhost/" })
 @RestController
@@ -27,6 +29,9 @@ public class MealController {
 
     @Autowired
     MealService mealService;
+    
+    @Autowired
+    UserService userService;
 
     @GetMapping("meals")
     public List<Meal> showAll(HttpServletRequest req, HttpServletResponse res) {
@@ -82,6 +87,32 @@ public class MealController {
         } else {
             res.setStatus(404);
         }
+    }
+    
+    
+    @DeleteMapping("meals/admin/{mealId}")
+    public void adminDeactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int mealId) {
+    	User adminUser  = userService.findByUsername(principal.getName());
+        
+        if(adminUser.getRole().equals("ADMIN")) {
+    	if (mealService.adminDeactivate(mealId)) {
+    		res.setStatus(204);
+    	} else {
+    		res.setStatus(404);
+    	}
+        }
+    }
+    @PutMapping("meals/admin/{mealId}")
+    public void adminReactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int mealId, @RequestBody Meal meal) {
+    	User adminUser  = userService.findByUsername(principal.getName());
+    	
+    	if(adminUser.getRole().equals("ADMIN")) {
+    		if (mealService.adminReactivate(mealId, meal)) {
+    			res.setStatus(200);
+    		} else {
+    			res.setStatus(404);
+    		}
+    	}
     }
     
     @PostMapping("meals/{mealId}/groceryItems/{groceryItemId}")

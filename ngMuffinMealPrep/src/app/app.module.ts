@@ -18,6 +18,7 @@ import { GroceryItemComponent } from './components/grocery-item/grocery-item.com
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { AdminComponent } from './components/admin/admin.component';
     MealPlanComponent,
     GroceryItemComponent,
     ShoppingListComponent,
-    AdminComponent
+    AdminComponent,
+    EnabledMealsPipe
   ],
   imports: [
     BrowserModule,

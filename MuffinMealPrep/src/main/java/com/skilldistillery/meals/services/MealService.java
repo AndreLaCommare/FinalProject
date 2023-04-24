@@ -24,4 +24,8 @@ public interface MealService {
 
 	Meal removeGroceryItemFromMeal(String username, int mealId, int groceryItemId, Meal meal);
 
+	boolean adminDeactivate(int mealId);
+
+	boolean adminReactivate(int mealId, Meal meal);
+
 }

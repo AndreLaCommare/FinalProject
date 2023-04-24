@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MealService } from 'src/app/services/meal.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { Meal } from 'src/app/models/meal';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,10 @@ import { User } from 'src/app/models/user';
 export class AdminComponent {
   allUsers: User[] = [];
   displayUsers: boolean = false;
+  displayMeals: boolean = false;
   disabledUser: User | null = null;
+  disabledMeal: Meal | null = null;
+  allMeals: Meal[] = [];
 
   constructor(
     private authServ: AuthService,
@@ -27,6 +31,7 @@ export class AdminComponent {
   ) {}
   ngOnInit() {
     this.getAllUsers();
+    this.getAllMeals();
   }
 
   getAllUsers() {
@@ -52,6 +57,17 @@ export class AdminComponent {
     });
   }
 
+  disableMeal(mealId: number) {
+    this.mealService.adminDelete(mealId).subscribe({
+      next: () => {
+        this.getAllMeals();
+      },
+      error: (nojoy) => {
+        console.error('error disableing Meal ' + nojoy);
+      },
+    });
+  }
+
   reenableUser(user: User) {
     this.userService.reactivate(user).subscribe({
       next: () => {
@@ -61,5 +77,28 @@ export class AdminComponent {
         console.error('error reenableing User ' + nojoy);
       },
     });
+  }
+  reenableMeal(meal: Meal) {
+    this.mealService.reactivate(meal).subscribe({
+      next: () => {
+        this.getAllMeals();
+      },
+      error: (nojoy) => {
+        console.error('error reenableing Meal ' + nojoy);
+      },
+    });
+  }
+
+  getAllMeals(){
+    this.mealService.index().subscribe({
+      next: (data) => {
+        this.allMeals = data;
+        console.log(this.allMeals);
+      },
+      error: (nojoy) => {
+        console.error(nojoy);
+      },
+
+    })
   }
 }
