@@ -9,6 +9,7 @@ import { GroceryItem } from 'src/app/models/grocery-item';
 import { MealPlan } from 'src/app/models/meal-plan';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit{
   userMeals: Meal[] = [];
   userMealPlans: MealPlan[] = [];
   userIsAdmin: boolean = false;
+  allUsers: User[] = [];
 
 
 
@@ -144,6 +146,8 @@ export class ProfileComponent implements OnInit{
   });
 
    }
+
+
 
 
 }

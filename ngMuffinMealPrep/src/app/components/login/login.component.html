@@ -1,4 +1,4 @@
-<form name="login">
+<form name="login" *ngIf="!loggedIn()">
   <label for="username">Username: </label>
 <input type="text" name="username" placeholder="Username" [(ngModel)]="loginUser.username"><br><br>
 <label for="password">Password: </label>
