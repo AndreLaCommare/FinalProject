@@ -56,8 +56,20 @@ public class UserController {
 //	}
 	
 	@DeleteMapping("myShoppingList/{groceryItemId}")
-	public User removeGroceryFromShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int groceryItemId) {
-		return null;
+	public void removeGroceryFromShoppingList(Principal principal,
+			HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable int groceryItemId) {
+		try {
+			if (userService.removeFromGroceries(principal.getName(), groceryItemId)){
+				res.setStatus(204);
+			}else {
+				res.setStatus(404);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
 	}
 	
 	@PutMapping("myShoppingList/{userId}")
