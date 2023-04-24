@@ -17,6 +17,7 @@ import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
 import { GroceryItemComponent } from './components/grocery-item/grocery-item.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { AdminComponent } from './components/admin/admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     MealComponent,
     MealPlanComponent,
     GroceryItemComponent,
-    ShoppingListComponent
+    ShoppingListComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,7 @@ export class UserService {
 
   index(): Observable<User[]> {
     // Return defensive copy of private array
-    return this.http.get<User[]>(this.url).pipe(
+    return this.http.get<User[]>(this.url, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -25,6 +25,28 @@ export class UserService {
       })
     );
   };
+
+  delete(userId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/" + userId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.delete(): error disabling User: ' + err)
+        );
+      })
+    );
+  }
+
+  reactivate(user: User): Observable<User>{
+    return this.http.put<User>(this.url + "/" + user.id, user, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
 
 
   getHttpOptions() {

@@ -44,7 +44,7 @@ newReview: MealReview = new MealReview();
 
   ngOnInit(): void {
     this.reload();
-    this.findAllGroceryItems();
+    // this.findAllGroceryItems();
     this.getLoggedInUser();
 
   }

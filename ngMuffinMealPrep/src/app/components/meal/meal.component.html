@@ -20,7 +20,7 @@
     <label for="name">Cook Time</label>
     <input type="number" name="cookTime"[(ngModel)]="newMeal.cookTime"><br><br>
     <div ngbDropdown class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
+      <button class="btn btn-primary dropdown-toggle" (click)="findAllGroceryItems()" type="button" id="dropdownMenuButton" ngbDropdownToggle
       data-mdb-toggle="dropdown" aria-expanded="false">
       Ingredients List
       </button>
