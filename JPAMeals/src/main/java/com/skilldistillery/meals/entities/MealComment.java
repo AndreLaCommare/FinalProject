@@ -16,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="meal_comment")
@@ -35,7 +36,10 @@ public class MealComment {
 	private LocalDateTime updatedAt;
 	
 	private boolean enabled;
-	
+	@JsonIgnoreProperties({"password","enabled","role","email","createdAt", "updatedAt", "aboutMe",
+		"firstName","lastName","imageUrl","mealComments", "groceries", "mealReviews", "userMeals",
+		"favoriteMeals", "favoriteMealPlans", "planReviews", "userMealPlans",
+		"planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

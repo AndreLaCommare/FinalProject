@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealPlan;
 import com.skilldistillery.meals.services.MealPlanService;
 
@@ -80,4 +82,22 @@ public class MealPlanController {
 	    return mealPlan;
 	}
 
+    @PutMapping("mealPlans/{mealPlanId}")
+    public MealPlan update(Principal principal, HttpServletRequest req, HttpServletResponse res,
+                       @PathVariable Integer mealPlanId, @RequestBody MealPlan mealPlan) {
+    	MealPlan updatedMealPlan = null;
+    	System.out.println(mealPlan.getTitle());
+    	try {
+        updatedMealPlan = mealPlanService.update(principal.getName(), mealPlanId, mealPlan);
+        
+        if (updatedMealPlan == null) {
+            res.setStatus(404);
+        }
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    		res.setStatus(400);
+    	}
+    	System.out.println(updatedMealPlan.getTitle()+ "*****************");
+        return updatedMealPlan;
+    }
 }

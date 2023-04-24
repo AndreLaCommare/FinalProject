@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,7 @@ import { MealPlan } from '../models/meal-plan';
 })
 export class MealPlanService {
   private url = environment.baseUrl + 'api/mealPlans';
+  @Output() refreshMealPlans: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -53,6 +54,18 @@ export class MealPlanService {
   }
 
 
+  update(mealPlan: MealPlan): Observable<MealPlan>{
+    console.log(mealPlan)
+    return this.http.put<MealPlan>(this.url + '/' + mealPlan.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error('MealPlanService.put: error updating meal plan: ' + err)
+        );
+      })
+    );
+  }
 
   getHttpOptions() {
     let options = {
