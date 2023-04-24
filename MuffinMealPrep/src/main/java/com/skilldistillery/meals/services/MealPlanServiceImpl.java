@@ -74,8 +74,9 @@ public class MealPlanServiceImpl implements MealPlanService {
 			original.setVisible(mealPlan.isVisible());
 			original.setDiets(mealPlan.getDiets());
 			original.setMeals(mealPlan.getMeals());
+			mealPlanRepo.saveAndFlush(original);
 		}
-		return null;
+		return original;
 	}
 
 	@Override

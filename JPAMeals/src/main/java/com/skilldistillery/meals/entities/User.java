@@ -96,7 +96,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<PlanReview> planReviews;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"planCreator"})
 	@OneToMany(mappedBy="planCreator")
 	private List<MealPlan> userMealPlans;
 	
