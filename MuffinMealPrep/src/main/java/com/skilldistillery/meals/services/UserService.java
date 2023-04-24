@@ -13,4 +13,6 @@ public interface UserService {
 	boolean removeFromGroceries(String username, int groceryItemId);
 
 	boolean deactivate(int userId);
+	
+	boolean reactivate(int userId, User user);
 }

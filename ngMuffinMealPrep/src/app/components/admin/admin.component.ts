@@ -52,5 +52,14 @@ export class AdminComponent {
     });
   }
 
-  reenableUser(userId: number) {}
+  reenableUser(user: User) {
+    this.userService.reactivate(user).subscribe({
+      next: () => {
+        this.getAllUsers();
+      },
+      error: (nojoy) => {
+        console.error('error reenableing User ' + nojoy);
+      },
+    });
+  }
 }

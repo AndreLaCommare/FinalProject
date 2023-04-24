@@ -71,10 +71,25 @@ public class UserServiceImpl implements UserService {
 	        user.setEnabled(false);
 	  
 	        userRepo.saveAndFlush(user);
-	        System.out.println(user);
+	       
 	        deactivated = true;
 	    }
 	    return deactivated;
+	}
+
+	@Override
+	public boolean reactivate(int userId, User user) {
+		// TODO Auto-generated method stub
+		boolean reactivated = false;
+	    user = userRepo.findById(userId);
+	    if (user != null) {
+	        user.setEnabled(true);
+	        System.out.println(user);
+	        userRepo.saveAndFlush(user);
+	       
+	        reactivated = true;
+	    }
+	    return reactivated;
 	}
 	
 	

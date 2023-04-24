@@ -56,7 +56,7 @@
 		      <td>
 
             <button *ngIf="user.enabled" (click)="disableUser(user.id)">Remove</button>
-            <button *ngIf="!user.enabled" (click)="reenableUser(user.id)">Re-Enable</button>
+            <button *ngIf="!user.enabled" (click)="reenableUser(user)">Re-Enable</button>
 
           </td>
 

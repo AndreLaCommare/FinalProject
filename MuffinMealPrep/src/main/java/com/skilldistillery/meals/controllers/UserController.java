@@ -85,5 +85,22 @@ public class UserController {
         }
        }
     }
+    
+    @PutMapping("users/{userId}")
+    public User reactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int userId, @RequestBody User user) {
+        User adminUser  = userService.findByUsername(principal.getName());
+        System.out.println(adminUser);
+        if(adminUser.getRole().equals("ADMIN")) {
+     	if (userService.reactivate( userId, user)) {
+             res.setStatus(200);
+             return user;
+         } else {
+             res.setStatus(404);
+           
+         }
+     	
+        }
+        return null;
+     }
 	
 }
