@@ -33,4 +33,8 @@ export class LoginComponent {
   constructor(private auth : AuthService, private router : Router){
 
   }
+
+  loggedIn() : boolean {
+    return this.auth.checkLogin();
+  }
 }
