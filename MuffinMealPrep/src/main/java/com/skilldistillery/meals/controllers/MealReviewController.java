@@ -29,24 +29,27 @@ import com.skilldistillery.meals.services.MealReviewService;
 public class MealReviewController {
     @Autowired
     private MealReviewService mealReviewService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private MealRepository mealRepository;
+//    @Autowired
+//    private UserRepository userRepository;
+//    @Autowired
+//    private MealRepository mealRepository;
 
-    @PostMapping("/{mealId}/mealReviews/{userId}")
-    public MealReview createMealReview(Principal principal, HttpServletRequest req, HttpServletResponse res, @RequestBody MealReview mealReview, @PathVariable int mealId, @PathVariable int userId) {
-        Meal meal = mealRepository.findById(mealId);
-        User user = userRepository.findById(userId);
-        MealReviewId mealReviewId = new MealReviewId(mealId, userId);
-        MealReview existingMealReview = mealReviewService.findMealReviewById(mealReviewId);
-        if (existingMealReview != null) {
-            res.setStatus(409);
-            return null;
-        }
+    @PostMapping("{mealId}/mealReviews")
+    public MealReview createMealReview(Principal principal, HttpServletRequest req,
+    		HttpServletResponse res, @RequestBody MealReview mealReview, 
+    		@PathVariable int mealId) {
+        
+    	
+       
+//        System.out.println(mealReviewId);
+//        MealReview existingMealReview = mealReviewService.findMealReviewById(mealReviewId);
+//        if (existingMealReview != null) {
+//            res.setStatus(409);
+//            return null;
+//        }
 
-        mealReview.setId(mealReviewId);
-        MealReview createdMealReview = mealReviewService.createMealReview(mealReview, meal, user);
+       
+        MealReview createdMealReview = mealReviewService.createMealReview(mealReview, mealId, principal.getName());
         
         if (createdMealReview == null) {
             res.setStatus(404);
@@ -58,7 +61,7 @@ public class MealReviewController {
         return createdMealReview;
     }
 
-    @GetMapping("/{mealId}/mealReviews")
+    @GetMapping("{mealId}/mealReviews")
     public List<MealReview> getMealReviewsByMealId(@PathVariable int mealId) {
         return mealReviewService.getMealReviewsByMealId(mealId);
     }

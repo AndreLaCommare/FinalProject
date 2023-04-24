@@ -17,41 +17,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	GroceryItemRepository groceryItemRepo;
-	@Override
-	public User removeFromShoppingList(String username, int groceryItemId) {
-		// TODO Auto-generated method stub
-		User user = userRepo.findByUsername(username);
-		GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
-		if (user != null && groceryItem != null) {
-			user.removeGrocery(groceryItem);
-			return userRepo.save(user);
-		}
-		return null;
-	}
 
-	@Override
-	public User addToShoppingList(String username, int groceryItemId) {
-		// TODO Auto-generated method stub
-		User user = userRepo.findByUsername(username);
-		GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
-		if (user != null && groceryItem != null) {
-			user.addGrocery(groceryItem);
-			return userRepo.save(user);
-		}
-		return null;
-	}
 
-	@Override
-	public List<GroceryItem> fullShoppingList(String username) {
-		// TODO Auto-generated method stub
-		User user = userRepo.findByUsername(username);
-		if(user != null) {
-			System.out.println(userRepo.findByGroceries(username));
-			return userRepo.findByGroceries(username);
-			
-		}
-		return null;
-	}
+
 
 	@Override
 	public User updateShoppingList(String username, int userId, User user) {
@@ -84,10 +52,12 @@ public class UserServiceImpl implements UserService {
 	public boolean removeFromGroceries(String username, int groceryItemId) {
 		boolean removed = false;
 		User user = userRepo.findByUsername(username);
-		GroceryItem gorceryItem = groceryItemRepo.queryById(groceryItemId);
-		user.removeGrocery(gorceryItem);
-		
-		
+		GroceryItem groceryItem = groceryItemRepo.queryById(groceryItemId);
+		if(user !=null && groceryItem !=null) {
+		user.removeGrocery(groceryItem);
+		removed=true;
+		}
+		System.out.println(removed);
 		return removed;
 	}
 	

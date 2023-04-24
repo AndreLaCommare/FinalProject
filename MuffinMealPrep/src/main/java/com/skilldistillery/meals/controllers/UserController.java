@@ -30,36 +30,13 @@ public class UserController {
 	@Autowired
 	GroceryItemService groceryService;
 
-//	@GetMapping("myShoppingList")
-//	public List<GroceryItem> displayShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res) {
-//		List<GroceryItem> allItems = groceryService.index(principal.getName());
-//		List<GroceryItem> shoppingList = userService.fullShoppingList(principal.getName());
-//	
-//		
-//		if (shoppingList == null) {
-//			res.setStatus(404);
-//		} else {
-//			res.setStatus(200);
-//		}
-//		return shoppingList;
-//	}
-
-//	@PutMapping("myShoppingList/{groceryItemId}")
-//	public User addGroceryToShoppingList(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int groceryItemId) {
-//		User updatedUser = userService.addToShoppingList(principal.getName(), groceryItemId);
-//		if (updatedUser == null) {
-//			res.setStatus(404);
-//		} else {
-//			res.setStatus(200);
-//		}
-//		return updatedUser;
-//	}
 	
 	@DeleteMapping("myShoppingList/{groceryItemId}")
 	public void removeGroceryFromShoppingList(Principal principal,
 			HttpServletRequest req,
 			HttpServletResponse res,
 			@PathVariable int groceryItemId) {
+		System.out.println("in delete shopping list");
 		try {
 			if (userService.removeFromGroceries(principal.getName(), groceryItemId)){
 				res.setStatus(204);
