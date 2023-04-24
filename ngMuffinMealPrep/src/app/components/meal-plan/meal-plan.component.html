@@ -84,6 +84,32 @@
 
 
   </table>
+
+  <div class="review-form" *ngIf="loggedIn()">
+    <h3>Add a Review</h3>
+    <form (ngSubmit)="onSubmitReview()">
+      <div>
+        <label for="stars">Stars:</label>
+        <input [(ngModel)]="newReview.stars" name="stars" type="number" min="0" max="5" required>
+      </div>
+      <div>
+        <label for="comment">Comment:</label>
+        <textarea [(ngModel)]="newReview.comment" name="comment" required></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="reviews">
+    <h3>Reviews</h3>
+    <ul>
+      <li *ngFor="let review of planReviews">
+        <p>Stars: {{review.stars}}</p>
+        <p>Comment: {{review.comment}}</p>
+        <p>Reviewed by: {{review.user.username}}</p>
+      </li>
+    </ul>
+  </div>
 </div>
 
   <div id="mealDetailDiv" *ngIf="selectedMeal">
