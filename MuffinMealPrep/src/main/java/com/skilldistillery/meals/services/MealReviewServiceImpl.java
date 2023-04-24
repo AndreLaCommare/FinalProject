@@ -23,9 +23,16 @@ public class MealReviewServiceImpl implements MealReviewService {
     private MealRepository mealRepo;
 
     @Override
-    public MealReview createMealReview(MealReview mealReview, Meal meal, User user) {
+    public MealReview createMealReview(MealReview mealReview, int mealId, String username) {
+    	Meal meal = mealRepo.findById(mealId);
+    	System.out.println(meal);
+        User user = userRepository.findByUsername(username);
+        System.out.println(user);
+        MealReviewId mealReviewId = new MealReviewId(mealId, user.getId());
+        mealReview.setId(mealReviewId);
         mealReview.setMeal(meal);
         mealReview.setUser(user);
+        mealReview.setEnabled(true);
         return mealReviewRepository.saveAndFlush(mealReview);
     }
 

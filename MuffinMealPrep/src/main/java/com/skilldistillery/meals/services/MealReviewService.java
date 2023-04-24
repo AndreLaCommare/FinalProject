@@ -9,10 +9,12 @@ import com.skilldistillery.meals.entities.User;
 
 public interface MealReviewService {
 
-	MealReview createMealReview(MealReview mealReview, Meal meal, User user);
+//	MealReview createMealReview(MealReview mealReview, Meal meal, User user);
 
 	List<MealReview> getMealReviewsByMealId(int mealId);
 
 	MealReview findMealReviewById(MealReviewId id);
+
+	MealReview createMealReview(MealReview mealReview, int mealId, String username);
 
 }
