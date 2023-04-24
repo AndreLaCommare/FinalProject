@@ -76,4 +76,26 @@ export class MealPlanService {
     };
     return options;
   }
+
+  adminDelete(mealPlanId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/admin/" + mealPlanId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealPlanService.adminDelete(): error disabling meal plan: ' + err)
+        );
+      })
+    );
+  }
+
+  reactivate(mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.put<MealPlan>(this.url + "/admin/" + mealPlan.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
 }

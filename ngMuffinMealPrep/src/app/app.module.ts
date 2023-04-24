@@ -19,6 +19,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
+import { EnabledMealPlansPipe } from './pipes/enabled-meal-plans.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
     GroceryItemComponent,
     ShoppingListComponent,
     AdminComponent,
-    EnabledMealsPipe
+    EnabledMealsPipe,
+    EnabledMealPlansPipe
   ],
   imports: [
     BrowserModule,

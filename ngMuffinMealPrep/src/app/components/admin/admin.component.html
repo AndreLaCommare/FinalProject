@@ -1,5 +1,6 @@
 <button class="btn btn-info" *ngIf="!displayUsers" (click)="displayUsers = true">All Users</button>
 <button class="btn btn-info" *ngIf="!displayMeals" (click)="displayMeals = true">All Meals</button>
+<button class="btn btn-info" *ngIf="!displayMealPlans" (click)="displayMealPlans = true">All Meal Plans</button>
 
 
 <div class="container" *ngIf="displayUsers">
@@ -75,7 +76,39 @@
 </div>
 
 
+<div class="container" *ngIf="displayMealPlans">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">Plan Name:</th>
 
+            <th scope="col">Created By:</th>
+            <th scope="col">Disable MealPlan?</th>
+
+          </tr>
+		  </thead>
+		  <tbody>
+        <tr  *ngFor="let mealPlan of allMealPlans">
+          <th scope="row">{{mealPlan.title}}</th>
+
+		      <td>{{mealPlan.planCreator?.username}}</td>
+		      <td>
+
+            <button *ngIf="mealPlan.enabled" (click)="disableMealPlan(mealPlan.id)">Disable</button>
+            <button *ngIf="!mealPlan.enabled" (click)="reenableMealPlan(mealPlan)">Re-Enable</button>
+
+          </td>
+
+		    </tr>
+
+		  </tbody>
+		</table>
+  </div>
+  </div>
+  <button class="btn btn-primary" *ngIf="displayMealPlans" (click)="displayMealPlans=false">Back To Profile</button>
+</div>
 
 
 
