@@ -30,7 +30,7 @@ export class MealReviewService {
   }
 
   getMealReviewsByMealId(mealId: number): Observable<MealReview[]> {
-    return this.http.get<MealReview[]>(`${this.url}/${mealId}/mealReviews`, this.getHttpOptions()).pipe(
+    return this.http.get<MealReview[]>(`${this.url}/${mealId}/mealReviews`).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

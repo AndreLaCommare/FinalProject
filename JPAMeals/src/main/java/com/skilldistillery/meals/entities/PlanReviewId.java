@@ -20,6 +20,10 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
+	public PlanReviewId(int mealPlanId2, int id) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getMealPlanId() {
 		return mealPlanId;
 	}
