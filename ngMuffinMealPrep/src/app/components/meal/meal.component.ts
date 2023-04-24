@@ -186,6 +186,7 @@ newReview: MealReview = new MealReview();
     onSubmitReview() {
       if (this.selected && this.currentUser) {
         this.createMealReview(this.newReview, this.selected.id, this.currentUser.id);
+        this.newReview = new MealReview();
       }
     }
 

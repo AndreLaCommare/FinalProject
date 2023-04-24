@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
+import { PlanReview } from 'src/app/models/plan-review';
 import { AuthService } from 'src/app/services/auth.service';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 import { MealService } from 'src/app/services/meal.service';
+import { PlanReviewService } from 'src/app/services/plan-review.service';
 
 @Component({
   selector: 'app-meal-plan',
@@ -18,18 +20,23 @@ export class MealPlanComponent {
   selectedMeal: Meal | null = null;
   mealList: Meal [] = [];
   mealsToAddToMealPlan: Meal[] = [];
+  planReviews: PlanReview[] = [];
+  newReview: PlanReview = new PlanReview();
+
 
   loggedIn(): boolean{
     return this.auth.checkLogin();
   }
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService){}
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService
+    ){}
 
   ngOnInit(): void {
     this.reload();
     this.findAllMeals();
     this.findAllMealsInMealPlan();
+    this.loadPlanReviews();
 
   }
   reload(){
@@ -49,7 +56,7 @@ export class MealPlanComponent {
 }
 displaySingleMealPlan(mealPlan: MealPlan){
   this.selected = mealPlan;
-
+  this.loadPlanReviews();
   console.log(this.selected)
 
 }
@@ -108,6 +115,40 @@ findAllMeals(){
    });
 
  }
+
+ loadPlanReviews(): void {
+  if (this.selected) {
+    this.planReviewService.getPlanReviews(this.selected.id).subscribe(
+      (reviews) => {
+        this.planReviews = reviews;
+      },
+      (error) => {
+        console.error('Error fetching plan reviews:', error);
+      }
+    );
+  }
+}
+
+createPlanReview(planReview: PlanReview): void {
+  if (this.selected) {
+    this.planReviewService.createPlanReview(this.selected.id, planReview).subscribe({
+      next: (newReview) => {
+        this.planReviews.push(newReview);
+      },
+      error: (error) => {
+        console.error('Error creating plan review:', error);
+      },
+    });
+  }
+}
+
+onSubmitReview(): void {
+  if (this.selected) {
+    const planReview = new PlanReview(undefined, this.newReview.comment, this.newReview.stars);
+    this.createPlanReview(planReview);
+    this.newReview = new PlanReview();
+  }
+}
 
 
 }

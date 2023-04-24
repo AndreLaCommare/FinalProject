@@ -26,12 +26,12 @@ public class PlanReviewController {
     @Autowired
     private PlanReviewService planReviewService;
 
-    @GetMapping("mealplans/{mealPlanId}/reviews")
+    @GetMapping("mealPlans/{mealPlanId}/reviews")
     public List<PlanReview> getPlanReviewsByMealPlanId(@PathVariable int mealPlanId) {
         return planReviewService.findByMealPlanId(mealPlanId);
     }
 
-    @PostMapping("mealplans/{mealPlanId}/reviews")
+    @PostMapping("mealPlans/{mealPlanId}/reviews")
     public PlanReview createPlanReview(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int mealPlanId, @RequestBody PlanReview planReview) {
         PlanReview createdPlanReview = planReviewService.createPlanReview(principal.getName(), mealPlanId, planReview);
         
