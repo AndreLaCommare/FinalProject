@@ -16,7 +16,7 @@ import com.skilldistillery.meals.services.DietService;
 
 @RestController
 @RequestMapping("api/diets")
-@CrossOrigin(origins = "http://localhost/")
+@CrossOrigin({ "*", "http://localhost/" })
 public class DietController {
 
     @Autowired

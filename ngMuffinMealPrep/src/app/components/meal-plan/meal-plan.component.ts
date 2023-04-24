@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Diet } from 'src/app/models/diet';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
 import { PlanReview } from 'src/app/models/plan-review';
 import { AuthService } from 'src/app/services/auth.service';
+import { DietService } from 'src/app/services/diet.service';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 import { MealService } from 'src/app/services/meal.service';
 import { PlanReviewService } from 'src/app/services/plan-review.service';
@@ -75,6 +77,9 @@ addMealPlan(newMealPlan: MealPlan){
   console.log(this.mealsToAddToMealPlan)
   console.log(newMealPlan);
  this.mealsToAddToMealPlan = [];
+ if (this.selectedDiet) {
+  newMealPlan.diet = this.selectedDiet;
+}
   this.mealPlanService.create(newMealPlan).subscribe({
     next:(createdMealPlan) => {
       console.log(createdMealPlan)
@@ -156,6 +161,12 @@ loadDiets(): void {
   this.dietService.index().subscribe((diets) => {
     this.diets = diets;
   });
+}
+
+onDietSelected(diet: Diet| null): void {
+  if(diet) {}
+  this.selectedDiet = diet;
+  console.log('Diets:', this.diets);
 }
 
 }

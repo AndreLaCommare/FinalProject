@@ -1,3 +1,4 @@
+import { Diet } from './diet';
 import { Meal } from "./meal";
 import { User } from "./user";
 
@@ -12,6 +13,7 @@ export class MealPlan {
   planCreator: User | null;
   copiedFromPlan: MealPlan | null;
   meals: Meal[];
+  diet: Diet;
 
   constructor(
     id: number = 0,
@@ -23,7 +25,8 @@ export class MealPlan {
     updated_at: string = '',
     planCreator: User | null = null,
     copiedFromPlan: MealPlan | null = null,
-    meals: Meal[] = []
+    meals: Meal[] = [],
+    diet: Diet = new Diet()
   ) {
     this.id = id;
     this.title = title;
@@ -35,5 +38,6 @@ export class MealPlan {
     this.planCreator = planCreator;
     this.copiedFromPlan = copiedFromPlan;
     this.meals = meals;
+    this.diet = diet;
   }
 }
