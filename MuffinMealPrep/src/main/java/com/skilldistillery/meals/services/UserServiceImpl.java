@@ -80,6 +80,17 @@ public class UserServiceImpl implements UserService {
 		return userRepo.findAll();
 	}
 	
+	@Override
+	public boolean removeFromGroceries(String username, int groceryItemId) {
+		boolean removed = false;
+		User user = userRepo.findByUsername(username);
+		GroceryItem gorceryItem = groceryItemRepo.queryById(groceryItemId);
+		user.removeGrocery(gorceryItem);
+		
+		
+		return removed;
+	}
+	
 	
 
 	

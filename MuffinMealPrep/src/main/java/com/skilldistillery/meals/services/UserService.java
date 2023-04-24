@@ -12,4 +12,5 @@ public interface UserService {
 	User removeFromShoppingList(String username, int groceryItemId);
 	public User updateShoppingList(String username, int userId, User user);
 	List<User> findAll();
+	boolean removeFromGroceries(String username, int groceryItemId);
 }

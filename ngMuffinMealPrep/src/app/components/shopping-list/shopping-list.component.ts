@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { GroceryItem } from 'src/app/models/grocery-item';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { GroceryItemService } from 'src/app/services/grocery-item.service';
-import { MealService } from 'src/app/services/meal.service';
+import { ShoppingListService } from 'src/app/services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -13,9 +14,11 @@ import { MealService } from 'src/app/services/meal.service';
 export class ShoppingListComponent implements OnInit{
   currentUser: User | null = null;
 
+
   constructor(
     private auth: AuthService,
-    private currentRoute : ActivatedRoute,){}
+    private currentRoute : ActivatedRoute,
+    private shoppingServ: ShoppingListService){}
 
   ngOnInit(){
    this.getLoggedInUser();
@@ -34,4 +37,15 @@ export class ShoppingListComponent implements OnInit{
         console.error(nojoy)
       }});
   }
+
+  removeFromList(grocery: GroceryItem){
+    this.shoppingServ.deleteFromList(grocery).subscribe( {
+      next: () =>{
+
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+  }
+
 }

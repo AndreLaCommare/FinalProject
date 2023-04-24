@@ -1,7 +1,9 @@
+<h1>{{currentUser?.username}}'s Shoppting List</h1>
+
 <ul *ngFor="let grocery of currentUser?.groceries">
   <li>
     {{grocery.name}}
-
+    <button class="btn btn-danger" (click)="removeFromList(grocery)">Remove From List</button>
 
   </li>
 </ul>
