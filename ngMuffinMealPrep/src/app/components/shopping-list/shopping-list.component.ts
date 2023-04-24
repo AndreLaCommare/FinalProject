@@ -41,7 +41,7 @@ export class ShoppingListComponent implements OnInit{
   removeFromList(grocery: GroceryItem){
     this.shoppingServ.deleteFromList(grocery).subscribe( {
       next: () =>{
-
+        this.getLoggedInUser();
       },
       error: (nojoy)=>{
         console.error(nojoy)

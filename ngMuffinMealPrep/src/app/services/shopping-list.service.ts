@@ -28,7 +28,7 @@ export class ShoppingListService {
 
 deleteFromList(grocery: GroceryItem){
   console.log('groceryID: ' + grocery.id)
-return this.http.delete<GroceryItem>(this.url + grocery.id, this.getHttpOptions()).pipe(
+return this.http.delete<GroceryItem>(this.url +'/'+ grocery.id, this.getHttpOptions()).pipe(
   catchError((err: any) => {
     console.log(err);
     return throwError(

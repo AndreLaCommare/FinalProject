@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		GroceryItem groceryItem = groceryItemRepo.queryById(groceryItemId);
 		if(user !=null && groceryItem !=null) {
 		user.removeGrocery(groceryItem);
+		userRepo.saveAndFlush(user);
 		removed=true;
 		}
 		System.out.println(removed);
