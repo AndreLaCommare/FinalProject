@@ -11,6 +11,7 @@ import { MealService } from 'src/app/services/meal.service';
 })
 export class NavigationComponent {
 
+  loginUser: User = new User();
   isCollapsed: boolean = false;
   adminUser : User | null = null;
   query: string = '';
@@ -54,6 +55,21 @@ export class NavigationComponent {
   //     }
   //   })
   // }
+
+  login(user: User){
+    console.log("Logging in:")
+    console.log(user);
+    this.auth.login(user.username, user.password).subscribe({
+      next: (loggedInUser) => {
+        this.router.navigateByUrl('/home');
+        this.ngOnInit();
+      },
+      error: (problem) => {
+        console.error('RegisterComponent.register(): Error logging in user:');
+        console.error(problem);
+      }
+    });
+  }
 
 
 }
