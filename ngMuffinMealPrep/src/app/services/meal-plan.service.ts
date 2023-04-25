@@ -12,11 +12,7 @@ import { Meal } from '../models/meal';
 })
 export class MealPlanService {
   private url = environment.baseUrl + 'api/mealPlans';
-  private querySubject: string ='';
 
-  setQuery(query: string){
-    this.querySubject = query;
-  }
   @Output() refreshMealPlans: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient, private auth: AuthService) {}

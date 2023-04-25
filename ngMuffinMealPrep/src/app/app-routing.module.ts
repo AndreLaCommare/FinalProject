@@ -7,7 +7,7 @@ import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { AdminComponent } from './components/admin/admin.component';
 
-import { MealPlanSearchComponent } from './components/meal-plan-search/meal-plan-search.component';
+
 
 
 const routes: Routes = [
@@ -18,10 +18,10 @@ const routes: Routes = [
   { path: 'meals/:mealId', component: MealComponent },
   { path: 'meals/search/:keyword', component: MealComponent},
   { path: 'mealPlans', component: MealPlanComponent },
+  { path: 'mealPlans/search/:keyword', component: MealPlanComponent},
   { path: 'shoppingList', component: ShoppingListComponent},
   { path: 'admin', component: AdminComponent},
-  { path: 'mealPlanSearch', component: MealPlanComponent},
-  { path: 'mealPlanSearch/:keyword', component: MealPlanComponent},
+
 
 
 
