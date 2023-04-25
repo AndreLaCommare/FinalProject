@@ -22,6 +22,12 @@
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" [routerLink]="['/shoppingList']">My Shopping List</a>
         </li>
+        <li>
+          <form >
+            <input type="text" name="name" [(ngModel)]="query">
+            <button type="submit"  (click)="setSearch()" class="btn btn-primary">Search Meals</button>
+          </form>
+        </li>
 
 
         <li *ngIf="loggedIn()">

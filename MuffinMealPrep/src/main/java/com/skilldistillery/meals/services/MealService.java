@@ -27,5 +27,7 @@ public interface MealService {
 	boolean adminDeactivate(int mealId);
 
 	boolean adminReactivate(int mealId, Meal meal);
+	
+	List<Meal> mealSearch(String query);
 
 }

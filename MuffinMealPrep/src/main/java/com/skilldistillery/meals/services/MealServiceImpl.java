@@ -138,5 +138,11 @@ public class MealServiceImpl implements MealService {
 	    return null;
 	}
 
+	@Override
+	public List<Meal> mealSearch(String query) {
+		// TODO Auto-generated method stub
+		return mealRepo.findByNameLike("%" + query + "%");
+	}
+
 
 }

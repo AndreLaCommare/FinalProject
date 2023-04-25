@@ -20,6 +20,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { AdminComponent } from './components/admin/admin.component';
 import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
 import { EnabledMealPlansPipe } from './pipes/enabled-meal-plans.pipe';
+import { MealSearchComponent } from './components/meal-search/meal-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { EnabledMealPlansPipe } from './pipes/enabled-meal-plans.pipe';
     ShoppingListComponent,
     AdminComponent,
     EnabledMealsPipe,
-    EnabledMealPlansPipe
+    EnabledMealPlansPipe,
+    MealSearchComponent
   ],
   imports: [
     BrowserModule,
