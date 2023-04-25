@@ -41,6 +41,7 @@ export class NavigationComponent {
 
   setSearch(){
     this.mealService.setQuery(this.query);
+    this.query = '';
     this.router.navigateByUrl("/mealSearch");
   }
 

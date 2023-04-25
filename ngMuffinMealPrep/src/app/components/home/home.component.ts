@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   loadMealPlans(): void {
     this.mealPlanService.index().subscribe(mealPlans => {
       this.mealPlans = mealPlans;
-      this.shuffledMeals = this.shuffleArray(mealPlans);
+      this.shuffledMealPlans = this.shuffleArray(mealPlans);
 
     });
   }
