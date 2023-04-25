@@ -65,9 +65,9 @@ export class MealPlanComponent {
     }
 
 
-    // this.findAllMeals();
-    // this.findAllMealsInMealPlan();
-    // this.loadPlanReviews();
+    this.findAllMeals();
+     this.findAllMealsInMealPlan();
+    this.loadPlanReviews();
     this.loadDiets();
   }
 
