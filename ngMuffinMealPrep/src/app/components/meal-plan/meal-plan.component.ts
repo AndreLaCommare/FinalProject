@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Diet } from 'src/app/models/diet';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
 import { PlanReview } from 'src/app/models/plan-review';
 import { AuthService } from 'src/app/services/auth.service';
+import { DietService } from 'src/app/services/diet.service';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
 import { MealService } from 'src/app/services/meal.service';
 import { PlanReviewService } from 'src/app/services/plan-review.service';
@@ -22,6 +24,9 @@ export class MealPlanComponent {
   mealsToAddToMealPlan: Meal[] = [];
   planReviews: PlanReview[] = [];
   newReview: PlanReview = new PlanReview();
+  diets: Diet[] = [];
+  selectedDiet: Diet | null = null;
+  selectedDietName: string | null = null;
 
 
   loggedIn(): boolean{
@@ -29,7 +34,7 @@ export class MealPlanComponent {
   }
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService
     ){}
 
   ngOnInit(): void {
@@ -37,7 +42,7 @@ export class MealPlanComponent {
     this.findAllMeals();
     this.findAllMealsInMealPlan();
     this.loadPlanReviews();
-
+    this.loadDiets();
   }
   reload(){
 
@@ -68,6 +73,10 @@ displayTable(){
 addMealPlan(newMealPlan: MealPlan){
    console.log(this.findAllMealsInMealPlan());
   newMealPlan.meals = this.mealsToAddToMealPlan;
+  if (this.selectedDiet) {
+   newMealPlan.diet = this.selectedDiet;
+   newMealPlan.diets.push(this.selectedDiet);
+ }
   this.mealPlans.push(newMealPlan);
 
   console.log(this.mealsToAddToMealPlan)
@@ -149,6 +158,21 @@ onSubmitReview(): void {
     this.newReview = new PlanReview();
   }
 }
+
+loadDiets(): void {
+  this.dietService.index().subscribe((diets) => {
+    this.diets = diets;
+  });
+}
+
+onDietSelected(diet: Diet| null): void {
+  if(diet) {
+
+    this.selectedDiet = diet;
+  }
+  console.log('Diets:', this.diets);
+}
+
 
 
 }
