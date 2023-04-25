@@ -159,15 +159,16 @@
     </form>
 </div>
 
-<!-- <div *ngIf="mealPlanToChange && !editMealPlan">
+<div *ngIf="mealPlanToChange && !editMealPlan">
   <div ngbDropdown class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
-    data-mdb-toggle="dropdown" aria-expanded="false">
+    data-mdb-toggle="dropdown" aria-expanded="false" (click)="findAllMeals()">
     Add Meals to Plan?
+
     </button>
     <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <button class="itemButton" ng-click="changeColor('green')" (click)="[addMealToMealPlan(meal)]" ngbDropdownItem *ngFor="let meal of mealList" > -->
-        <!-- {{meal.name}}
+        <button class="itemButton" ng-click="changeColor('green')" (click)="[addMealToMealPlan(meal, mealPlanToChange)]" ngbDropdownItem *ngFor="let meal of mealList" >
+        {{meal.name}}
       </button>
     </div>
 </div>
@@ -175,8 +176,8 @@
   <ul>
 
   <li *ngFor="let meal of mealPlanToChange.meals">
-      {{meal.name}}
+      {{meal.name}} <button (click)="removeMealFromMealPlan(meal, mealPlanToChange)"> Remove From Meal Plan</button>
   </li>
 
   </ul>
-</div> -->
+</div>

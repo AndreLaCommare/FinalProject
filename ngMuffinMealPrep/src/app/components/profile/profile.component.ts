@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit{
   allUsers: User[] = [];
   editMealPlan: MealPlan | null = null;
   mealPlanToChange: MealPlan | null = null;
+  mealList: Meal[] = [];
 
 
   constructor(private authServ: AuthService,
@@ -54,8 +55,7 @@ export class ProfileComponent implements OnInit{
       next: (user) =>{this.userToDisplay = user;
 
         console.log(user);
-        // this.getUserMeals();
-        // this.getUserMealPlans();
+
         console.log(this.userToDisplay.userMeals)}
      ,
       error: (nojoy)=>{
@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit{
     this.mealPlanService.update(mealPlan).subscribe({
       next: (updatedMealPlan) => {
         this.editMealPlan = null;
-        this.mealPlanService.refreshMealPlans.emit();
+
         this.getLoggedInUser()
         console.log(updatedMealPlan)
 
@@ -177,5 +177,40 @@ export class ProfileComponent implements OnInit{
     });
 
    }
+
+   findAllMeals(){
+    this.mealService.index().subscribe({
+     next: (meals) =>{
+       console.log(meals)
+       this.mealList = meals;
+     }
+    });
+   }
+
+   addMealToMealPlan(meal: Meal, mealPlan: MealPlan){
+    this.mealPlanService.addMealToPlan(meal, mealPlan).subscribe( {
+      next: () =>{
+        // this.getLoggedInUser();
+        this.mealPlanToChange = null;
+
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+   }
+
+
+
+
+   removeMealFromMealPlan(meal: Meal, mealPlan: MealPlan){
+    this.mealPlanService.deleteMealFromPlan(meal, mealPlan).subscribe( {
+      next: () =>{
+        // this.getLoggedInUser();
+        this.mealPlanToChange = null;
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+  }
 
 }

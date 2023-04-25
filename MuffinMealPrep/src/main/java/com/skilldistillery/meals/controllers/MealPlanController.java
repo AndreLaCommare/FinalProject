@@ -75,16 +75,39 @@ public class MealPlanController {
 	
 
 	
-	@PostMapping("mealPlans/{mealPlanId}/meals/{mealId}")
-	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId, HttpServletRequest req, HttpServletResponse res) {
-	    MealPlan mealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
-	    if (mealPlan == null) {
-	        res.setStatus(404);
-	    } else {
-	        res.setStatus(201);
-	        res.setHeader("Location", req.getRequestURL().append("/").append(mealPlan.getId()).toString());
-	    }
-	    return mealPlan;
+	@PutMapping("mealPlans/{mealPlanId}/meals/{mealId}")
+	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId,
+			@RequestBody MealPlan mealPlan, HttpServletRequest req, HttpServletResponse res) {
+		MealPlan updatedMealPlan=null;
+		try {
+	    updatedMealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
+	   if (updatedMealPlan == null) {
+            res.setStatus(404);
+        }
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    		res.setStatus(400);
+    	}
+	    return updatedMealPlan;
+	}
+	
+	@DeleteMapping("mealPlans/{mealPlanId}/meals/{mealId}")
+	public void removeMealFromMealPlan(Principal principal,
+			HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable int mealPlanId,
+			@PathVariable int mealId) {
+		
+		try {
+			if (mealPlanService.removeMealFromMealPlan(principal.getName(), mealPlanId, mealId)){
+				res.setStatus(204);
+			}else {
+				res.setStatus(404);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
 	}
 
     @PutMapping("mealPlans/{mealPlanId}")

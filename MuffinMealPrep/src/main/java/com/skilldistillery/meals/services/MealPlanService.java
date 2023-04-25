@@ -26,5 +26,7 @@ public interface MealPlanService {
 	boolean adminDeactivate(int mealId);
 
 	boolean adminReactivate(int mealPlanId, MealPlan mealPlan);
+
+	boolean removeMealFromMealPlan(String username, int mealPlanId, int mealId);
 	
 }

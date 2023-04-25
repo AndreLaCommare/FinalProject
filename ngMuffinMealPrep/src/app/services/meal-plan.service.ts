@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { MealPlan } from '../models/meal-plan';
+import { Meal } from '../models/meal';
 
 @Injectable({
   providedIn: 'root',
@@ -98,4 +99,27 @@ export class MealPlanService {
       })
     );
   }
+
+  addMealToPlan(meal: Meal, mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.put<MealPlan>(this.url + '/' + mealPlan.id + '/' + 'meals' + "/" + meal.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
+  deleteMealFromPlan(meal: Meal, mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.delete<MealPlan>(this.url + '/' + mealPlan.id + '/' + 'meals' + "/"+ meal.id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
 }
