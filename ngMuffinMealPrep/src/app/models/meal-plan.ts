@@ -13,7 +13,7 @@ export class MealPlan {
   planCreator: User | null;
   copiedFromPlan: MealPlan | null;
   meals: Meal[];
-  diet: Diet;
+  diet: Diet | null;
 
   constructor(
     id: number = 0,
@@ -26,7 +26,7 @@ export class MealPlan {
     planCreator: User | null = null,
     copiedFromPlan: MealPlan | null = null,
     meals: Meal[] = [],
-    diet: Diet = new Diet()
+    diet: Diet | null = null
   ) {
     this.id = id;
     this.title = title;

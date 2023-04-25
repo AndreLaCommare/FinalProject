@@ -164,8 +164,10 @@ loadDiets(): void {
 }
 
 onDietSelected(diet: Diet| null): void {
-  if(diet) {}
-  this.selectedDiet = diet;
+  if(diet) {
+
+    this.selectedDiet = diet;
+  }
   console.log('Diets:', this.diets);
 }
 

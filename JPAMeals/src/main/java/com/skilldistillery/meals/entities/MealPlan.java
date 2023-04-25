@@ -60,9 +60,11 @@ public class MealPlan {
 	@JoinColumn(name = "user_id") 
 	private User planCreator;
 
-	@JsonIgnore
+	
 	@ManyToMany(mappedBy = "mealPlansWithDiets")
 	private List<Diet> diets;
+	
+	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "mealPlan")
@@ -172,6 +174,17 @@ public class MealPlan {
 	public void setDiets(List<Diet> diets) {
 		this.diets = diets;
 	}
+	
+	public void addDiet(Diet diet) {
+	    if (diets == null) {
+	        diets = new ArrayList<>();
+	    }
+	    if (!diets.contains(diet)) {
+	        diets.add(diet);
+	        diet.addMealPlan(this);
+	    }
+	}
+
 
 	public List<PlanComment> getPlanComments() {
 		return planComments;

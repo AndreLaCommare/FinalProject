@@ -1,5 +1,6 @@
 package com.skilldistillery.meals.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,6 +70,18 @@ public class Diet {
 	public void setMealPlansWithDiets(List<MealPlan> mealPlansWithDiets) {
 		this.mealPlansWithDiets = mealPlansWithDiets;
 	}
+	
+	public void addMealPlan(MealPlan mealPlan) {
+	    if (mealPlansWithDiets == null) {
+	        mealPlansWithDiets = new ArrayList<>();
+	    }
+	    if (!mealPlansWithDiets.contains(mealPlan)) {
+	        mealPlansWithDiets.add(mealPlan);
+	        mealPlan.addDiet(this);
+	    }
+	}
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
