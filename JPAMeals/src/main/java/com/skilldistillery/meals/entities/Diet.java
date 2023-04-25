@@ -1,5 +1,6 @@
 package com.skilldistillery.meals.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,11 +30,9 @@ public class Diet {
 	inverseJoinColumns = @JoinColumn(name = "meal_id"))
 	private List<Meal> mealsWithDiets;
 	
+	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "meal_plan_has_diet", 
-	joinColumns = @JoinColumn(name = "diet_id"), 
-	inverseJoinColumns = @JoinColumn(name = "meal_plan_id"))
+	@ManyToMany(mappedBy = "diets")
 	private List<MealPlan> mealPlansWithDiets;
 	
 	
@@ -69,6 +68,10 @@ public class Diet {
 	public void setMealPlansWithDiets(List<MealPlan> mealPlansWithDiets) {
 		this.mealPlansWithDiets = mealPlansWithDiets;
 	}
+	
+	
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

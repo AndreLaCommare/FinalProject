@@ -18,6 +18,7 @@ import { GroceryItemComponent } from './components/grocery-item/grocery-item.com
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { MealPlanDietPipe } from './meal-plan-diet.pipe';
 import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
 import { EnabledMealPlansPipe } from './pipes/enabled-meal-plans.pipe';
 import { MealSearchComponent } from './components/meal-search/meal-search.component';
@@ -35,6 +36,7 @@ import { MealSearchComponent } from './components/meal-search/meal-search.compon
     GroceryItemComponent,
     ShoppingListComponent,
     AdminComponent,
+    MealPlanDietPipe,
     EnabledMealsPipe,
     EnabledMealPlansPipe,
     MealSearchComponent

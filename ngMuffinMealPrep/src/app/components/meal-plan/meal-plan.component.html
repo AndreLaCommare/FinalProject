@@ -9,6 +9,12 @@
     <input type="text" name="description"[(ngModel)]="newMealPlan.description" required><br><br>
     <label for="name">Meal Visibility</label>
     <input type="checkbox" name="visible"[(ngModel)]="newMealPlan.visible"><br><br>
+    <label for="diet">Diet:</label>
+    <select [(ngModel)]="selectedDiet" name="diet" (change)="onDietSelected(selectedDiet)">
+      <option [ngValue]="null" disabled>Select a diet</option>
+      <option *ngFor="let diet of diets" [ngValue]="diet">{{diet.name}}</option>
+    </select>
+
 
     <div ngbDropdown class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
@@ -28,7 +34,8 @@
 
 </div>
 
-
+<span (click)="selectedDietName = diet.name" *ngFor="let diet of diets">{{diet.name}} | </span>
+<span (click)="selectedDietName = 'all'">All | </span>
 <table class="table table-striped table-hover" *ngIf="!selected">
   <thead>
     <tr>
@@ -40,7 +47,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let mealPlan of mealPlans | enabledMealPlans">
+    <ng-container *ngFor="let mealPlan of mealPlans  | mealPlanDiet:selectedDietName | enabledMealPlans">
 
 
       <tr (click)="displaySingleMealPlan(mealPlan)">
@@ -53,12 +60,12 @@
       </tr>
     </ng-container>
 
-  </tbody>
-
+</tbody>
 </table>
 
 <div id="mealPlanDetailDiv" *ngIf="selected && !selectedMeal">
   <h1> Plan: {{selected.title}}</h1>
+  <h2 *ngIf="selected.diets[0]">Diet: {{selected.diets[0].name}}</h2>
 
   <table class="table table-striped table-hover" *ngFor="let meal of selected.meals">
 
