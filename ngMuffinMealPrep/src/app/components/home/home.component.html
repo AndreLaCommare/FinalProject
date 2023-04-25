@@ -1,4 +1,28 @@
 
-  <app-register></app-register>
-  <br><br>
+<div class="container">
+  <div class="row">
+    <div *ngFor="let meal of shuffleArray(meals); let i = index" class="col-md-4" [hidden]="i > 2">
+      <div class="card">
+        <img [src]="meal.imageUrl" class="card-img-top" alt="Meal image">
+        <div class="card-body">
+          <h5 class="card-title">{{ meal.name }}</h5>
+          <p class="card-text">{{ meal.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let mealPlan of shuffleArray(mealPlans); let i = index" class="col-md-4" [hidden]="i > 2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ mealPlan.title }}</h5>
+          <p class="card-text">{{ mealPlan.description }}</p>
+          <ul>
+            <li *ngFor="let meal of mealPlan.meals">{{ meal.name }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
