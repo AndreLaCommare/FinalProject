@@ -1,18 +1,60 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <button  (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon navbar-light"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01"
     [ngbCollapse]='isCollapsed'>
-      <a class="navbar-brand" [routerLink]="['/home']">Home Page</a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <a class="navbar-brand" [routerLink]="['/home']">Muffin Meal Prep</a>
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/meals']">Meals</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/mealPlans']">Meal Plans</a>
         </li>
+        <li>
+          <form >
+            <input type="text" name="name" [(ngModel)]="query">
+            <button type="submit"  (click)="setSearch()" class="btn btn-primary">Search Meals</button>
+          </form>
+        </li>
+
+        <table class="login">
+        <thead>
+
+
+          <th>
+
+            <li class="nav-item" *ngIf="!loggedIn() && adminUser === null">
+
+              <label for="username">Username: </label>
+              <input type="text" name="username" placeholder="Username" [(ngModel)]="loginUser.username">
+            </li>
+          </th>
+          <th>
+          <li class="nav-item" *ngIf="!loggedIn() && adminUser === null">
+
+            <label for="password">Password: </label>
+            <input type="password" name="password" placeholder="password" [(ngModel)]="loginUser.password">
+          </li>
+        </th>
+
+        <th>
+          <li class="nav-item" *ngIf="!loggedIn() && adminUser === null">
+
+
+            <button (click)="login(loginUser)" class="btn btn-primary">Log In</button>
+          </li>
+        </th>
+
+        </thead>
+
+
+        </table>
+
+
+
         <li class="nav-item" *ngIf="loggedIn() && adminUser === null">
           <a class="nav-link" [routerLink]="['/profile']">Profile</a>
         </li>
@@ -22,12 +64,7 @@
         <li class="nav-item" *ngIf="loggedIn()">
           <a class="nav-link" [routerLink]="['/shoppingList']">My Shopping List</a>
         </li>
-        <li>
-          <form >
-            <input type="text" name="name" [(ngModel)]="query">
-            <button type="submit"  (click)="setSearch()" class="btn btn-primary">Search Meals</button>
-          </form>
-        </li>
+
 
 
         <li *ngIf="loggedIn()">
