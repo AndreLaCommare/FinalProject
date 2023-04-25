@@ -144,9 +144,9 @@ export class MealPlanService {
   }
 
 
-  search(): Observable<MealPlan[]>{
+  search(keyword: string): Observable<MealPlan[]>{
 
-    return this.http.get<MealPlan[]>(this.url + "/search/" + this.querySubject).pipe(
+    return this.http.get<MealPlan[]>(this.url + "/search/" + keyword).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

@@ -15,7 +15,7 @@ export class NavigationComponent {
   loginUser: User = new User();
   isCollapsed: boolean = false;
   adminUser : User | null = null;
-  query: string = '';
+  mealQuery: string = '';
   mealPlanQuery: string = '';
   constructor(private auth: AuthService, private mealService: MealService, private router: Router, private mealPlanService: MealPlanService){}
   loggedIn() : boolean {
@@ -42,12 +42,13 @@ export class NavigationComponent {
   }
 
   setSearch(){
-    this.mealService.setQuery(this.query);
-    this.router.navigateByUrl("/mealSearch");
+
+    this.router.navigateByUrl("/meals/search/" + this.mealQuery);
   }
   setPlanSearch(){
-    this.mealPlanService.setQuery(this.query);
-    this.router.navigateByUrl("/mealPlanSearch");
+    //this.mealPlanService.setQuery(this.mealPlanQuery);
+
+    this.router.navigateByUrl("/mealPlanSearch/" + this.mealPlanQuery);
   }
 
   // mealSearch(){
