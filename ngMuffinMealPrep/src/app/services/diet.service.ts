@@ -15,7 +15,7 @@ export class DietService {
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   index(): Observable<Diet[]> {
-    return this.http.get<Diet[]>(this.url, this.getHttpOptions()).pipe(
+    return this.http.get<Diet[]>(this.url).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
