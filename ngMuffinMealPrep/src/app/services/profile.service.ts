@@ -10,4 +10,7 @@ export class ProfileService {
   constructor() { }
 
 
+  deleteAccount(){
+
+  }
 }

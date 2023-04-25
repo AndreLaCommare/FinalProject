@@ -15,4 +15,6 @@ public interface UserService {
 	boolean deactivate(int userId);
 	
 	boolean reactivate(int userId, User user);
+
+	boolean userDeletingOwnAccount(String username);
 }

@@ -1,7 +1,10 @@
+import { ShoppingListService } from 'src/app/services/shopping-list.service';
+import { UserService } from 'src/app/services/user.service';
+import { ProfileService } from './../../services/profile.service';
 import { User } from 'src/app/models/user';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Meal } from 'src/app/models/meal';
 import { MealService } from 'src/app/services/meal.service';
 import { GroceryItemService } from 'src/app/services/grocery-item.service';
@@ -16,6 +19,8 @@ import { MealPlanService } from 'src/app/services/meal-plan.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
+
+
   userToDisplay : User | null = null;
   myMeals: boolean = false;
   myMealPlans: boolean = false;
@@ -28,13 +33,17 @@ export class ProfileComponent implements OnInit{
   editMealPlan: MealPlan | null = null;
   mealPlanToChange: MealPlan | null = null;
   mealList: Meal[] = [];
+  singleMeal: Meal | null = null;
 
 
   constructor(private authServ: AuthService,
     private currentRoute : ActivatedRoute,
     private mealService: MealService,
     private groceryItemService: GroceryItemService,
-    private mealPlanService : MealPlanService){
+    private mealPlanService : MealPlanService,
+    private userService: UserService,
+    private router: Router,
+    private shoppingListService: ShoppingListService){
   }
 
 
@@ -190,7 +199,7 @@ export class ProfileComponent implements OnInit{
    addMealToMealPlan(meal: Meal, mealPlan: MealPlan){
     this.mealPlanService.addMealToPlan(meal, mealPlan).subscribe( {
       next: () =>{
-        // this.getLoggedInUser();
+        this.getLoggedInUser();
         this.mealPlanToChange = null;
 
       },
@@ -205,7 +214,7 @@ export class ProfileComponent implements OnInit{
    removeMealFromMealPlan(meal: Meal, mealPlan: MealPlan){
     this.mealPlanService.deleteMealFromPlan(meal, mealPlan).subscribe( {
       next: () =>{
-        // this.getLoggedInUser();
+        this.getLoggedInUser();
         this.mealPlanToChange = null;
       },
       error: (nojoy)=>{
@@ -213,4 +222,57 @@ export class ProfileComponent implements OnInit{
       }});
   }
 
+
+  // deleteMealPlan(mealPlan: MealPlan) {
+  //   this.mealPlanService.delete(mealPlan.id).subscribe({
+  //     next: () => {
+  //       this.ngOnInit();
+  //     }
+  //   })
+  //   }
+
+  deleteAccount(){
+    this.userService.deleteAccount().subscribe( {
+      next: () =>{
+        this.logout();
+        this.router.navigateByUrl('/home')
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+  }
+
+  logout(): void {
+    localStorage.removeItem('credentials');
+  }
+
+  addGroceryToShoppingList(grocery: GroceryItem){
+    console.log(this.userToDisplay)
+      this.userToDisplay?.groceries.push(grocery)
+    this.updateUserShoppingList(this.userToDisplay)
+  }
+
+
+  updateUserShoppingList(user: User|null){
+    this.shoppingListService.update(user).subscribe({
+      next: (update) => {
+
+
+        this.ngOnInit();
+
+      }
+
+    })
+  }
+
+
+  displaySingleMeal(meal: Meal) {
+    this.myMealPlans= false
+    this.singleMeal = meal;
+    }
+
+    displayMealsInMealPlan(){
+      this.myMealPlans= true
+      this.singleMeal = null;
+    }
 }

@@ -92,7 +92,19 @@ public class UserServiceImpl implements UserService {
 	    return reactivated;
 	}
 	
-	
+	@Override
+	public boolean userDeletingOwnAccount(String username) {
+		boolean deleted = false;
+		User userToDelete = userRepo.findByUsername(username);
+		System.out.println("User to delete: " + userToDelete + "*************************");
+		if(userToDelete != null) {
+			userToDelete.setEnabled(false);
+			userRepo.saveAndFlush(userToDelete);
+			deleted = true;
+		}
+		
+		return deleted;
+	}
 
 	
 }

@@ -48,6 +48,16 @@ export class UserService {
     );
   }
 
+  deleteAccount(): Observable<void>{
+    return this.http.delete<void>(this.url, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.delete(): error deleteing User: ' + err)
+        );
+      })
+    );
+  }
 
   getHttpOptions() {
     let options = {
