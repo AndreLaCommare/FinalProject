@@ -154,4 +154,21 @@ public class MealPlanController {
     		}
     	}
     }
+    
+    @DeleteMapping("mealPlans/{mealPlanId}")
+    public void deleteUserMealPlan(Principal principal, 
+    		HttpServletRequest req, 
+    		HttpServletResponse res, 
+    		@PathVariable int mealPlanId) {
+    	try {
+    	if(mealPlanService.deleteMealPlan(principal.getName(), mealPlanId)) {
+    		res.setStatus(204);
+    	}else {
+    		res.setStatus(404);
+    	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		res.setStatus(400);
+    	}
+    }
 }

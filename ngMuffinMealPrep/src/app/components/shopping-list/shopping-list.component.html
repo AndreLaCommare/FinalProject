@@ -10,8 +10,8 @@
 
   <tbody>
     <tr *ngFor="let grocery of currentUser?.groceries">
-      <td> {{grocery.name}}</td>
-      <td><button class="btn btn-danger btn-sm" (click)="removeFromList(grocery)">Remove From List</button></td>
+
+      <td> {{grocery.name}} <button class="btn btn-danger btn-sm" (click)="removeFromList(grocery)">Remove From List</button></td>
 
     </tr>
 

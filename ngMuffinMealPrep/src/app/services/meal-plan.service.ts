@@ -68,15 +68,7 @@ export class MealPlanService {
     );
   }
 
-  getHttpOptions() {
-    let options = {
-      headers: {
-        Authorization: 'Basic ' + this.auth.getCredentials(),
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-    };
-    return options;
-  }
+
 
   adminDelete(mealPlanId: number): Observable<void>{
     return this.http.delete<void>(this.url + "/admin/" + mealPlanId, this.getHttpOptions()).pipe(
@@ -122,4 +114,27 @@ export class MealPlanService {
     );
   }
 
+
+  deletePlan(mealPlanId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/" + mealPlanId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
+
+
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
+  }
 }

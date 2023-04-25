@@ -6,7 +6,10 @@ import { MealPlan } from '../models/meal-plan';
 })
 export class EnabledMealPlansPipe implements PipeTransform {
 
-  transform(mealPlans: MealPlan[]): MealPlan[] {
+  transform(mealPlans: MealPlan[] | undefined): MealPlan[] {
+    if(!mealPlans){
+      return [];
+    }
     let  results: MealPlan[] = [];
     for(let mealPlan of mealPlans){
      if(mealPlan.enabled){

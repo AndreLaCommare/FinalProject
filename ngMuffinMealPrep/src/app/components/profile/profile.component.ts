@@ -223,13 +223,13 @@ export class ProfileComponent implements OnInit{
   }
 
 
-  // deleteMealPlan(mealPlan: MealPlan) {
-  //   this.mealPlanService.delete(mealPlan.id).subscribe({
-  //     next: () => {
-  //       this.ngOnInit();
-  //     }
-  //   })
-  //   }
+  deleteMealPlan(mealPlan: MealPlan) {
+    this.mealPlanService.deletePlan(mealPlan.id).subscribe({
+      next: () => {
+        this.ngOnInit();
+      }
+    })
+    }
 
   deleteAccount(){
     this.userService.deleteAccount().subscribe( {
