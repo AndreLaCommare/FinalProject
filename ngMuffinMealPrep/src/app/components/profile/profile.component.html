@@ -211,7 +211,7 @@
   <ul>
 
   <li *ngFor="let meal of mealPlanToChange.meals">
-      {{meal.name}} <button (click)="removeMealFromMealPlan(meal, mealPlanToChange)"> Remove From Meal Plan</button>
+      {{meal.name}} <button class="btn btn-danger btn-sm" (click)="removeMealFromMealPlan(meal, mealPlanToChange)"> Remove From Meal Plan</button>
   </li>
 
   </ul>
