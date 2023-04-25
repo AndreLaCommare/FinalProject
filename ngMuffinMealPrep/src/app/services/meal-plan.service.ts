@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { MealPlan } from '../models/meal-plan';
+import { Meal } from '../models/meal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MealPlanService {
   private url = environment.baseUrl + 'api/mealPlans';
+  @Output() refreshMealPlans: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -53,6 +55,18 @@ export class MealPlanService {
   }
 
 
+  update(mealPlan: MealPlan): Observable<MealPlan>{
+    console.log(mealPlan)
+    return this.http.put<MealPlan>(this.url + '/' + mealPlan.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () =>
+            new Error('MealPlanService.put: error updating meal plan: ' + err)
+        );
+      })
+    );
+  }
 
   getHttpOptions() {
     let options = {
@@ -63,4 +77,49 @@ export class MealPlanService {
     };
     return options;
   }
+
+  adminDelete(mealPlanId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/admin/" + mealPlanId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealPlanService.adminDelete(): error disabling meal plan: ' + err)
+        );
+      })
+    );
+  }
+
+  reactivate(mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.put<MealPlan>(this.url + "/admin/" + mealPlan.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
+  addMealToPlan(meal: Meal, mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.put<MealPlan>(this.url + '/' + mealPlan.id + '/' + 'meals' + "/" + meal.id, mealPlan, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
+  deleteMealFromPlan(meal: Meal, mealPlan: MealPlan): Observable<MealPlan>{
+    return this.http.delete<MealPlan>(this.url + '/' + mealPlan.id + '/' + 'meals' + "/"+ meal.id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
 }

@@ -25,7 +25,9 @@ export class ProfileComponent implements OnInit{
   userMealPlans: MealPlan[] = [];
   userIsAdmin: boolean = false;
   allUsers: User[] = [];
-
+  editMealPlan: MealPlan | null = null;
+  mealPlanToChange: MealPlan | null = null;
+  mealList: Meal[] = [];
 
 
   constructor(private authServ: AuthService,
@@ -44,21 +46,15 @@ export class ProfileComponent implements OnInit{
       this.getOtherUser(parseInt(userId));
     }else{
       this.getLoggedInUser();
-
-
-
-
-
     }
+
   }
 
   getLoggedInUser( ){
     this.authServ.getLoggedInUser().subscribe( {
       next: (user) =>{this.userToDisplay = user;
-        this.getUserMeals();
-        this.getUserMealPlans();
-        this.userToDisplay.userMeals = this.userMeals;
-        this.userToDisplay.userMealPlans = this.userMealPlans;
+
+        console.log(user);
 
         console.log(this.userToDisplay.userMeals)}
      ,
@@ -85,9 +81,14 @@ export class ProfileComponent implements OnInit{
         console.log(updatedMeal)
         this.ngOnInit();
 
+      },
+
+      error: (fail) => {
+        console.error('Error reloading');
+        console.error(fail);
       }
 
-    })
+    });
   }
 
 
@@ -111,6 +112,7 @@ export class ProfileComponent implements OnInit{
    getUserMeals(){
     this.mealService.index().subscribe({
       next: (data) => {
+        this.userMeals = [];
         for(let meal of data){
           if(meal.user?.id === this.userToDisplay?.id){
             this.userMeals.push(meal);
@@ -130,6 +132,7 @@ export class ProfileComponent implements OnInit{
    getUserMealPlans(){
     this.mealPlanService.index().subscribe({
       next: (data) => {
+        this.userMealPlans = [];
         for(let mealPlan of data){
           if(mealPlan.planCreator?.id === this.userToDisplay?.id){
             this.userMealPlans.push(mealPlan);
@@ -147,7 +150,67 @@ export class ProfileComponent implements OnInit{
 
    }
 
+   setEditMealPlan(mealPlan: MealPlan){
+      this.editMealPlan = Object.assign({}, mealPlan);
+   }
+
+   changeMeals(mealPlan: MealPlan){
+    this.mealPlanToChange = Object.assign({}, mealPlan);
+   }
+
+   updateMealPlan(mealPlan: MealPlan){
+    console.log(mealPlan)
+    this.mealPlanService.update(mealPlan).subscribe({
+      next: (updatedMealPlan) => {
+        this.editMealPlan = null;
+
+        this.getLoggedInUser()
+        console.log(updatedMealPlan)
+
+      },
+
+      error: (fail) => {
+        console.error('Error reloading');
+        console.error(fail);
+      }
+
+    });
+
+   }
+
+   findAllMeals(){
+    this.mealService.index().subscribe({
+     next: (meals) =>{
+       console.log(meals)
+       this.mealList = meals;
+     }
+    });
+   }
+
+   addMealToMealPlan(meal: Meal, mealPlan: MealPlan){
+    this.mealPlanService.addMealToPlan(meal, mealPlan).subscribe( {
+      next: () =>{
+        // this.getLoggedInUser();
+        this.mealPlanToChange = null;
+
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+   }
 
 
+
+
+   removeMealFromMealPlan(meal: Meal, mealPlan: MealPlan){
+    this.mealPlanService.deleteMealFromPlan(meal, mealPlan).subscribe( {
+      next: () =>{
+        // this.getLoggedInUser();
+        this.mealPlanToChange = null;
+      },
+      error: (nojoy)=>{
+        console.error(nojoy)
+      }});
+  }
 
 }

@@ -36,7 +36,10 @@ public class MealReview {
 	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
-
+	
+	@JsonIgnoreProperties({"mealComments", "groceries", "mealReviews", 
+		"userMeals", "favoriteMeals", "favoriteMealPlans", "planReviews", 
+		"userMealPlans", "planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@MapsId(value = "userId")

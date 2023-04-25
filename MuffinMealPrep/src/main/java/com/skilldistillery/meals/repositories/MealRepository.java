@@ -10,5 +10,6 @@ public interface MealRepository extends JpaRepository<Meal, Integer> {
 	Meal findById(int mealId);
 	List<Meal> findByUser_Username(String username);
 	Meal findByIdAndUser_Username(int mealId, String username);
+	List<Meal> findByNameLike(String query);
 
 }

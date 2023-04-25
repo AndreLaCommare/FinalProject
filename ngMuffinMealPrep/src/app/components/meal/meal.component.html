@@ -59,7 +59,9 @@
   </thead>
   <tbody>
 
-<tr *ngFor="let meal of meals" (click)="displaySingleMeal(meal)">
+<tr *ngFor="let meal of meals | enabledMeals" (click)="displaySingleMeal(meal)"  >
+
+
 
   <td>{{meal.name}}</td>
   <td *ngIf="meal.user">{{meal.user.username}}</td>
@@ -109,7 +111,7 @@
     </form>
   </div>
 
-  <div class="reviews">
+  <div class="reviews" *ngIf="mealReviews.length > 0">
     <h3>Reviews</h3>
     <ul>
       <li *ngFor="let review of mealReviews">

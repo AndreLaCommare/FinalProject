@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.meals.entities.GroceryItem;
 import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealPlan;
 import com.skilldistillery.meals.entities.User;
@@ -74,8 +75,9 @@ public class MealPlanServiceImpl implements MealPlanService {
 			original.setVisible(mealPlan.isVisible());
 			original.setDiets(mealPlan.getDiets());
 			original.setMeals(mealPlan.getMeals());
+			mealPlanRepo.saveAndFlush(original);
 		}
-		return null;
+		return original;
 	}
 
 	@Override
@@ -92,6 +94,32 @@ public class MealPlanServiceImpl implements MealPlanService {
 	}
 	
 	@Override
+	public boolean adminDeactivate( int mealId) {
+	    boolean deactivated = false;
+	    MealPlan mealPlan = mealPlanRepo.findById(mealId);
+	    if (mealPlan != null) {
+	        mealPlan.setEnabled(false);
+	       
+	        mealPlanRepo.saveAndFlush(mealPlan);
+	        deactivated = true;
+	    }
+	    return deactivated;
+	}
+	
+	@Override
+	public boolean adminReactivate( int mealPlanId, MealPlan mealPlan) {
+		boolean deactivated = false;
+		mealPlan = mealPlanRepo.findById(mealPlanId);
+		if (mealPlan != null) {
+			mealPlan.setEnabled(true);
+			
+			mealPlanRepo.saveAndFlush(mealPlan);
+			deactivated = true;
+		}
+		return deactivated;
+	}
+	
+	@Override
 	public MealPlan addMealToMealPlan(String username, int mealPlanId, int mealId) {
 	    MealPlan mealPlan = mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
 	    if (mealPlan != null) {
@@ -101,7 +129,23 @@ public class MealPlanServiceImpl implements MealPlanService {
 	            return mealPlanRepo.save(mealPlan);
 	        }
 	    }
-	    return null;
+	    return mealPlan;
+	}
+	
+	@Override
+	public boolean removeMealFromMealPlan(String username, int mealPlanId, int mealId) {
+		boolean removed = false;
+		User user = userRepo.findByUsername(username);
+		MealPlan mealPlan = mealPlanRepo.findById(mealPlanId);
+		Meal meal = mealRepo.findById(mealId);
+		
+		if(user !=null && mealPlan !=null) {
+		mealPlan.removeMeal(meal);
+		mealPlanRepo.saveAndFlush(mealPlan);
+		removed=true;
+		}
+		System.out.println(removed);
+		return removed;
 	}
 
 }

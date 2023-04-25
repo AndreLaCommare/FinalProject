@@ -7,17 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealPlan;
+import com.skilldistillery.meals.entities.User;
 import com.skilldistillery.meals.services.MealPlanService;
+import com.skilldistillery.meals.services.UserService;
 
 @RestController
 @RequestMapping("api")
@@ -26,6 +30,9 @@ public class MealPlanController {
 
 	@Autowired
 	private MealPlanService mealPlanService;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	@GetMapping("mealPlans")
@@ -68,16 +75,83 @@ public class MealPlanController {
 	
 
 	
-	@PostMapping("mealPlans/{mealPlanId}/meals/{mealId}")
-	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId, HttpServletRequest req, HttpServletResponse res) {
-	    MealPlan mealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
-	    if (mealPlan == null) {
-	        res.setStatus(404);
-	    } else {
-	        res.setStatus(201);
-	        res.setHeader("Location", req.getRequestURL().append("/").append(mealPlan.getId()).toString());
-	    }
-	    return mealPlan;
+	@PutMapping("mealPlans/{mealPlanId}/meals/{mealId}")
+	public MealPlan addMealToMealPlan(Principal principal, @PathVariable int mealPlanId, @PathVariable int mealId,
+			@RequestBody MealPlan mealPlan, HttpServletRequest req, HttpServletResponse res) {
+		MealPlan updatedMealPlan=null;
+		try {
+	    updatedMealPlan = mealPlanService.addMealToMealPlan(principal.getName(), mealPlanId, mealId);
+	   if (updatedMealPlan == null) {
+            res.setStatus(404);
+        }
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    		res.setStatus(400);
+    	}
+	    return updatedMealPlan;
+	}
+	
+	@DeleteMapping("mealPlans/{mealPlanId}/meals/{mealId}")
+	public void removeMealFromMealPlan(Principal principal,
+			HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable int mealPlanId,
+			@PathVariable int mealId) {
+		
+		try {
+			if (mealPlanService.removeMealFromMealPlan(principal.getName(), mealPlanId, mealId)){
+				res.setStatus(204);
+			}else {
+				res.setStatus(404);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
 	}
 
+    @PutMapping("mealPlans/{mealPlanId}")
+    public MealPlan update(Principal principal, HttpServletRequest req, HttpServletResponse res,
+                       @PathVariable Integer mealPlanId, @RequestBody MealPlan mealPlan) {
+    	MealPlan updatedMealPlan = null;
+    	System.out.println(mealPlan.getTitle());
+    	try {
+        updatedMealPlan = mealPlanService.update(principal.getName(), mealPlanId, mealPlan);
+        
+        if (updatedMealPlan == null) {
+            res.setStatus(404);
+        }
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    		res.setStatus(400);
+    	}
+    	System.out.println(updatedMealPlan.getTitle()+ "*****************");
+        return updatedMealPlan;
+    }
+    
+    @DeleteMapping("mealPlans/admin/{mealPlanId}")
+    public void adminDeactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int mealPlanId) {
+    	User adminUser  = userService.findByUsername(principal.getName());
+        
+        if(adminUser.getRole().equals("ADMIN")) {
+    	if (mealPlanService.adminDeactivate(mealPlanId)) {
+    		res.setStatus(204);
+    	} else {
+    		res.setStatus(404);
+    	}
+        }
+    }
+    
+    @PutMapping("mealPlans/admin/{mealPlanId}")
+    public void adminReactivate(Principal principal, HttpServletRequest req, HttpServletResponse res, @PathVariable int mealPlanId, @RequestBody MealPlan mealPlan) {
+    	User adminUser  = userService.findByUsername(principal.getName());
+    	
+    	if(adminUser.getRole().equals("ADMIN")) {
+    		if (mealPlanService.adminReactivate(mealPlanId, mealPlan)) {
+    			res.setStatus(200);
+    		} else {
+    			res.setStatus(404);
+    		}
+    	}
+    }
 }

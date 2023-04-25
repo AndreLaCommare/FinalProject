@@ -57,7 +57,9 @@ public class Meal {
 	@Column(name="cook_time")
 	private int cookTime;
 	
-	@JsonIgnoreProperties({"mealComments", "groceries", "mealReviews", "userMeals", "favoriteMeals", "favoriteMealPlans", "planReviews", "userMealPlans", "planComments", "sentMessages", "receivedMessages"})
+	@JsonIgnoreProperties({"mealComments", "groceries", "mealReviews", 
+		"userMeals", "favoriteMeals", "favoriteMealPlans", "planReviews", 
+		"userMealPlans", "planComments", "sentMessages", "receivedMessages"})
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -74,6 +76,7 @@ public class Meal {
 	@ManyToMany(mappedBy = "meals")
 	private List<MealPlan> mealPlans;
 	
+	@JsonIgnoreProperties({"meal"})
 	@OneToMany(mappedBy="meal")
 	private List<MealReview> reviews;
 	

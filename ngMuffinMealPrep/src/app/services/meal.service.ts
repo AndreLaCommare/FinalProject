@@ -14,6 +14,11 @@ export class MealService {
 
   private url = environment.baseUrl + 'api/meals';
   constructor(private http: HttpClient, private auth: AuthService) { }
+  private querySubject: string ='';
+
+  setQuery(query: string){
+    this.querySubject = query;
+  }
 
   index(): Observable<Meal[]> {
     // Return defensive copy of private array
@@ -78,12 +83,46 @@ export class MealService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('MealService.createGroceryForMeal(): error adding grocery to meal: ' + err)
+          () => new Error('MealService.delete(): error disabling meal: ' + err)
         );
       })
     );
   }
 
+  adminDelete(mealId: number): Observable<void>{
+    return this.http.delete<void>(this.url + "/admin/" + mealId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealService.adminDelete(): error disabling meal: ' + err)
+        );
+      })
+    );
+  }
+
+  reactivate(meal: Meal): Observable<Meal>{
+    return this.http.put<Meal>(this.url + "/admin/" + meal.id, meal, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.reactivate(): error re-enabling User: ' + err)
+        );
+      })
+    );
+  }
+
+  search(): Observable<Meal[]>{
+
+    return this.http.get<Meal[]>(this.url + "/search/" + this.querySubject).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealService.search(): error retrieving meals: ' + err)
+        );
+      })
+    );
+
+  }
 
   getHttpOptions() {
     let options = {

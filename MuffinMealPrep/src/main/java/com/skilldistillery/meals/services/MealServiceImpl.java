@@ -90,6 +90,31 @@ public class MealServiceImpl implements MealService {
 	}
 	
 	@Override
+	public boolean adminDeactivate( int mealId) {
+	    boolean deactivated = false;
+	    Meal meal = mealRepo.findById(mealId);
+	    if (meal != null) {
+	        meal.setEnabled(false);
+	       
+	        mealRepo.saveAndFlush(meal);
+	        deactivated = true;
+	    }
+	    return deactivated;
+	}
+	@Override
+	public boolean adminReactivate( int mealId, Meal meal) {
+		boolean deactivated = false;
+		meal = mealRepo.findById(mealId);
+		if (meal != null) {
+			meal.setEnabled(true);
+			
+			mealRepo.saveAndFlush(meal);
+			deactivated = true;
+		}
+		return deactivated;
+	}
+	
+	@Override
 	public Meal addGroceryItemToMeal(String username, int mealId, int groceryItemId, Meal meal) {
 	    Meal managedMeal = mealRepo.findByIdAndUser_Username(mealId, username);
 	    GroceryItem groceryItem = groceryItemRepo.findById(groceryItemId).orElse(null);
@@ -111,6 +136,12 @@ public class MealServiceImpl implements MealService {
 	        return mealRepo.save(managedMeal);
 	    }
 	    return null;
+	}
+
+	@Override
+	public List<Meal> mealSearch(String query) {
+		// TODO Auto-generated method stub
+		return mealRepo.findByNameLike("%" + query + "%");
 	}
 
 

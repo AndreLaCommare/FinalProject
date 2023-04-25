@@ -47,7 +47,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let mealPlan of mealPlans  | mealPlanDiet:selectedDietName">
+    <ng-container *ngFor="let mealPlan of mealPlans  | mealPlanDiet:selectedDietName | enabledMealPlans">
 
 
       <tr (click)="displaySingleMealPlan(mealPlan)">
@@ -60,8 +60,7 @@
       </tr>
     </ng-container>
 
-  </tbody>
-
+</tbody>
 </table>
 
 <div id="mealPlanDetailDiv" *ngIf="selected && !selectedMeal">
