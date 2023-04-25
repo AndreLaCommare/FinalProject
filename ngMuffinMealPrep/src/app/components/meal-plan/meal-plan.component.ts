@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
+import { MealReview } from 'src/app/models/meal-review';
 import { PlanReview } from 'src/app/models/plan-review';
 import { AuthService } from 'src/app/services/auth.service';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
+import { MealReviewService } from 'src/app/services/meal-review.service';
 import { MealService } from 'src/app/services/meal.service';
 import { PlanReviewService } from 'src/app/services/plan-review.service';
 
@@ -22,6 +24,7 @@ export class MealPlanComponent {
   mealsToAddToMealPlan: Meal[] = [];
   planReviews: PlanReview[] = [];
   newReview: PlanReview = new PlanReview();
+  mealReviews: MealReview[] = [];
 
 
   loggedIn(): boolean{
@@ -29,7 +32,7 @@ export class MealPlanComponent {
   }
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private mealReviewService: MealReviewService
     ){}
 
   ngOnInit(): void {
@@ -148,6 +151,17 @@ onSubmitReview(): void {
     this.createPlanReview(planReview);
     this.newReview = new PlanReview();
   }
+}
+
+getMealReviewsByMealId(mealId: number) {
+  this.mealReviewService.getMealReviewsByMealId(mealId).subscribe({
+    next: (reviews) => {
+      this.mealReviews = reviews;
+    },
+    error: (err) => {
+      console.error('Error fetching meal reviews:', err);
+    },
+  });
 }
 
 
