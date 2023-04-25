@@ -65,7 +65,7 @@
 
 <div id="mealPlanDetailDiv" *ngIf="selected && !selectedMeal">
   <h1> Plan: {{selected.title}}</h1>
-  <p *ngIf="selected.diet">Diet: {{selected.diet.name}}</p>
+  <h2 *ngIf="selected.diets[0]">Diet: {{selected.diets[0].name}}</h2>
 
   <table class="table table-striped table-hover" *ngFor="let meal of selected.meals">
 

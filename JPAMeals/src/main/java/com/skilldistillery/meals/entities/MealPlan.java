@@ -61,7 +61,14 @@ public class MealPlan {
 	private User planCreator;
 
 	
-	@ManyToMany(mappedBy = "mealPlansWithDiets")
+
+	
+	
+	
+	@ManyToMany
+	@JoinTable(name = "meal_plan_has_diet", 
+	joinColumns = @JoinColumn(name = "meal_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "diet_id"))
 	private List<Diet> diets;
 	
 	
@@ -175,15 +182,7 @@ public class MealPlan {
 		this.diets = diets;
 	}
 	
-	public void addDiet(Diet diet) {
-	    if (diets == null) {
-	        diets = new ArrayList<>();
-	    }
-	    if (!diets.contains(diet)) {
-	        diets.add(diet);
-	        diet.addMealPlan(this);
-	    }
-	}
+	
 
 
 	public List<PlanComment> getPlanComments() {

@@ -72,14 +72,15 @@ displayTable(){
 addMealPlan(newMealPlan: MealPlan){
    console.log(this.findAllMealsInMealPlan());
   newMealPlan.meals = this.mealsToAddToMealPlan;
+  if (this.selectedDiet) {
+   newMealPlan.diet = this.selectedDiet;
+   newMealPlan.diets.push(this.selectedDiet);
+ }
   this.mealPlans.push(newMealPlan);
 
   console.log(this.mealsToAddToMealPlan)
   console.log(newMealPlan);
  this.mealsToAddToMealPlan = [];
- if (this.selectedDiet) {
-  newMealPlan.diet = this.selectedDiet;
-}
   this.mealPlanService.create(newMealPlan).subscribe({
     next:(createdMealPlan) => {
       console.log(createdMealPlan)
@@ -170,5 +171,7 @@ onDietSelected(diet: Diet| null): void {
   }
   console.log('Diets:', this.diets);
 }
+
+
 
 }

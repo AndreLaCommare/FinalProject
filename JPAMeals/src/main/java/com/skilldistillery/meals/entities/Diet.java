@@ -30,11 +30,9 @@ public class Diet {
 	inverseJoinColumns = @JoinColumn(name = "meal_id"))
 	private List<Meal> mealsWithDiets;
 	
+	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "meal_plan_has_diet", 
-	joinColumns = @JoinColumn(name = "diet_id"), 
-	inverseJoinColumns = @JoinColumn(name = "meal_plan_id"))
+	@ManyToMany(mappedBy = "diets")
 	private List<MealPlan> mealPlansWithDiets;
 	
 	
@@ -71,15 +69,7 @@ public class Diet {
 		this.mealPlansWithDiets = mealPlansWithDiets;
 	}
 	
-	public void addMealPlan(MealPlan mealPlan) {
-	    if (mealPlansWithDiets == null) {
-	        mealPlansWithDiets = new ArrayList<>();
-	    }
-	    if (!mealPlansWithDiets.contains(mealPlan)) {
-	        mealPlansWithDiets.add(mealPlan);
-	        mealPlan.addDiet(this);
-	    }
-	}
+	
 
 	
 	@Override

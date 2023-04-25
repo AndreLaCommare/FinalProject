@@ -14,6 +14,7 @@ export class MealPlan {
   copiedFromPlan: MealPlan | null;
   meals: Meal[];
   diet: Diet | null;
+  diets: Diet[];
 
   constructor(
     id: number = 0,
@@ -26,7 +27,8 @@ export class MealPlan {
     planCreator: User | null = null,
     copiedFromPlan: MealPlan | null = null,
     meals: Meal[] = [],
-    diet: Diet | null = null
+    diet: Diet | null = null,
+    diets: Diet[] = []
   ) {
     this.id = id;
     this.title = title;
@@ -39,5 +41,6 @@ export class MealPlan {
     this.copiedFromPlan = copiedFromPlan;
     this.meals = meals;
     this.diet = diet;
+    this.diets = diets;
   }
 }
