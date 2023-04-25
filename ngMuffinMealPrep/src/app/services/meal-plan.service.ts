@@ -12,6 +12,7 @@ import { Meal } from '../models/meal';
 })
 export class MealPlanService {
   private url = environment.baseUrl + 'api/mealPlans';
+
   @Output() refreshMealPlans: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient, private auth: AuthService) {}
@@ -136,5 +137,19 @@ export class MealPlanService {
       },
     };
     return options;
+  }
+
+
+  search(keyword: string): Observable<MealPlan[]>{
+
+    return this.http.get<MealPlan[]>(this.url + "/search/" + keyword).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('MealPlanService.search(): error retrieving mealplans: ' + err)
+        );
+      })
+    );
+
   }
 }

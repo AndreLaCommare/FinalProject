@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Diet } from 'src/app/models/diet';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
@@ -41,16 +42,45 @@ export class MealPlanComponent {
 
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService, private mealReviewService: MealReviewService
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService, private mealReviewService: MealReviewService, private currentRoute: ActivatedRoute
 
     ){}
 
   ngOnInit(): void {
-    this.reload();
-    this.findAllMeals();
-    this.findAllMealsInMealPlan();
-    this.loadPlanReviews();
+    //this.reload();
+    let keyword = this.currentRoute.snapshot.paramMap.get("keyword");
+
+    console.log("got keyword:" + keyword);
+    if(keyword){
+      console.log("got keyword:" + keyword);
+      this.populateResults(keyword);
+
+    }else{
+
+      this.reload();
+
+    }
+
+
+    // this.findAllMeals();
+    // this.findAllMealsInMealPlan();
+    // this.loadPlanReviews();
     this.loadDiets();
+  }
+
+  populateResults(keyword: string){
+
+    this.mealPlanService.search(keyword).subscribe({
+      next:(resultMealPlans) => {
+        this.mealPlans = resultMealPlans;
+
+      },
+      error:(err) => {
+        console.error(err);
+      }
+    })
+
+
   }
   reload(){
 

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MealService } from 'src/app/services/meal.service';
+import { MealPlanService } from 'src/app/services/meal-plan.service';
 
 @Component({
   selector: 'app-navigation',
@@ -14,8 +15,9 @@ export class NavigationComponent {
   loginUser: User = new User();
   isCollapsed: boolean = false;
   adminUser : User | null = null;
-  query: string = '';
-  constructor(private auth: AuthService, private mealService: MealService, private router: Router){}
+  mealQuery: string = '';
+  mealPlanQuery: string = '';
+  constructor(private auth: AuthService, private mealService: MealService, private router: Router, private mealPlanService: MealPlanService){}
   loggedIn() : boolean {
     return this.auth.checkLogin();
   }
@@ -40,8 +42,15 @@ export class NavigationComponent {
   }
 
   setSearch(){
-    this.mealService.setQuery(this.query);
-    this.router.navigateByUrl("/mealSearch");
+
+    this.router.navigateByUrl("/meals/search/" + this.mealQuery);
+  }
+  setPlanSearch(){
+    //this.mealPlanService.setQuery(this.mealPlanQuery);
+
+    this.router.navigateByUrl("/mealPlans/search/" + this.mealPlanQuery);
+
+
   }
 
   // mealSearch(){
@@ -69,6 +78,13 @@ export class NavigationComponent {
         console.error(problem);
       }
     });
+  }
+
+  logout(){
+    console.log("logging out.")
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
+    this.adminUser = null;
   }
 
 

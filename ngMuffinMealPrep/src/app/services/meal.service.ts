@@ -14,11 +14,7 @@ export class MealService {
 
   private url = environment.baseUrl + 'api/meals';
   constructor(private http: HttpClient, private auth: AuthService) { }
-  private querySubject: string ='';
 
-  setQuery(query: string){
-    this.querySubject = query;
-  }
 
   index(): Observable<Meal[]> {
     // Return defensive copy of private array
@@ -111,9 +107,9 @@ export class MealService {
     );
   }
 
-  search(): Observable<Meal[]>{
+  search(keyword: string): Observable<Meal[]>{
 
-    return this.http.get<Meal[]>(this.url + "/search/" + this.querySubject).pipe(
+    return this.http.get<Meal[]>(this.url + "/search/" + keyword).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

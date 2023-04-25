@@ -163,5 +163,11 @@ public class MealPlanServiceImpl implements MealPlanService {
 		
 		return deleted;
 	}
+	
+	@Override
+	public List<MealPlan> mealPlanSearch(String query) {
+		// TODO Auto-generated method stub
+		return mealPlanRepo.findByTitleLike("%" + query + "%");
+	}
 
 }
