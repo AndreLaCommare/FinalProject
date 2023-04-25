@@ -60,9 +60,18 @@ public class MealPlan {
 	@JoinColumn(name = "user_id") 
 	private User planCreator;
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "mealPlansWithDiets")
+	
+
+	
+	
+	
+	@ManyToMany
+	@JoinTable(name = "meal_plan_has_diet", 
+	joinColumns = @JoinColumn(name = "meal_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "diet_id"))
 	private List<Diet> diets;
+	
+	
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "mealPlan")
@@ -173,6 +182,9 @@ public class MealPlan {
 	public void setDiets(List<Diet> diets) {
 		this.diets = diets;
 	}
+	
+	
+
 
 	public List<PlanComment> getPlanComments() {
 		return planComments;
