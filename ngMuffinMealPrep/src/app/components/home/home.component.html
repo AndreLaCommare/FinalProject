@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div *ngFor="let meal of shuffledMeals; let i = index" class="col-md-4" [hidden]="i > 2">
-      <div class="card">
+      <div class="card" (click)="displaySingleMeal(meal)">
         <img [src]="meal.imageUrl" class="card-img-top" alt="Meal image">
         <div class="card-body">
           <h5 class="card-title">{{ meal.name }}</h5>
@@ -12,7 +12,7 @@
     </div>
 
     <div *ngFor="let mealPlan of shuffledMealPlans; let i = index" class="col-md-4" [hidden]="i > 2">
-      <div class="card">
+      <div class="card" (click)="displaySingleMealPlan(mealPlan)">
         <div class="card-body">
           <h5 class="card-title">{{ mealPlan.title }}</h5>
           <p class="card-text">{{ mealPlan.description }}</p>

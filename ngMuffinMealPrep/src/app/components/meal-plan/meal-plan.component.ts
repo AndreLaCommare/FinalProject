@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Diet } from 'src/app/models/diet';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
@@ -42,18 +42,21 @@ export class MealPlanComponent {
 
 
 
-  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService, private mealReviewService: MealReviewService, private currentRoute: ActivatedRoute
+  constructor(private mealPlanService: MealPlanService, private auth: AuthService, private mealService: MealService, private planReviewService: PlanReviewService, private dietService: DietService, private mealReviewService: MealReviewService, private currentRoute: ActivatedRoute, private router: Router
 
     ){}
 
   ngOnInit(): void {
     //this.reload();
     let keyword = this.currentRoute.snapshot.paramMap.get("keyword");
-
+    let mealPlanId = this.currentRoute.snapshot.paramMap.get("mealPlanId");
     console.log("got keyword:" + keyword);
     if(keyword){
       console.log("got keyword:" + keyword);
       this.populateResults(keyword);
+
+    }else if(mealPlanId){
+      this.findMealPlanById(parseInt(mealPlanId));
 
     }else{
 
@@ -131,6 +134,7 @@ addMealPlan(newMealPlan: MealPlan){
   });
 }
 displaySingleMeal(meal: Meal){
+  this.router.navigateByUrl("/meals/" + meal.id);
   this.selectedMeal = meal;
 
 }
@@ -222,6 +226,17 @@ onDietSelected(diet: Diet| null): void {
     this.selectedDiet = diet;
   }
   console.log('Diets:', this.diets);
+}
+
+findMealPlanById(mealPlanId: number){
+  this.mealPlanService.show(mealPlanId).subscribe({
+    next:(mealPlan) =>{
+      this.selected = mealPlan;
+    },
+    error:(err) =>{
+      console.error(err);
+    }
+  });
 }
 
 

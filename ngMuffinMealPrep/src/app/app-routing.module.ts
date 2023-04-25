@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'meals/:mealId', component: MealComponent },
   { path: 'meals/search/:keyword', component: MealComponent},
   { path: 'mealPlans', component: MealPlanComponent },
+  { path: 'mealPlans/:mealPlanId', component: MealPlanComponent },
   { path: 'mealPlans/search/:keyword', component: MealPlanComponent},
   { path: 'shoppingList', component: ShoppingListComponent},
   { path: 'admin', component: AdminComponent},
