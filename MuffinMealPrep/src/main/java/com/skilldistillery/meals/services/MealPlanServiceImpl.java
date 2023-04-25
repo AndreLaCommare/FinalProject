@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.meals.entities.GroceryItem;
 import com.skilldistillery.meals.entities.Meal;
 import com.skilldistillery.meals.entities.MealPlan;
 import com.skilldistillery.meals.entities.User;
@@ -128,7 +129,23 @@ public class MealPlanServiceImpl implements MealPlanService {
 	            return mealPlanRepo.save(mealPlan);
 	        }
 	    }
-	    return null;
+	    return mealPlan;
+	}
+	
+	@Override
+	public boolean removeMealFromMealPlan(String username, int mealPlanId, int mealId) {
+		boolean removed = false;
+		User user = userRepo.findByUsername(username);
+		MealPlan mealPlan = mealPlanRepo.findById(mealPlanId);
+		Meal meal = mealRepo.findById(mealId);
+		
+		if(user !=null && mealPlan !=null) {
+		mealPlan.removeMeal(meal);
+		mealPlanRepo.saveAndFlush(mealPlan);
+		removed=true;
+		}
+		System.out.println(removed);
+		return removed;
 	}
 
 }
