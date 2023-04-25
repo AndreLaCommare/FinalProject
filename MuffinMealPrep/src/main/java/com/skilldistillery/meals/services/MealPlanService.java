@@ -29,4 +29,6 @@ public interface MealPlanService {
 
 	boolean removeMealFromMealPlan(String username, int mealPlanId, int mealId);
 	
+	boolean deleteMealPlan(String username, int mealPlanId);
+	
 }

@@ -102,5 +102,15 @@ public class UserController {
         }
         return null;
      }
+    
+    @DeleteMapping("users")
+    public void userDeleteAccount(Principal principal, HttpServletRequest req, HttpServletResponse res){
+    	System.out.println(principal.getName() + "**********************************");
+    	if(userService.userDeletingOwnAccount(principal.getName())){
+    		res.setStatus(200);
+    	}else {
+    		res.setStatus(404);
+    	}
+    }
 	
 }

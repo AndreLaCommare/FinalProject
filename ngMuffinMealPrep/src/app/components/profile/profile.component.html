@@ -1,5 +1,5 @@
 <div >
-  <div id="user info" *ngIf="!myMeals && !myMealPlans">
+  <div id="user info" *ngIf="!myMeals && !myMealPlans &&!singleMeal">
 
     <h3>
       Hello,
@@ -8,7 +8,7 @@
 
     <img src="{{userToDisplay?.imageUrl}}">
   </div>
-  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans" (click)="myMeals = true">My Meals</button>
+  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="myMeals = true">My Meals</button>
 
 
 
@@ -30,7 +30,7 @@
             Groceries:
             <ul>
               <li *ngFor="let grocery of meal.groceryItems">
-                {{ grocery.name }}
+                {{ grocery.name }} <button (click)="addGroceryToShoppingList(grocery)">Add To Shopping List</button>
               </li>
             </ul>
 
@@ -39,9 +39,9 @@
               <li>Cook Time: {{ meal.cookTime | number : "1.1-1" }} min</li>
             </ul>
 
-            <button class="btn btn-primary" (click)="myMeals = false">Back To Profile</button>
-            <button class="btn btn-warning"(click)="setEditMeal(meal)">Edit Meal</button>
-            <button class="btn btn-danger" (click)="deleteMeal(meal.id)">Delete Meal</button>
+            <button class="btn btn-warning btn-sm"(click)="setEditMeal(meal)">Edit Meal</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteMeal(meal.id)">Delete Meal</button><br>
+            <button class="btn btn-primary btn-sm" (click)="myMeals = false">Back To Profile</button>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
       </button>
     </form>
   </div>
-  <button class="btn btn-info" *ngIf="!editMeal && !myMeals" (click)="myMealPlans = true">My Meal Plans</button>
+  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans && !mealPlanToChange &&!singleMeal" (click)="myMealPlans = true">My Meal Plans</button>
 
 
 
@@ -109,13 +109,13 @@
   <div *ngIf="myMealPlans && !editMeal && !editMealPlan && !mealPlanToChange" >
   <div
     id="mealPlanDetailDiv"
-    *ngFor="let mealPlan of userToDisplay?.userMealPlans"
+    *ngFor="let mealPlan of userToDisplay?.userMealPlans | enabledMealPlans"
   >
     <h1>Plan: {{ mealPlan.title }}</h1>
-    <button class="btn btn-primary" (click)="myMealPlans = false">Back To Profile</button>
-    <button (click)="setEditMealPlan(mealPlan)" class="btn btn-warning">Update Meal Plan</button>
-    <button class="btn btn-info"(click)="changeMeals(mealPlan)">Add/Remove Meals</button>
-
+    <button (click)="setEditMealPlan(mealPlan)" class="btn btn-warning btn-sm">Update Meal Plan</button>
+    <button class="btn btn-info btn-sm"(click)="changeMeals(mealPlan)">Add/Remove Meals</button><br>
+    <button class="btn btn-primary btn-sm" (click)="myMealPlans = false">Back To Profile</button>
+    <button class="btn btn-danger btn-sm" (click)="deleteMealPlan(mealPlan)">Delete Meal Plan</button>
 
 
     <div *ngIf="!editMealPlan">
@@ -131,7 +131,7 @@
       </thead>
       <tbody>
         <!-- <tr (click)="displaySingleMeal(meal)"> -->
-        <tr>
+        <tr (click)="displaySingleMeal(meal)">
           <td>{{ meal.name }}</td>
           <td *ngIf="meal.user">{{ meal.user.username }}</td>
         </tr>
@@ -140,6 +140,41 @@
   </div>
 </div>
 </div>
+</div>
+
+
+<div *ngIf="singleMeal ">
+  <div *ngIf="singleMeal.enabled">
+    <div class="card" style="width: 18 rem">
+      <img
+        class="card-img-top"
+        [src]="singleMeal.imageUrl"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h1>Name: {{ singleMeal.name }}</h1>
+
+        <p>Desc: {{ singleMeal.description }}</p>
+        <p>Instructions: {{ singleMeal.instructions }}</p>
+        Groceries:
+        <ul>
+          <li *ngFor="let grocery of singleMeal.groceryItems">
+            {{ grocery.name }} <button (click)="addGroceryToShoppingList(grocery)">Add To Shopping List</button>
+          </li>
+        </ul>
+
+        <ul>
+          <li>Prep Time: {{ singleMeal.prepTime | number : "1.1-1" }} min</li>
+          <li>Cook Time: {{ singleMeal.cookTime | number : "1.1-1" }} min</li>
+        </ul>
+
+        <button class="btn btn-primary btn-sm" (click)="displayMealsInMealPlan()">Back To Meals</button>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>
 
 <div *ngIf="editMealPlan">
@@ -173,11 +208,20 @@
     </div>
 </div>
 
-  <ul>
 
-  <li *ngFor="let meal of mealPlanToChange.meals">
-      {{meal.name}} <button (click)="removeMealFromMealPlan(meal, mealPlanToChange)"> Remove From Meal Plan</button>
-  </li>
 
-  </ul>
+  <table class="table table-border">
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let meal of mealPlanToChange.meals">
+
+        <td>{{meal.name}} <button class="btn btn-danger btn-sm" (click)="removeMealFromMealPlan(meal, mealPlanToChange)"> Remove From Meal Plan</button></td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
+
+<button class="btn btn-danger" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="deleteAccount()">Delete Account </button>
