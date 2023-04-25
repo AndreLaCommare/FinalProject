@@ -49,6 +49,7 @@ newReview: MealReview = new MealReview();
     if(keyword){
       console.log("got keyword:" + keyword);
       this.populateResults(keyword);
+
     }else{
 
       this.reload();

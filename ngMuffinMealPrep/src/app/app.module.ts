@@ -22,7 +22,6 @@ import { MealPlanDietPipe } from './meal-plan-diet.pipe';
 import { EnabledMealsPipe } from './pipes/enabled-meals.pipe';
 import { EnabledMealPlansPipe } from './pipes/enabled-meal-plans.pipe';
 
-import { MealPlanSearchComponent } from './components/meal-plan-search/meal-plan-search.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,7 @@ import { MealPlanSearchComponent } from './components/meal-plan-search/meal-plan
     EnabledMealsPipe,
     EnabledMealPlansPipe,
 
-    MealPlanSearchComponent,
+
 
   ],
   imports: [
