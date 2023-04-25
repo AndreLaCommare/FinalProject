@@ -43,9 +43,36 @@ newReview: MealReview = new MealReview();
      ){}
 
   ngOnInit(): void {
-    this.reload();
+    let keyword = this.currentRoute.snapshot.paramMap.get("keyword");
+
+    console.log("got keyword:" + keyword);
+    if(keyword){
+      console.log("got keyword:" + keyword);
+      this.populateResults(keyword);
+    }else{
+
+      this.reload();
+
+    }
+
     // this.findAllGroceryItems();
     this.getLoggedInUser();
+
+
+  }
+
+  populateResults(keyword: string){
+
+    this.mealService.search(keyword).subscribe({
+      next:(resultMeals) => {
+        this.meals = resultMeals;
+
+      },
+      error:(err) => {
+        console.error(err);
+      }
+    })
+
 
   }
 

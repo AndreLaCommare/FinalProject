@@ -17,4 +17,5 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Integer> {
 	List<MealPlan> findByPlanCreator_Username(String username);
 	List<MealPlan> findByVisibleTrueAndCopiedFromPlanIsNull();
 	List<MealPlan> findByPlanCreator_UsernameAndVisibleTrue(String username);
+	List<MealPlan> findByTitleLike(String query);
 }
