@@ -26,6 +26,7 @@ export class MealPlanComponent {
   newReview: PlanReview = new PlanReview();
   diets: Diet[] = [];
   selectedDiet: Diet | null = null;
+  selectedDietName: string | null = null;
 
 
   loggedIn(): boolean{

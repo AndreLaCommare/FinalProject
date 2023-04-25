@@ -34,7 +34,8 @@
 
 </div>
 
-
+<span (click)="selectedDietName = diet.name" *ngFor="let diet of diets">{{diet.name}} | </span>
+<span (click)="selectedDietName = 'all'">All | </span>
 <table class="table table-striped table-hover" *ngIf="!selected">
   <thead>
     <tr>
@@ -46,7 +47,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let mealPlan of mealPlans">
+    <ng-container *ngFor="let mealPlan of mealPlans  | mealPlanDiet:selectedDietName">
 
 
       <tr (click)="displaySingleMealPlan(mealPlan)">
