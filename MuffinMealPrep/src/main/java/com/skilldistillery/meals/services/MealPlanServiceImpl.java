@@ -148,4 +148,20 @@ public class MealPlanServiceImpl implements MealPlanService {
 		return removed;
 	}
 
+	@Override
+	public boolean deleteMealPlan(String username, int mealPlanId) {
+		boolean deleted = false;
+		User user = userRepo.findByUsername(username);
+		MealPlan mealPlanToDelete = mealPlanRepo.findById(mealPlanId);
+		
+		if(user != null && mealPlanToDelete != null) {
+			mealPlanToDelete.setEnabled(false);
+			mealPlanRepo.saveAndFlush(mealPlanToDelete);
+			deleted = true;
+		}
+		
+		
+		return deleted;
+	}
+
 }
