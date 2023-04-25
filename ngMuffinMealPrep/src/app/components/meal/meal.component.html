@@ -111,7 +111,7 @@
     </form>
   </div>
 
-  <div class="reviews">
+  <div class="reviews" *ngIf="mealReviews.length > 0">
     <h3>Reviews</h3>
     <ul>
       <li *ngFor="let review of mealReviews">

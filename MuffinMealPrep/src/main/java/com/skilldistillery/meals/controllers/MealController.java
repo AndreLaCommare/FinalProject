@@ -126,5 +126,14 @@ public class MealController {
         }
         return updatedMeal;
     }
+    
+    @GetMapping("meals/search/{query}")
+    public List<Meal> mealSearch(HttpServletRequest req, HttpServletResponse res, @PathVariable String query) {
+    	List<Meal> results = mealService.mealSearch(query);
+    	if (results == null) {
+            res.setStatus(404);
+        }
+        return results;
+    }
 
 }
