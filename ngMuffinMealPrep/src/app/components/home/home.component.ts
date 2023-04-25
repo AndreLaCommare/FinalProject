@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Meal } from 'src/app/models/meal';
 import { MealPlan } from 'src/app/models/meal-plan';
 import { MealPlanService } from 'src/app/services/meal-plan.service';
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private mealService: MealService,
-    private mealPlanService: MealPlanService
+    private mealPlanService: MealPlanService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -45,5 +47,16 @@ export class HomeComponent implements OnInit {
   shuffleArray(array: any[]): any[] {
     return array.sort(() => Math.random() - 0.5);
   }
+  displaySingleMeal(meal: Meal){
+    this.router.navigateByUrl("/meals/" + meal.id);
+
+
+  }
+  displaySingleMealPlan(mealPlan: MealPlan){
+    this.router.navigateByUrl("/mealPlans/" + mealPlan.id);
+
+
+  }
+
 
 }

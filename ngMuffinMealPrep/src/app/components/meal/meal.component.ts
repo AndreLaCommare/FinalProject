@@ -44,12 +44,16 @@ newReview: MealReview = new MealReview();
 
   ngOnInit(): void {
     let keyword = this.currentRoute.snapshot.paramMap.get("keyword");
+    let mealId = this.currentRoute.snapshot.paramMap.get("mealId");
 
     console.log("got keyword:" + keyword);
     if(keyword){
       console.log("got keyword:" + keyword);
       this.populateResults(keyword);
 
+    }else if(mealId){
+
+    this.findMealById(parseInt(mealId));
     }else{
 
       this.reload();
@@ -108,6 +112,7 @@ newReview: MealReview = new MealReview();
     }
     displayTable(){
       this.selected = null;
+      this.reload();
     }
 
     addMeal(newMeal: Meal){
@@ -218,5 +223,15 @@ newReview: MealReview = new MealReview();
       }
     }
 
+      findMealById(mealId: number){
+        this.mealService.show(mealId).subscribe({
+          next:(meal) =>{
+            this.selected = meal;
+          },
+          error:(err) =>{
+            console.error(err);
+          }
+        });
+      }
 
 }
