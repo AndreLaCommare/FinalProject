@@ -33,6 +33,7 @@ public class SecurityConfig {
         .antMatchers(HttpMethod.GET, "/api/meals").permitAll()     
         .antMatchers(HttpMethod.GET, "/api/meals/**").permitAll()    
         .antMatchers(HttpMethod.GET, "/api/mealPlans").permitAll()    
+        .antMatchers(HttpMethod.GET, "/api/diets").permitAll()    
         .antMatchers(HttpMethod.GET, "/api/mealPlans/**").permitAll()    
         .antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
         .anyRequest().permitAll()               // All other requests are allowed without authentication.
