@@ -171,4 +171,14 @@ public class MealPlanController {
     		res.setStatus(400);
     	}
     }
+    
+    @GetMapping("mealPlans/search/{query}")
+    public List<MealPlan> mealSearch(HttpServletRequest req, HttpServletResponse res, @PathVariable String query) {
+    	List<MealPlan> results = mealPlanService.mealPlanSearch(query);
+    	if (results == null) {
+            res.setStatus(404);
+        }
+        return results;
+    }
+
 }

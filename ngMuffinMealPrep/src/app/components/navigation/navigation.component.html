@@ -13,10 +13,29 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/mealPlans']">Meal Plans</a>
         </li>
+
+
+        <li class="nav-item" *ngIf="loggedIn() && adminUser === null">
+          <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn() && adminUser !== null">
+          <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn()">
+          <a class="nav-link" [routerLink]="['/shoppingList']">My Shopping List</a>
+        </li>
+
         <li>
           <form >
             <input type="text" name="name" [(ngModel)]="query">
             <button type="submit"  (click)="setSearch()" class="btn btn-primary">Search Meals</button>
+          </form>
+        </li>
+
+        <li>
+          <form >
+            <input type="text" name="name" [(ngModel)]="mealPlanQuery">
+            <button type="submit"  (click)="setPlanSearch()" class="btn btn-primary">Search Meal Plans</button>
           </form>
         </li>
 
@@ -55,21 +74,12 @@
 
 
 
-        <li class="nav-item" *ngIf="loggedIn() && adminUser === null">
-          <a class="nav-link" [routerLink]="['/profile']">Profile</a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn() && adminUser !== null">
-          <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn()">
-          <a class="nav-link" [routerLink]="['/shoppingList']">My Shopping List</a>
-        </li>
 
 
 
         <li *ngIf="loggedIn()">
 
-          <app-logout></app-logout>
+          <button class="btn btn-primary" (click)="logout()">Log Out</button>
         </li>
       </ul>
 
