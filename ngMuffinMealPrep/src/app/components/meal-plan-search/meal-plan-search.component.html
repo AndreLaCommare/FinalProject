@@ -47,7 +47,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let mealPlan of mealPlans  | mealPlanDiet:selectedDietName | enabledMealPlans">
+    <ng-container *ngFor="let mealPlan of resultMealPlans  | mealPlanDiet:selectedDietName | enabledMealPlans">
 
 
       <tr (click)="displaySingleMealPlan(mealPlan)">

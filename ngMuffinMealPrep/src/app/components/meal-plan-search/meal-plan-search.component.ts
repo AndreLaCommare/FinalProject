@@ -32,6 +32,7 @@ export class MealPlanSearchComponent {
   diets: Diet[] = [];
   selectedDiet: Diet | null = null;
   selectedDietName: string | null = null;
+  resultMealPlans: MealPlan[] = [];
 
 
 
@@ -51,6 +52,7 @@ export class MealPlanSearchComponent {
     this.findAllMealsInMealPlan();
     this.loadPlanReviews();
     this.loadDiets();
+    this.populateResults();
   }
   reload(){
 
@@ -117,6 +119,21 @@ findAllMeals(){
    }
   });
  }
+
+ populateResults(){
+
+  this.mealPlanService.search().subscribe({
+    next:(resultMealPlans) => {
+      this.resultMealPlans = resultMealPlans;
+
+    },
+    error:(err) => {
+      console.error(err);
+    }
+  })
+
+
+}
 
  findAllMealsInMealPlan(){
   this.mealService.index().subscribe({
