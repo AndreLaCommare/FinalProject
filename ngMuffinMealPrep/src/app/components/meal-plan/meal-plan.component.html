@@ -73,8 +73,9 @@
 <div id="mealPlanDetailDiv" *ngIf="selected && !selectedMeal">
   <h1> Plan: {{selected.title}}</h1>
   <h2 *ngIf="selected.diets[0]">Diet: {{selected.diets[0].name}}</h2>
+  <p>Description: {{selected.description}}</p>
 
-  <table class="table-list" *ngFor="let meal of selected.meals">
+  <table class="table-list" >
 
     <thead>
       <tr>
@@ -87,7 +88,7 @@
     </thead>
     <tbody>
 
-  <tr (click)="displaySingleMeal(meal)">
+  <tr (click)="displaySingleMeal(meal)" *ngFor="let meal of selected.meals">
 
     <td>{{meal.name}}</td>
     <td *ngIf="meal.user">{{meal.user.username}}</td>
