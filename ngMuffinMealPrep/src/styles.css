@@ -17,24 +17,25 @@ body {
   color: #333;
 }
 
-/* Color palette */
+
 :root {
   --primary-color: #3A7CA5;
-  --secondary-color: #EB5E28;
-  --accent-color: #F4D35E;
-  --background-color: #DCE9F0; /* Updated background color */
+  --secondary-color: #D8BFD8;
+  --accent-color: #F0EAD6;
+  --background-color: #DCE9F0;
   --text-color: #222831;
 }
 
-/* Global styles */
+
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: var(--background-color); /* Changed to use variable */
+  background-color: var(--background-color);
   color: var(--text-color);
 }
 
 h1 {
   margin-bottom: 1rem;
+  color: var(--primary-color);
 }
 
 h2, h3, h4, h5, h6 {
@@ -51,7 +52,7 @@ a:hover {
   color: var(--accent-color);
 }
 
-/* Navigation */
+
 .navbar {
   background-color: var(--primary-color);
   border-bottom: 4px solid var(--accent-color);
@@ -62,12 +63,20 @@ a:hover {
   color: var(--text-color);
 }
 
+.navbar a {
+  color: #fff;
+}
+
+.navbar a:hover {
+  color: var(--secondary-color);
+}
+
 .navbar-brand:hover,
 .nav-link:hover {
   color: var(--accent-color);
 }
 
-/* Buttons */
+
 .btn-primary {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
@@ -77,10 +86,15 @@ a:hover {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
 }
+.btn-danger:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color : fff;
+}
 
 .btn {
   background-color: var(--primary-color);
-  color: white;
+  color: fff(189, 186, 186);
   border: none;
   border-radius: 3px;
   padding: 8px 16px;
@@ -93,7 +107,7 @@ a:hover {
   cursor: pointer;
 }
 
-/* Add some fun interactions */
+
 .card:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
@@ -108,8 +122,8 @@ a:hover {
 }
 
 .card-img-top {
-  width: 150px;
-  height: 150px;
+  width: 300px;
+  height: 220px;
   object-fit: cover;
   margin: 15px auto;
   border-radius: 50%;
@@ -117,7 +131,7 @@ a:hover {
 }
 
 .card-img-top:hover {
-  filter: brightness(120%);
+  filter: brightness(110%);
   transform: scale(1.1);
 }
 
@@ -126,7 +140,7 @@ a:hover {
   color: var(--text-color);
 }
 
-/* Pulse animation for buttons */
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -143,13 +157,14 @@ a:hover {
   animation: pulse 2s infinite;
   }
 
-  /* Form styles */
+
   form.styled-form {
   background-color: #F9F9F9;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   max-width: 500px;
+
   margin: 30px auto;
   }
 
@@ -163,8 +178,8 @@ a:hover {
   form.styled-form select,
   form.styled-form textarea {
   width: 100%;
-  padding: 5px; /* Reduced padding /
-  margin-bottom: 10px; / Reduced margin */
+  padding: 5px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
@@ -204,70 +219,37 @@ form.styled-form textarea:focus {
 
 
   /* Meal list view */
-  .meal-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+ /* Table styles */
+.table-list {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1rem;
+}
 
-  .meal-list .meal-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
+.table-list th {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: left;
+  padding: 0.5rem;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
 
+.table-list td {
+  padding: 0.5rem;
+  text-align: left;
+  border-top: 1px solid #dee2e6;
+}
 
-  .meal-list .meal-item {
-    background-color: #F9F9F9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+.table-list tr:nth-child(odd) {
+  background-color: var(--table-stripe-color);
+}
 
-  .meal-list .meal-item h3 {
-  margin-bottom: 10px;
-  }
+.table-list tr:hover {
+  background-color: var(--accent-color);
+  cursor: pointer;
+}
 
-  .meal-list .meal-item ul {
-  list-style: none;
-  padding: 0;
-  }
-
-  .meal-list .meal-item ul li {
-  margin-bottom: 5px;
-  }
-
-  .meal-list .meal-item ul li::before {
-  content: "\2022";
-  color: var(--primary-color);
-  display: inline-block;
-  margin-right: 5px;
-  }
-
-  .meal-plan-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .meal-plan-list .meal-plan-item {
-    background-color: #F9F9F9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-
-  .meal-plan-list .meal-plan-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
-
+.table-list tr:hover td {
+  color: #3A7CA5;
+}
