@@ -1,4 +1,4 @@
-<h1>{{currentUser?.username}}'s Shoppting List</h1>
+<h1>{{currentUser?.username}}'s Shopping List</h1>
 
 
 
@@ -11,7 +11,7 @@
   <tbody>
     <tr *ngFor="let grocery of currentUser?.groceries">
 
-      <td> {{grocery.name}} <button class="btn btn-danger btn-sm" (click)="removeFromList(grocery)">Remove From List</button></td>
+      <td> {{grocery.name}} <button class="btn btn-danger btn-sm" (click)="removeFromList(grocery)">Remove</button></td>
 
     </tr>
 

@@ -1,4 +1,4 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 
 <div class="container mt-4">
 <h1 *ngIf="!selected">Meals</h1>
@@ -13,7 +13,7 @@
     <input type="text" name="instructions"[(ngModel)]="newMeal.instructions"><br><br>
     <label for="name">Meal Image URL</label>
     <input type="text" name="imageUrl"[(ngModel)]="newMeal.imageUrl"><br><br>
-    <label for="name">Meal Visibility</label>
+    <label for="name">Public?</label>
     <input type="checkbox" name="visible"[(ngModel)]="newMeal.visible"><br><br>
     <label for="name">Prep Time</label>
     <input type="number" name="prepTime"[(ngModel)]="newMeal.prepTime"><br><br>
@@ -23,7 +23,7 @@
       <button class="btn btn-primary dropdown-toggle" (click)="findAllGroceryItems()" type="button" id="dropdownMenuButton" ngbDropdownToggle
       data-mdb-toggle="dropdown" aria-expanded="false">
       Ingredients List
-      </button>
+      </button> <br> <br>
       <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button class="itemButton" ng-click="changeColor('green')" (click)="[addItemToMeal(groceryItem)]" ngbDropdownItem *ngFor="let groceryItem of groceryItemList" >
           {{groceryItem.name}}
@@ -33,7 +33,7 @@
     </div>
     <label for="newGroceryItem">New Grocery Item</label>
 <input type="text" name="newGroceryItem" [(ngModel)]="newGroceryItemName">
-<button (click)="createAndAddGroceryItem(newGroceryItemName)" class="btn btn-primary">Add New Grocery Item</button>
+<button (click)="createAndAddGroceryItem(newGroceryItemName)" class="btn btn-primary">Add New Grocery Item</button> <br> <br>
 <p>Added Grocery Items:</p>
 <ul>
   <li *ngFor="let groceryItem of addedGroceryItems">
@@ -47,7 +47,7 @@
 </div>
 </div>
 <div class="meal-list" *ngIf="!selected">
-<table >
+<table class="table-list">
   <thead>
     <tr>
 
@@ -78,9 +78,9 @@
     <img class="card-img-top" [src]="selected.imageUrl" alt="Card image cap">
     <div class="card-body">
 
-  <h1> Name: {{selected.name}}</h1>
+  <h1> {{selected.name}}</h1>
 
-  <p>Desc: {{selected.description}}</p>
+  <p>Description: {{selected.description}}</p>
   <p>Instructions: {{selected.instructions}}</p>
   Groceries:
   <ul >
