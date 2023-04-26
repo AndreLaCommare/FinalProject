@@ -1,17 +1,19 @@
 # Muffin Meal Prep
-Scrum Master: Jay Kantor
-GitHub Repository Owner: Andre La Commare
-Database Administrator: Thomas McGlone 
+* Scrum Master: Jay Kantor
+* GitHub Repository Owner: Andre La Commare
+* Database Administrator: Thomas McGlone 
 
 URL for access
-http://
+http://44.225.193.103:8080/MuffinMealPrep/
 
 Username: TheMuffinMan
+
 Password: password
 
 For admin functionality:
 
 Username: admin
+
 Password: test
 
 ### Meals Rest Endpoints 
@@ -45,7 +47,7 @@ Throughout this project, we also utilized many other REST endpoints outside of o
 
 ## Description 
 
-Muffin Meal Prep is the final project of our SD 37 cohort and is a full-stack application whose purpose is to provide an easier way to create and manage meal plans and meals. Along with this, it allows for a social aspect where users can interact by leaving reviews on meal plans and adding other users' meals to their own meal plans. Finally, it allows users to add specific grocery items to their shopping lists so that there is an easy way to view and manage what grocery items they need to purchase. This application uses REST, Spring Data JPA, Spring Security SpringBoot, Angular, HTML, CSS, and MySQL workbench to achieve full-stack status.
+Muffin Meal Prep is the final project of our Skill Distillery 37 cohort and is a full-stack application whose purpose is to provide an easier way to create and manage meal plans and meals. Along with this, it allows for a social aspect where users can interact by leaving reviews on meal plans and adding other users' meals to their own meal plans. Finally, it allows users to add specific grocery items to their shopping lists so that there is an easy way to view and manage what grocery items they need to purchase. This application uses REST, Spring Data JPA, Spring Security SpringBoot, Angular, HTML, CSS, and MySQL workbench to achieve full-stack status.
 
 ## Database Schema
 
@@ -94,7 +96,7 @@ Angular pipes initially seemed confusing but we found the use for two within our
 
 ## Java Back End
 
-	The back-end of our program, built using Spring Boot in Eclipse, consists of several different classes, all mapped together using Spring framework annotations. The boot app utilizes Entities, Services, and their implementations, Repositories, and Controllers.
+The back-end of our program, built using Spring Boot in Eclipse, consists of several different classes, all mapped together using Spring framework annotations. The boot app utilizes Entities, Services, and their implementations, Repositories, and Controllers.
 
 ## Controllers
 As user input and user data moves from the front-end, Angular side of the application, each interaction is mapped to a different REST API endpoint within a controller. Using the "RestController" annotation, the endpoints are then recognized for the user input to seamlessly flow into the back-end. Based on the desired outcome, Spring is able to simultaneously ensure the user is authenticated by taking in a Principal user, and also calling upon the appropriate service method it needs. In the case of the method below, the controller endpoint that is mapped also must receive the meal id path variable to pass on to the service layer. Once that occurs, the controller is able to either return what is needed, a specific meal in this case, or an error indicating where the failure occurred.
@@ -112,7 +114,8 @@ As user input and user data moves from the front-end, Angular side of the applic
 ```
 
 ## Services
-	At the service level, the meal id received in this case utilizes just one method, although many could be needed for a single endpoint. To achieve the necessary outcome at the service level, a method accesses both the getters and setters within the entity class and the corresponding repository to gather, set, then persist the data in the database. The method below demonstrates how the meal object is referenced to set the updated fields, while the repository handles directly speaking to the database.
+
+At the service level, the meal id received in this case utilizes just one method, although many could be needed for a single endpoint. To achieve the necessary outcome at the service level, a method accesses both the getters and setters within the entity class and the corresponding repository to gather, set, then persist the data in the database. The method below demonstrates how the meal object is referenced to set the updated fields, while the repository handles directly speaking to the database.
 
 ```
 @Override
