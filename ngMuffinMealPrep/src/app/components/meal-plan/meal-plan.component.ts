@@ -126,7 +126,9 @@ addMealPlan(newMealPlan: MealPlan){
   this.mealPlanService.create(newMealPlan).subscribe({
     next:(createdMealPlan) => {
       console.log(createdMealPlan)
+      window.location.reload();
       this.reload();
+
     },
     error:(err) =>{
       console.error(err)
