@@ -123,10 +123,10 @@ public class MealPlanServiceImpl implements MealPlanService {
 	public MealPlan addMealToMealPlan(String username, int mealPlanId, int mealId) {
 	    MealPlan mealPlan = mealPlanRepo.findByIdAndPlanCreator_Username(mealPlanId, username);
 	    if (mealPlan != null) {
-	        Meal meal = mealRepo.findByIdAndUser_Username(mealId, username);
+	        Meal meal = mealRepo.findById(mealId);
 	        if (meal != null) {
 	            mealPlan.addMeal(meal);
-	            return mealPlanRepo.save(mealPlan);
+	            return mealPlanRepo.saveAndFlush(mealPlan);
 	        }
 	    }
 	    return mealPlan;
