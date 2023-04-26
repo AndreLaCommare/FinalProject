@@ -1,14 +1,14 @@
 <div >
-  <div id="user info" *ngIf="!myMeals && !myMealPlans &&!singleMeal">
+  <div class="user" *ngIf="!myMeals && !myMealPlans &&!singleMeal">
 
     <h3>
       Hello,
       {{ userToDisplay?.username }}!
     </h3>
-
-    <img src="{{userToDisplay?.imageUrl}}">
+    <br> <br>
+    <img class="profile" src="{{userToDisplay?.imageUrl}}"> <br> <br>
+    <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="myMeals = true">My Meals</button>
   </div>
-  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="myMeals = true">My Meals</button>
 
 
 
@@ -25,12 +25,12 @@
           <div class="card-body">
             <h1>Name: {{ meal.name }}</h1>
 
-            <p>Desc: {{ meal.description }}</p>
+            <p>Description: {{ meal.description }}</p>
             <p>Instructions: {{ meal.instructions }}</p>
             Groceries:
             <ul>
               <li *ngFor="let grocery of meal.groceryItems">
-                {{ grocery.name }} <button (click)="addGroceryToShoppingList(grocery)">Add To Shopping List</button>
+                {{ grocery.name }} <button class="btn btn-primary" (click)="addGroceryToShoppingList(grocery)">Add To Shopping List</button>
               </li>
             </ul>
 
@@ -40,7 +40,7 @@
             </ul>
 
             <button class="btn btn-warning btn-sm"(click)="setEditMeal(meal)">Edit Meal</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteMeal(meal.id)">Delete Meal</button><br>
+            <button class="btn btn-danger btn-sm" (click)="deleteMeal(meal.id)">Delete Meal</button>
             <button class="btn btn-primary btn-sm" (click)="myMeals = false">Back To Profile</button>
           </div>
         </div>
@@ -101,7 +101,7 @@
       </button>
     </form>
   </div>
-  <button class="btn btn-info" *ngIf="!editMeal && !myMeals && !myMealPlans && !mealPlanToChange &&!singleMeal" (click)="myMealPlans = true">My Meal Plans</button>
+  <button class="btn btn-primary" *ngIf="!editMeal && !myMeals && !myMealPlans && !mealPlanToChange &&!singleMeal" (click)="myMealPlans = true">My Meal Plans</button>
 
 
 
@@ -113,7 +113,7 @@
   >
     <h1>Plan: {{ mealPlan.title }}</h1>
     <button (click)="setEditMealPlan(mealPlan)" class="btn btn-warning btn-sm">Update Meal Plan</button>
-    <button class="btn btn-info btn-sm"(click)="changeMeals(mealPlan)">Add/Remove Meals</button><br>
+    <button class="btn btn-primary btn-sm"(click)="changeMeals(mealPlan)">Add/Remove Meals</button><br>
     <button class="btn btn-primary btn-sm" (click)="myMealPlans = false">Back To Profile</button>
     <button class="btn btn-danger btn-sm" (click)="deleteMealPlan(mealPlan)">Delete Meal Plan</button>
     <br> <br>

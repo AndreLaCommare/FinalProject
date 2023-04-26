@@ -218,8 +218,6 @@ form.styled-form textarea:focus {
 
 
 
-  /* Meal list view */
- /* Table styles */
 .table-list {
   width: 100%;
   border-collapse: separate;
@@ -252,4 +250,49 @@ form.styled-form textarea:focus {
 
 .table-list tr:hover td {
   color: #3A7CA5;
+}
+
+.reviews {
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #F9F9F9;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
+
+.reviews h3 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.reviews ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.reviews li {
+  padding: 10px;
+  border-bottom: 1px solid var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.reviews p {
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+}
+
+.profile {
+  max-height: 300px;
+  max-width: 250px;
+
+}
+
+.user {
+  padding: 20px;
+  margin: 30px auto;
+  margin-bottom: 1rem;
+  align-content: center;
 }

@@ -5,11 +5,11 @@
 
     <label for="name">Meal Plan Title</label>
     <input type="text" name="title"[(ngModel)]="newMealPlan.title" required><br><br>
-    <label for="name">Meal Description</label>
+    <label for="name">Meal Plan Description</label>
     <input type="text" name="description"[(ngModel)]="newMealPlan.description" required><br><br>
     <label for="name">Public?</label>
     <input type="checkbox" name="visible"[(ngModel)]="newMealPlan.visible"><br><br>
-    <label for="diet">Diet:</label>
+    <label for="diet">Diet Type</label>
     <select [(ngModel)]="selectedDiet" name="diet" (change)="onDietSelected(selectedDiet)">
       <option [ngValue]="null" disabled>Select a diet</option>
       <option *ngFor="let diet of diets" [ngValue]="diet">{{diet.name}}</option>
@@ -19,7 +19,7 @@
     <div ngbDropdown class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" ngbDropdownToggle
       data-mdb-toggle="dropdown" aria-expanded="false">
-      Add Meals to Plan?
+      Add Meals to new Plan?
       </button> <br> <br>
       <div  ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button class="itemButton" ng-click="changeColor('green')" (click)="[addMealToMealPlan(meal)]" ngbDropdownItem *ngFor="let meal of mealList" >
@@ -134,7 +134,7 @@
 
     <h1> Name: {{selectedMeal.name}}</h1>
 
-    <p>Desc: {{selectedMeal.description}}</p>
+    <p>Description: {{selectedMeal.description}}</p>
     <p>Instructions: {{selectedMeal.instructions}}</p>
 
     Groceries:
