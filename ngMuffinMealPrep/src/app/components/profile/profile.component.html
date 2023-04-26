@@ -8,6 +8,8 @@
     <br> <br>
     <img class="profile" src="{{userToDisplay?.imageUrl}}"> <br> <br>
     <button class="btn btn-primary" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="myMeals = true">My Meals</button>
+    <button class="btn btn-primary" *ngIf="!editMeal && !myMeals && !myMealPlans && !mealPlanToChange &&!singleMeal" (click)="myMealPlans = true">My Meal Plans</button>
+    <button class="btn btn-danger" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="deleteAccount()">Delete Account </button>
   </div>
 
 
@@ -101,7 +103,6 @@
       </button>
     </form>
   </div>
-  <button class="btn btn-primary" *ngIf="!editMeal && !myMeals && !myMealPlans && !mealPlanToChange &&!singleMeal" (click)="myMealPlans = true">My Meal Plans</button>
 
 
 
@@ -112,26 +113,26 @@
     *ngFor="let mealPlan of userToDisplay?.userMealPlans | enabledMealPlans"
   >
     <h1>Plan: {{ mealPlan.title }}</h1>
-    <button (click)="setEditMealPlan(mealPlan)" class="btn btn-primary btn-sm">Update Meal Plan</button>
-    <button class="btn btn-primary btn-sm"(click)="changeMeals(mealPlan)">Add/Remove Meals</button><br>
     <button class="btn btn-primary btn-sm" (click)="myMealPlans = false">Back To Profile</button>
+    <button (click)="setEditMealPlan(mealPlan)" class="btn btn-primary btn-sm">Update Meal Plan</button>
+    <button class="btn btn-primary btn-sm"(click)="changeMeals(mealPlan)">Add/Remove Meals</button>
     <button class="btn btn-danger btn-sm" (click)="deleteMealPlan(mealPlan)">Delete Meal Plan</button>
     <br> <br>
 
     <div *ngIf="!editMealPlan">
       <table
       class="table-list"
-      *ngFor="let meal of mealPlan.meals"
+
       >
+      <thead>
       <tr>
         <th>Meal</th>
         <th>Created By:</th>
       </tr>
-      <thead>
       </thead>
       <tbody>
         <!-- <tr (click)="displaySingleMeal(meal)"> -->
-        <tr (click)="displaySingleMeal(meal)">
+        <tr *ngFor="let meal of mealPlan.meals" (click)="displaySingleMeal(meal)">
           <td>{{ meal.name }}</td>
           <td *ngIf="meal.user">{{ meal.user.username }}</td>
         </tr>
@@ -224,4 +225,3 @@
 
 </div>
 
-<button class="btn btn-danger" *ngIf="!editMeal && !myMeals && !myMealPlans && !singleMeal" (click)="deleteAccount()">Delete Account </button>
