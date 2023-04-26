@@ -18,6 +18,12 @@
         <li class="nav-item" *ngIf="loggedIn() && adminUser === null">
           <a class="nav-link" [routerLink]="['/profile']">Profile</a>
         </li>
+
+        <li class="nav-item" *ngIf="!loggedIn()">
+          <a class="nav-link" [routerLink]="['/register']">Register</a>
+        </li>
+
+
         <li class="nav-item" *ngIf="loggedIn() && adminUser !== null">
           <a class="nav-link" [routerLink]="['/admin']">Admin</a>
         </li>
@@ -45,14 +51,14 @@
 
           <th>
 
-            <li class="nav-item" *ngIf="!loggedIn() && adminUser === null">
+            <li class="login-label" *ngIf="!loggedIn() && adminUser === null">
 
               <label for="username">Username: </label>
               <input type="text" name="username" placeholder="Username" [(ngModel)]="loginUser.username">
             </li>
           </th>
           <th>
-          <li class="nav-item" *ngIf="!loggedIn() && adminUser === null">
+          <li class="login-label" *ngIf="!loggedIn() && adminUser === null">
 
             <label for="password">Password: </label>
             <input type="password" name="password" placeholder="password" [(ngModel)]="loginUser.password">

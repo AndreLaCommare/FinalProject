@@ -1,4 +1,6 @@
 
+
+<h2>Check Out Our Featured Meals and Plans!</h2>
 <div class="container">
   <div class="row">
     <div *ngFor="let meal of shuffledMeals; let i = index" class="col-md-4" [hidden]="i > 2">
@@ -10,6 +12,7 @@
         </div>
       </div>
     </div>
+
 
     <div *ngFor="let mealPlan of shuffledMealPlans; let i = index" class="col-md-4" [hidden]="i > 2">
       <div class="card" (click)="displaySingleMealPlan(mealPlan)">

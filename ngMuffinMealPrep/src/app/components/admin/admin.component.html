@@ -1,6 +1,6 @@
-<button class="btn btn-info" *ngIf="!displayUsers" (click)="displayUsers = true">All Users</button>
-<button class="btn btn-info" *ngIf="!displayMeals" (click)="displayMeals = true">All Meals</button>
-<button class="btn btn-info" *ngIf="!displayMealPlans" (click)="displayMealPlans = true">All Meal Plans</button>
+<button class="btn btn-primary" *ngIf="!displayUsers" (click)="displayUsers = true">All Users</button>
+<button class="btn btn-primary" *ngIf="!displayMeals" (click)="displayMeals = true">All Meals</button>
+<button class="btn btn-primary" *ngIf="!displayMealPlans" (click)="displayMealPlans = true">All Meal Plans</button>
 
 
 <div class="container" *ngIf="displayUsers">
@@ -25,8 +25,8 @@
 		      <td>{{user.email}}</td>
 		      <td>
 
-            <button *ngIf="user.enabled" (click)="disableUser(user.id)">Disable</button>
-            <button *ngIf="!user.enabled" (click)="reenableUser(user)">Re-Enable</button>
+            <button class="btn btn-primary" *ngIf="user.enabled" (click)="disableUser(user.id)">Disable</button>
+            <button class="btn btn-primary" *ngIf="!user.enabled" (click)="reenableUser(user)">Re-Enable</button>
 
           </td>
 
@@ -36,7 +36,7 @@
 		</table>
   </div>
   </div>
-  <button class="btn btn-primary" *ngIf="displayUsers" (click)="displayUsers=false">Back To Profile</button>
+  <button class="btn btn-primary" *ngIf="displayUsers" (click)="displayUsers=false">Close List</button>
 </div>
 
 <div class="container" *ngIf="displayMeals">
@@ -61,8 +61,8 @@
 		      <td>{{meal.user?.username}}</td>
 		      <td>
 
-            <button *ngIf="meal.enabled" (click)="disableMeal(meal.id)">Disable</button>
-            <button *ngIf="!meal.enabled" (click)="reenableMeal(meal)">Re-Enable</button>
+            <button class="btn btn-primary" *ngIf="meal.enabled" (click)="disableMeal(meal.id)">Disable</button>
+            <button class="btn btn-primary" *ngIf="!meal.enabled" (click)="reenableMeal(meal)">Re-Enable</button>
 
           </td>
 
@@ -72,7 +72,7 @@
 		</table>
   </div>
   </div>
-  <button class="btn btn-primary" *ngIf="displayMeals" (click)="displayMeals=false">Back To Profile</button>
+  <button class="btn btn-primary" *ngIf="displayMeals" (click)="displayMeals=false">Close List</button>
 </div>
 
 
@@ -96,8 +96,8 @@
 		      <td>{{mealPlan.planCreator?.username}}</td>
 		      <td>
 
-            <button *ngIf="mealPlan.enabled" (click)="disableMealPlan(mealPlan.id)">Disable</button>
-            <button *ngIf="!mealPlan.enabled" (click)="reenableMealPlan(mealPlan)">Re-Enable</button>
+            <button class="btn btn-primary" *ngIf="mealPlan.enabled" (click)="disableMealPlan(mealPlan.id)">Disable</button>
+            <button class="btn btn-primary" *ngIf="!mealPlan.enabled" (click)="reenableMealPlan(mealPlan)">Re-Enable</button>
 
           </td>
 
@@ -107,7 +107,7 @@
 		</table>
   </div>
   </div>
-  <button class="btn btn-primary" *ngIf="displayMealPlans" (click)="displayMealPlans=false">Back To Profile</button>
+  <button class="btn btn-primary" *ngIf="displayMealPlans" (click)="displayMealPlans=false">Close List</button>
 </div>
 
 

@@ -6,6 +6,7 @@ import { MealComponent } from './components/meal/meal.component';
 import { MealPlanComponent } from './components/meal-plan/meal-plan.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'mealPlans/search/:keyword', component: MealPlanComponent},
   { path: 'shoppingList', component: ShoppingListComponent},
   { path: 'admin', component: AdminComponent},
+  { path: 'register', component: RegisterComponent},
+
 
 
 

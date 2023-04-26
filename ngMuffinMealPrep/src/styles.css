@@ -71,6 +71,10 @@ a:hover {
   color: var(--secondary-color);
 }
 
+.login-label{
+  color: #fff;
+}
+
 .navbar-brand:hover,
 .nav-link:hover {
   color: var(--accent-color);
