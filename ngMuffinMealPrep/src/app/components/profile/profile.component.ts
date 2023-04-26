@@ -216,6 +216,7 @@ export class ProfileComponent implements OnInit{
       next: () =>{
         this.getLoggedInUser();
         this.mealPlanToChange = null;
+
       },
       error: (nojoy)=>{
         console.error(nojoy)
