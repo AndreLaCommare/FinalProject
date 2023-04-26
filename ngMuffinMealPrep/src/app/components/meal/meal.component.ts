@@ -122,6 +122,8 @@ newReview: MealReview = new MealReview();
       console.log(newMeal);
       this.mealService.create(newMeal).subscribe({
         next:(createdMeal) => {
+          console.log("inside add meal");
+          window.location.reload();
           this.reload();
         },
         error:(err) =>{
