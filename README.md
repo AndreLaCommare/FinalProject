@@ -4,7 +4,7 @@
 * Database Administrator: Thomas McGlone 
 
 URL for access
-http://44.225.193.103:8080/MuffinMealPrep/
+ http://3.233.223.34:8080/MuffinMealPrep/
 
 Username: TheMuffinMan
 
